@@ -16,3 +16,6 @@ A developer utility for automatically upgrading deprecated code for Silverstripe
 ## SS4 upgrades
 - [ ] add `$table_name` if missing - use short classname instead
 - [ ] various deprecations
+
+## General
+- [ ] convert `new Foo()` to `Foo::create()` if it's a Silverstripe / Injectable class
