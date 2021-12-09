@@ -1,0 +1,24 @@
+{
+  "name": "wernerkrauss/silverstripe-rector",
+  "description": "Rector rules for Silvestripe CMS",
+  "type": "rector-extension",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Werner Krauß",
+      "email": "werner.krauss@netwerkstatt.at"
+    }
+  ],
+  "require": {
+    "rector/rector": "^0.12"
+  },
+  "require-dev": {
+    "rector/rector-generator": "^0.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Netwerkstatt\\SilverstripeRector\\": "src/"
+    }
+  },
+  "minimum-stability": "dev"
+}
