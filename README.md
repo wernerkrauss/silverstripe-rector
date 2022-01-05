@@ -16,7 +16,7 @@ A developer utility for automatically upgrading deprecated code for Silverstripe
 - [ ] class `Object` to trait, see [ParentClassToTraitsRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#parentclasstotraitsrector)
 
 ## SS4 upgrades
-- [ ] add `$table_name` if missing - use short classname instead
+- [X] add `$table_name` if missing - use short classname instead
   - see similar [UnifyModelDatesWithCastsRector](https://github.com/rectorphp/rector-laravel/blob/main/src/Rector/Class_/UnifyModelDatesWithCastsRector.php)
 - [ ] various deprecations
   - can be configured manually in set lists
