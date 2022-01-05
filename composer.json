@@ -10,15 +10,24 @@
     }
   ],
   "require": {
-    "rector/rector": "^0.12"
+    "php": "^7.4 | ^8",
+    "rector/rector": "^0.12.10"
   },
   "require-dev": {
-    "rector/rector-generator": "^0.4"
+    "phpunit/phpunit": "^9.5"
   },
   "autoload": {
     "psr-4": {
-      "Netwerkstatt\\SilverstripeRector\\": "src/"
+      "Netwerkstatt\\SilverstripeRector\\": "src/",
+      "Rector\\":"rules"
     }
   },
-  "minimum-stability": "dev"
+  "autoload-dev": {
+    "psr-4": {
+      "Netwerkstatt\\SilverstripeRector\\Tests\\": "tests"
+    },
+    "classmap": ["stubs"]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
