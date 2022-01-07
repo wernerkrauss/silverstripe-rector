@@ -20,6 +20,9 @@ A developer utility for automatically upgrading deprecated code for Silverstripe
   - see similar [UnifyModelDatesWithCastsRector](https://github.com/rectorphp/rector-laravel/blob/main/src/Rector/Class_/UnifyModelDatesWithCastsRector.php)
 - [ ] various deprecations
   - can be configured manually in set lists
+- [ ] fix missing `$owns` for Image and File relations
+  - [ ] configurable exclude list if it's not wanted
+  - [ ] configurable which relations should be automatically owned (e.g. other versioned DataObjects)
 
 ## General
 - [ ] convert `new Foo()` to `Foo::create()` if it's a Silverstripe / Injectable class
