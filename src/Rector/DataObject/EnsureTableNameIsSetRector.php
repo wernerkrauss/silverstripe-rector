@@ -1,27 +1,33 @@
 <?php
 
 declare (strict_types=1);
+
 namespace Netwerkstatt\SilverstripeRector\Rector\DataObject;
 
+use PhpParser\Builder\Property;
 use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
 use PHPStan\Type\ObjectType;
-use RectorPrefix20211231\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
-
-* @see \Rector\Tests\SS4\Rector\Class_\EnsureTableNameIsSetRector\EnsureTableNameIsSetRectorTest
-*/
-final class EnsureTableNameIsSetRector extends \Rector\Core\Rector\AbstractRector
+ * @see \Netwerkstatt\SilverstripeRector\Tests\DataObject\EnsureTableNameIsSetRector\EnsureTableNameIsSetRectorTest
+ */
+final class EnsureTableNameIsSetRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('DataObject subclasses must have "$table_name" defined', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('DataObject subclasses must have "$table_name" defined',
+            [
+                new CodeSample(<<<'CODE_SAMPLE'
 class SomeClass extends \SilverStripe\ORM\DataObject
 {
     private static $db = [];
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    , <<<'CODE_SAMPLE'
 class SomeClass extends \SilverStripe\ORM\DataObject
 {
     private static $table_name = 'SomeClass';
@@ -29,19 +35,22 @@ class SomeClass extends \SilverStripe\ORM\DataObject
     private static $db = [];
 }
 CODE_SAMPLE
-)]);
+                )
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return array(\PhpParser\Node\Stmt\Class_::class);
+        return [Class_::class];
     }
+
     /**
-     * @param \PhpParser\Node\Stmt\Class_ $node
+     * @param Class_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node): ?\PhpParser\Node
     {
         if (!$this->isObjectType($node, new ObjectType('SilverStripe\ORM\DataObject'))) {
             return null;
@@ -54,7 +63,7 @@ CODE_SAMPLE
 
         $name = $this->nodeNameResolver->getShortName($this->getName($node));
         // change the node
-        $tableName = new PropertyBuilder('table_name');
+        $tableName = new Property('table_name');
         $tableName->makePrivate();
         $tableName->makeStatic();
         $tableName->setDefault($name);
