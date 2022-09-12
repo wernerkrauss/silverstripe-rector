@@ -11,14 +11,11 @@ final class EnsureTableNameIsSetRectorTest extends AbstractRectorTestCase
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo): void
+    public function test(string $filePath): void
     {
-        $this->doTestFileInfo($fileInfo);
+        $this->doTestFile($filePath);
     }
 
-    /**
-     * @return \Iterator<\Symplify\SmartFileSystem\SmartFileInfo>
-     */
     public function provideData(): \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');

@@ -1,11 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20211231;
+
+namespace Netwerkstatt\SilverstripeRector\Tests\DataObject\EnsureTableNameIsSetRector\config;
 
 use Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector;
+use Rector\Config\RectorConfig;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (ContainerConfigurator $containerConfigurator) : void {
-    $services = $containerConfigurator->services();
-    $services->set(EnsureTableNameIsSetRector::class);
+
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->rule(EnsureTableNameIsSetRector::class);
 };
