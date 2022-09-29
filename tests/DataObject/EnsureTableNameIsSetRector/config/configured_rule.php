@@ -6,7 +6,6 @@ namespace Netwerkstatt\SilverstripeRector\Tests\DataObject\EnsureTableNameIsSetR
 
 use Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector;
 use Rector\Config\RectorConfig;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(EnsureTableNameIsSetRector::class);

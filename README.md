@@ -25,6 +25,6 @@ A developer utility for automatically upgrading deprecated code for Silverstripe
   - [ ] configurable which relations should be automatically owned (e.g. other versioned DataObjects)
 
 ## General
-- [ ] convert `new Foo()` to `Foo::create()` if it's a Silverstripe / Injectable class
+- [X] convert `new Foo()` to `Foo::create()` if it's a Silverstripe / Injectable class
   - see [NewToStaticCallRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#newtomethodcallrector)
 - [ ] use Request handler instead of superglobal $_GET and $_POST
