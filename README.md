@@ -34,24 +34,6 @@ A basic rector config can look like
 
 declare(strict_types=1);
 
-use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
-use Rector\Config\RectorConfig;
-use Rector\Set\ValueObject\LevelSetList;
-
-<?php
-
-declare(strict_types=1);
-
-use Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector;
-use Netwerkstatt\SilverstripeRector\Rector\Injector\UseCreateRector;
-use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
-use Rector\Config\RectorConfig;
-use Rector\Set\ValueObject\LevelSetList;
-
-<?php
-
-declare(strict_types=1);
-
 use Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector;
 use Netwerkstatt\SilverstripeRector\Rector\Injector\UseCreateRector;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
@@ -76,7 +58,7 @@ return static function (RectorConfig $rectorConfig): void {
 
 //    // register a single rule
     $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
-//
+
 //    // define sets of rules
     $rectorConfig->sets([
         LevelSetList::UP_TO_PHP_74,
