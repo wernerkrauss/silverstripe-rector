@@ -7,15 +7,56 @@ use PhpParser\Node\Stmt\Class_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Control\Controller;
 use SilverStripe\ORM\DataObject;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-class AddConfigPropertiesRector extends \Rector\Core\Rector\AbstractRector
+class AddConfigPropertiesRector extends \Rector\Core\Rector\AbstractRector implements ConfigurableRectorInterface
 {
 
     private PhpDocTypeChanger $phpDocTypeChanger;
+    /**
+     * @var array|mixed[]
+     */
+    private array $classConfigPairs;
+
+    private array $defaultClassConfigPairs = [
+        DataObject::class => [
+            'table_name',
+            'db',
+            'has_one',
+            'belongs_to',
+            'has_many',
+            'many_many',
+            'many_many_extraFields',
+            'belongs_many_many',
+            'default_sort',
+            'cascade_deletes',
+            'cascade_duplicates',
+            'searchable_fields',
+            'summary_fields',
+            'casting',
+            'singular_name',
+            'plural_name'
+        ],
+        Controller::class => [
+            'allowed_actions',
+            'url_handlers'
+        ],
+        LeftAndMain::class => [
+            'menu_icon',
+            'menu_priority',
+            'url_priority'
+        ],
+        ModelAdmin::class => [
+            'managed_models',
+            'page_length'
+        ]
+    ];
 
     public function __construct(PhpDocTypeChanger $phpDocTypeChanger)
     {
@@ -77,24 +118,12 @@ CODE_SAMPLE
 
     private function getConfig(): array
     {
-        return [
-            DataObject::class => [
-                'db',
-                'has_one',
-                'belongs_to',
-                'has_many',
-                'many_many',
-                'many_many_extraFields'
-            ],
-            Controller::class => [
-                'allowed_actions'
-            ]
-        ];
+        return array_merge_recursive($this->defaultClassConfigPairs, $this->classConfigPairs);
     }
 
     private function checkConfigProperties(Node $node, array $configProperties): Node
     {
-        foreach($configProperties as $configProperty) {
+        foreach ($configProperties as $configProperty) {
             $property = $node->getProperty($configProperty);
             if (!$property) {
                 continue;
@@ -116,4 +145,8 @@ CODE_SAMPLE
         return $node;
     }
 
+    public function configure(array $configuration): void
+    {
+        $this->classConfigPairs = $configuration;
+    }
 }
