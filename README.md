@@ -36,6 +36,7 @@ declare(strict_types=1);
 
 use Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector;
 use Netwerkstatt\SilverstripeRector\Rector\Injector\UseCreateRector;
+use Netwerkstatt\SilverstripeRector\Rector\Misc\AddConfigPropertiesRector
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\Config\RectorConfig;
 use Rector\Set\ValueObject\LevelSetList;
@@ -69,6 +70,16 @@ return static function (RectorConfig $rectorConfig): void {
     //Silverstripe rules
     $rectorConfig->rule(EnsureTableNameIsSetRector::class);
     $rectorConfig->rule(UseCreateRector::class);
+    
+    $rectorConfig->ruleWithConfiguration(
+        AddConfigPropertiesRector::class,
+        [
+            MyClass::class => [
+                'my_config', 
+                'another_config'
+            ]
+        ]
+    );
 };
 ```
 
