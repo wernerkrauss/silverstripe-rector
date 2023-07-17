@@ -11,6 +11,7 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Control\Controller;
+use SilverStripe\Core\Extensible;
 use SilverStripe\ORM\DataObject;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -41,21 +42,59 @@ class AddConfigPropertiesRector extends \Rector\Core\Rector\AbstractRector imple
             'summary_fields',
             'casting',
             'singular_name',
-            'plural_name'
+            'plural_name',
+            'owns',
+            'translate',
+            'defaults',
+            'extensions'
         ],
         Controller::class => [
             'allowed_actions',
-            'url_handlers'
+            'url_handlers',
+            'extensions'
         ],
         LeftAndMain::class => [
             'menu_icon',
             'menu_priority',
-            'url_priority'
+            'url_priority',
+            'url_segment',
         ],
         ModelAdmin::class => [
             'managed_models',
-            'page_length'
-        ]
+            'page_length',
+            'menu_title',
+            'menu_icon_class',
+        ],
+        \SilverStripe\Core\Extension::class => [
+            'allowed_actions',
+            'url_handlers'
+        ],
+        \SilverStripe\ORM\DataExtension::class => [
+            'db',
+            'has_one',
+            'belongs_to',
+            'has_many',
+            'many_many',
+            'many_many_extraFields',
+            'belongs_many_many',
+            'default_sort',
+            'cascade_deletes',
+            'cascade_duplicates',
+            'searchable_fields',
+            'summary_fields',
+            'casting',
+            'singular_name',
+            'plural_name',
+            'owns',
+            'translate',
+            'defaults'
+        ],
+        //Elemental
+        'DNADesign\Elemental\Models\BaseElement' => [
+            'icon',
+            'inline_editable',
+            'description'
+        ],
     ];
 
     public function __construct(PhpDocTypeChanger $phpDocTypeChanger)
