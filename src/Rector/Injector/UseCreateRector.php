@@ -63,7 +63,11 @@ CODE_SAMPLE
     public function refactor(Node $node): ?Node
     {
         $traits = [];
-        $className = $node->class->toString();
+        $class = $node->class;
+        if (!method_exists($class, 'toString')) {
+            return null; //we have something like "new $foo"
+        }
+        $className = $class->toString();
         if (!$this->reflectionProvider->hasClass($className)) {
             return null;
         }
