@@ -51,13 +51,14 @@ class AddConfigPropertiesRector extends \Rector\Core\Rector\AbstractRector imple
         Controller::class => [
             'allowed_actions',
             'url_handlers',
+            'url_segment',
             'extensions'
         ],
         LeftAndMain::class => [
             'menu_icon',
             'menu_priority',
             'url_priority',
-            'url_segment',
+
         ],
         ModelAdmin::class => [
             'managed_models',
@@ -87,7 +88,16 @@ class AddConfigPropertiesRector extends \Rector\Core\Rector\AbstractRector imple
             'plural_name',
             'owns',
             'translate',
-            'defaults'
+            'defaults',
+            'required_fields'
+        ],
+        BuildTask::class => [
+            'segment',
+            'title',
+            'description'
+        ],
+        SiteTree::class => [
+            'icon'
         ],
         //Elemental
         'DNADesign\Elemental\Models\BaseElement' => [
