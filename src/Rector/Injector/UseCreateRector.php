@@ -15,9 +15,8 @@ class UseCreateRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @readonly
-     * @var ReflectionProvider
      */
-    private $reflectionProvider;
+    private \PHPStan\Reflection\ReflectionProvider $reflectionProvider;
 
     public function __construct(ReflectionProvider $reflectionProvider)
     {
@@ -67,6 +66,7 @@ CODE_SAMPLE
         if (!method_exists($class, 'toString')) {
             return null; //we have something like "new $foo"
         }
+
         $className = $class->toString();
         if (!$this->reflectionProvider->hasClass($className)) {
             return null;
@@ -74,7 +74,7 @@ CODE_SAMPLE
 
         $classReflection = $this->reflectionProvider->getClass($className);
 
-        if (!$classReflection->hasTraitUse('SilverStripe\Core\Injector\Injectable')) {
+        if (!$classReflection->hasTraitUse(\SilverStripe\Core\Injector\Injectable::class)) {
             return null;
         }
 

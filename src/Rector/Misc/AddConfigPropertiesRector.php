@@ -20,10 +20,11 @@ class AddConfigPropertiesRector extends \Rector\Core\Rector\AbstractRector imple
 {
 
     private PhpDocTypeChanger $phpDocTypeChanger;
+
     /**
      * @var array|mixed[]
      */
-    private array $classConfigPairs;
+    private array $classConfigPairs = [];
 
     private array $defaultClassConfigPairs = [
         DataObject::class => [
@@ -160,8 +161,10 @@ CODE_SAMPLE
             if (!$this->isObjectType($node, new ObjectType($className))) {
                 continue;
             }
+
             $node = $this->checkConfigProperties($node, $configProperties);
         }
+
         return $this->nodeIsChanged ? $node : null;
     }
 
@@ -184,6 +187,7 @@ CODE_SAMPLE
             if ($phpDocInfo->hasByName('@config')) {
                 continue;
             }
+
             $phpDocInfo->addPhpDocTagNode(new PhpDocTextNode('@config'));
 
             if ($phpDocInfo->hasChanged()) {

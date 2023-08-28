@@ -2,27 +2,26 @@
 
 declare(strict_types=1);
 
-use Rector\Core\Configuration\Option;
+use Rector\Config\RectorConfig;
 use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\Set\ValueObject\LevelSetList;
+use Rector\Set\ValueObject\SetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    // get parameters
-    $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::PATHS, [
-        __DIR__ . '/src'
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->paths([
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
     ]);
-    $parameters->set(Option::BOOTSTRAP_FILES, [
-        __DIR__ . '/vendor/autoload.php',
+    $rectorConfig->autoloadPaths([
     ]);
-    // Define what rule sets will be applied
-    $containerConfigurator->import(\Rector\Set\ValueObject\SetList::CODE_QUALITY);
 
 
-    // get services (needed for register a single rule)
-    // $services = $containerConfigurator->services();
+//    // define sets of rules
+    $rectorConfig->sets([
+        LevelSetList::UP_TO_PHP_74,
+        SetList::CODE_QUALITY,
+        SetList::CODING_STYLE
+    ]);
 
-    // register a single rule
-    // $services->set(TypedPropertyRector::class);
 };

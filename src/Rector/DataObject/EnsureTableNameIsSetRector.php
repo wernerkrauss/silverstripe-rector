@@ -52,12 +52,12 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node): ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, new ObjectType('SilverStripe\ORM\DataObject'))) {
+        if (!$this->isObjectType($node, new ObjectType(\SilverStripe\ORM\DataObject::class))) {
             return null;
         }
 
         //check if table_name is already set; don't modify
-        if ($node->getProperty('table_name')) {
+        if ($node->getProperty('table_name') instanceof \PhpParser\Node\Stmt\Property) {
             return null;
         }
 
