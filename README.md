@@ -40,13 +40,15 @@ A basic rector config can look like
 
 declare(strict_types=1);
 
-use Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector;
 use Netwerkstatt\SilverstripeRector\Rector\Injector\UseCreateRector;
 use Netwerkstatt\SilverstripeRector\Rector\Misc\AddConfigPropertiesRector
+use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList;
+use Netwerkstatt\SilverstripeRector\Set\SilverstripeLevelSetList;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\Config\RectorConfig;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
+
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
@@ -68,15 +70,17 @@ return static function (RectorConfig $rectorConfig): void {
 
 //    // define sets of rules
     $rectorConfig->sets([
+        //rector lists
         LevelSetList::UP_TO_PHP_74,
         SetList::CODE_QUALITY,
-        SetList::CODING_STYLE
+        SetList::CODING_STYLE,
+        //silverstripe rector
+        SilverstripeSetList::CODE_STYLE,
+        SilverstripeLevelSetList::UP_TO_SS_4_13
     ]);
 
-    //Silverstripe rules
-    $rectorConfig->rule(EnsureTableNameIsSetRector::class);
-    $rectorConfig->rule(UseCreateRector::class);
-    
+    //add @config properites to configurations for phpstan
+    //configure your own configs    
     $rectorConfig->ruleWithConfiguration(
         AddConfigPropertiesRector::class,
         [
@@ -124,15 +128,17 @@ See `vendor/bin/rector --help` for more options.
 - [X] add `$table_name` if missing - use short classname instead
   - see similar [UnifyModelDatesWithCastsRector](https://github.com/rectorphp/rector-laravel/blob/main/src/Rector/Class_/UnifyModelDatesWithCastsRector.php)
 - [ ] various deprecations
-  - can be configured manually in set lists
+  - to be configured manually in set lists
 - [ ] fix missing `$owns` for Image and File relations
   - [ ] configurable exclude list if it's not wanted
   - [ ] configurable which relations should be automatically owned (e.g. other versioned DataObjects)
 
 ## General
+### Misc
+- [X] create SetLists for easier configuration
+
+### Code Quality
 - [X] convert `new Foo()` to `Foo::create()` if it's a Silverstripe / Injectable class
   - see [NewToStaticCallRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#newtomethodcallrector)
-- [ ] add `@config` param to `$db`, `$has_one`, etc.
+- [X] add `@config` param to `$db`, `$has_one`, etc.
 - [ ] use Request handler instead of superglobal $_GET and $_POST
-
-- [ ] create SetLists for easier configuration
