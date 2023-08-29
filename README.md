@@ -1,3 +1,9 @@
+[![Latest Stable Version](http://poser.pugx.org/wernerkrauss/silverstripe-rector/v)](https://packagist.org/packages/wernerkrauss/silverstripe-rector) 
+[![Total Downloads](http://poser.pugx.org/wernerkrauss/silverstripe-rector/downloads)](https://packagist.org/packages/wernerkrauss/silverstripe-rector) 
+[![Latest Unstable Version](http://poser.pugx.org/wernerkrauss/silverstripe-rector/v/unstable)](https://packagist.org/packages/wernerkrauss/silverstripe-rector) 
+[![License](http://poser.pugx.org/wernerkrauss/silverstripe-rector/license)](https://packagist.org/packages/wernerkrauss/silverstripe-rector) 
+[![PHPunit](https://github.com/wernerkrauss/silverstripe-rector/actions/workflows/phpunit.yml/badge.svg)](https://github.com/wernerkrauss/silverstripe-rector/actions/workflows/phpunit.yml)
+
 # silverstripe-rector
 A developer utility for automatically upgrading deprecated code for Silverstripe CMS
 
