@@ -9,6 +9,8 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\Php80\NodeAnalyzer\PhpAttributeAnalyzer;
 use Rector\PhpAttribute\NodeFactory\PhpAttributeGroupFactory;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 class UseCreateRector extends \Rector\Core\Rector\AbstractRector
@@ -26,7 +28,7 @@ class UseCreateRector extends \Rector\Core\Rector\AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Change new Object to static call for classes that use Injectable trait', [
-            new ConfiguredCodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()

@@ -14,6 +14,7 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Core\Extensible;
 use SilverStripe\ORM\DataObject;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 class AddConfigPropertiesRector extends \Rector\Core\Rector\AbstractRector implements ConfigurableRectorInterface
@@ -122,7 +123,7 @@ class AddConfigPropertiesRector extends \Rector\Core\Rector\AbstractRector imple
     {
         return new RuleDefinition('Adds @config property to predefined private statics, e.g. $db or $allowed_actions',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass extends \SilverStripe\ORM\DataObject
 {
     private static $db = [];
@@ -136,7 +137,12 @@ class SomeClass extends \SilverStripe\ORM\DataObject
     */
     private static $db = [];
 }
-CODE_SAMPLE
+CODE_SAMPLE,
+                    [
+                        'ClassName' => [
+                            'config_param'
+                        ],
+                    ]
                 )
             ]);
     }
