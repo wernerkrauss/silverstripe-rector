@@ -17,6 +17,11 @@ return static function (RectorConfig $rectorConfig) : void {
                 'SilverStripe\Core\Extension',
                 'owner',
                 'getOwner',
+            ),
+            new PropertyFetchToMethodCall(
+                'SilverStripe\ORM\DataExtension',
+                'owner',
+                'getOwner',
             )
         ]
     );

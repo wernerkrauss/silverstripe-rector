@@ -6,5 +6,8 @@ if (class_exists('SilverStripe\ORM\DataExtension')) {
 }
 class DataExtension
 {
-
+    public $owner;
+    public function getOwner()
+    {
+    }
 }
