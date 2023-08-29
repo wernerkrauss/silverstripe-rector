@@ -22,6 +22,6 @@ class CodeStyleTest extends AbstractRectorTestCase
 
     public function provideConfigFilePath(): string
     {
-        return SilverstripeSetList::CODE_STYLE;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }
