@@ -26,7 +26,13 @@
     "psr-4": {
       "Netwerkstatt\\SilverstripeRector\\Tests\\": "tests"
     },
-    "classmap": ["stubs"]
+    "classmap": ["stubs"],
+    "exclude-from-classmap": [
+      "**.php.inc"
+    ]
+  },
+  "scripts": {
+    "docs": "@php vendor/bin/rule-doc-generator generate src --output-file docs/all_rectors_overview.md --ansi"
   },
   "minimum-stability": "dev",
   "prefer-stable": true
