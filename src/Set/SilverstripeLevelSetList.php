@@ -19,6 +19,6 @@ final class SilverstripeLevelSetList implements \Rector\Set\Contract\SetListInte
     public const UP_TO_SS_4_11 = __DIR__ . '/../../config/level/up-to-silverstripe-4-11.php';
     public const UP_TO_SS_4_12 = __DIR__ . '/../../config/level/up-to-silverstripe-4-12.php';
     public const UP_TO_SS_4_13 = __DIR__ . '/../../config/level/up-to-silverstripe-4-13.php';
-    public const UP_TO_SS_5_0 = __DIR__ . '/../../config/level/up-to-silverstripe-5_0.php';
-    public const UP_TO_SS_5_1 = __DIR__ . '/../../config/level/up-to-silverstripe-5_1.php';
+    public const UP_TO_SS_5_0 = __DIR__ . '/../../config/level/up-to-silverstripe-5-0.php';
+    public const UP_TO_SS_5_1 = __DIR__ . '/../../config/level/up-to-silverstripe-5-1.php';
 }
