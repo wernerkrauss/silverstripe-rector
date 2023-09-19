@@ -7,13 +7,13 @@ use PhpParser\Node\Stmt\Class_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
+use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Extensible;
 use SilverStripe\ORM\DataObject;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -21,6 +21,12 @@ class AddConfigPropertiesRector extends \Rector\Core\Rector\AbstractRector imple
 {
 
     private PhpDocTypeChanger $phpDocTypeChanger;
+
+    /**
+     * @readonly
+     * @var \Rector\Comments\NodeDocBlock\DocBlockUpdater
+     */
+    private $docBlockUpdater;
 
     /**
      * @var array|mixed[]
@@ -109,9 +115,10 @@ class AddConfigPropertiesRector extends \Rector\Core\Rector\AbstractRector imple
         ],
     ];
 
-    public function __construct(PhpDocTypeChanger $phpDocTypeChanger)
+    public function __construct(PhpDocTypeChanger $phpDocTypeChanger, DocBlockUpdater $docBlockUpdater)
     {
         $this->phpDocTypeChanger = $phpDocTypeChanger;
+        $this->docBlockUpdater = $docBlockUpdater;
     }
 
     /**
@@ -161,7 +168,7 @@ CODE_SAMPLE,
     public function refactor(Node $node): ?Node
     {
         $config = $this->getConfig();
-        $this->nodeIsChanged = false;
+        $this->nodeIsChanged = \false;
 
         foreach ($config as $className => $configProperties) {
             if (!$this->isObjectType($node, new ObjectType($className))) {
@@ -195,10 +202,9 @@ CODE_SAMPLE,
             }
 
             $phpDocInfo->addPhpDocTagNode(new PhpDocTextNode('@config'));
+            $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($property);
 
-            if ($phpDocInfo->hasChanged()) {
-                $this->nodeIsChanged = true;
-            }
+            $this->nodeIsChanged = \true;
         }
 
         return $node;
