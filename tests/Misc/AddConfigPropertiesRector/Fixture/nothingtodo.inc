@@ -2,7 +2,7 @@
 
 namespace Netwerkstatt\SilverstripeRector\Tests\Misc\AddConfigPropertiesRector\Fixture;
 
-class SomeGoodClass extends \SilverStripe\ORM\DataObject
+class ClassWithAnnotations extends \SilverStripe\ORM\DataObject
 {
     /**
      * @config
@@ -23,7 +23,7 @@ class SomeGoodClass extends \SilverStripe\ORM\DataObject
 
 namespace Netwerkstatt\SilverstripeRector\Tests\Misc\AddConfigPropertiesRector\Fixture;
 
-class SomeGoodClass extends \SilverStripe\ORM\DataObject
+class ClassWithAnnotations extends \SilverStripe\ORM\DataObject
 {
     /**
      * @config
