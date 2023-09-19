@@ -93,6 +93,8 @@ return static function (RectorConfig $rectorConfig): void {
 };
 ```
 
+Silverstripe-rector comes with two types of SetLists: `SilverstripeSetList` for single sets of rectors (e.g. upgrading from 5.0 to 5.1 or for genereal Silverstripe code styles) and `SilverstripeLevelSetList` for combining all set lists up to a given Silverstripe CMS version, e.g. running all upgrades to Silverstripe 5.1.
+
 ## Running rector
 
 Once it's configured, you can run rector in the command line using the following command:
