@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\Type\ObjectType;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
@@ -115,10 +116,11 @@ class AddConfigPropertiesRector extends \Rector\Core\Rector\AbstractRector imple
         ],
     ];
 
-    public function __construct(PhpDocTypeChanger $phpDocTypeChanger, DocBlockUpdater $docBlockUpdater)
+    public function __construct(PhpDocTypeChanger $phpDocTypeChanger, DocBlockUpdater $docBlockUpdater, PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->docBlockUpdater = $docBlockUpdater;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
 
     /**
