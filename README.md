@@ -19,8 +19,7 @@ This module is installable via composer. As rector uses phpstan, it's a good ide
 
 ```
 composer require syntro/silverstripe-phpstan --dev
-composer require rector/rector --dev
-composer require wernerkrauss/silverstripe-rector --dev
+composer require wernerkrauss/silverstripe-rector
 vendor/bin/rector init
 ```
 
