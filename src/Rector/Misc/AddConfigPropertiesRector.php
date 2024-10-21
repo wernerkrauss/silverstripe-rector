@@ -23,6 +23,7 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
 {
 
     private PhpDocTypeChanger $phpDocTypeChanger;
+    private PhpDocInfoFactory $phpDocInfoFactory;
 
     /**
      * @readonly
