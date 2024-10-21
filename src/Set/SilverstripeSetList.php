@@ -24,4 +24,7 @@ final class SilverstripeSetList implements \Rector\Set\Contract\SetListInterface
     public const SS_4_13 = __DIR__ . '/../../config/silverstripe-4-13.php';
     public const SS_5_0 = __DIR__ . '/../../config/silverstripe-5-0.php';
     public const SS_5_1 = __DIR__ . '/../../config/silverstripe-5-1.php';
+    public const SS_5_2 = __DIR__ . '/../../config/silverstripe-5-2.php';
+    public const SS_5_3 = __DIR__ . '/../../config/silverstripe-5-3.php';
+    public const SS_6_0 = __DIR__ . '/../../config/silverstripe-6-0.php';
 }
