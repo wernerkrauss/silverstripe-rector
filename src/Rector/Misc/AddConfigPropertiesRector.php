@@ -69,7 +69,7 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
             'menu_icon',
             'menu_priority',
             'url_priority',
-
+            'url_segment',
         ],
         ModelAdmin::class => [
             'managed_models',
