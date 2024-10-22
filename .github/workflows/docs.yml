@@ -17,7 +17,7 @@ jobs:
 
       -   uses: shivammathur/setup-php@v2
           with:
-            php-version: 8.1
+            php-version: 8.2
             coverage: none
           env:
             COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -26,10 +26,10 @@ jobs:
       -   uses: "ramsey/composer-install@v3"
 
       -   name: Install rule doc generator
-          run: composer require symplify/rule-doc-generator --with-all-dependencies
+          run: composer require symplify/rule-doc-generator:^12.1 --with-all-dependencies
 
       -   name: Generate documentation
-          run: composer docs
+          run: "composer docs:generate"
 
       -   name: Uninstall rule doc generator
           run: composer remove symplify/rule-doc-generator
