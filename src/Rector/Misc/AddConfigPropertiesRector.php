@@ -187,7 +187,14 @@ CODE_SAMPLE,
 
     private function getConfig(): array
     {
-        return array_merge_recursive($this->defaultClassConfigPairs, $this->classConfigPairs);
+        $config =  array_merge_recursive($this->defaultClassConfigPairs, $this->classConfigPairs);
+        //loop through the config and remove duplicate entries in the arrays
+        //caused by e.g. $db being in default config and in project's rector.php
+        foreach ($config as $className => $configProperties) {
+            $config[$className] = array_unique($configProperties);
+        }
+
+        return $config;
     }
 
     private function checkConfigProperties(Node $node, array $configProperties): Node
