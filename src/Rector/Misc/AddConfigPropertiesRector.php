@@ -102,12 +102,13 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
             'defaults',
             'required_fields'
         ],
-        BuildTask::class => [
+        'SilverStripe\Dev\BuildTask' => [
             'segment',
             'title',
-            'description'
+            'description',
+            'is_enabled'
         ],
-        SiteTree::class => [
+        'SilverStripe\CMS\Model\SiteTree' => [
             'icon'
         ],
         //Elemental
