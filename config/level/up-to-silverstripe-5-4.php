@@ -9,7 +9,7 @@ use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig) : void {
     $rectorConfig->sets([
-        SilverstripeLevelSetList::UP_TO_SS_5_4,
-        SilverstripeSetList::SS_6_0
+        SilverstripeLevelSetList::UP_TO_SS_5_3,
+        SilverstripeSetList::SS_5_4
     ]);
 };
