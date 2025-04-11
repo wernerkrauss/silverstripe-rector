@@ -4,20 +4,23 @@ namespace Netwerkstatt\SilverstripeRector\Tests\Set\CodeStyle;
 
 use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class CodeStyleTest extends AbstractRectorTestCase
 {
-    /**
-     * @dataProvider provideData()
-     */
+    #[DataProvider('provideData')]
     public function test(string $filePath): void
     {
         $this->doTestFile($filePath);
     }
 
-    public function provideData(): \Iterator
+    public static function provideData(): \Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+        if (class_exists(\SilverStripe\ORM\DataExtension::class)) {
+            return self::yieldFilesFromDirectory(__DIR__ . '/Fixture');
+        } else {
+            return self::yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.current.php.inc');
+        }
     }
 
     public function provideConfigFilePath(): string
