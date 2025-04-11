@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netwerkstatt\SilverstripeRector\Set;
 
-final class SilverstripeSetList implements \Rector\Set\Contract\SetListInterface
+final class SilverstripeSetList
 {
     public const CODE_STYLE = __DIR__ . '/../../config/code-style.php';
 

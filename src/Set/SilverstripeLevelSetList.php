@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netwerkstatt\SilverstripeRector\Set;
 
-final class SilverstripeLevelSetList implements \Rector\Set\Contract\SetListInterface
+final class SilverstripeLevelSetList
 {
     public const UP_TO_SS_4_1 = __DIR__ . '/../../config/level/up-to-silverstripe-4-1.php';
     public const UP_TO_SS_4_2 = __DIR__ . '/../../config/level/up-to-silverstripe-4-2.php';

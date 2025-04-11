@@ -11,5 +11,6 @@ return static function (RectorConfig $rectorConfig): void {
         'SilverStripe\CMS\Model\SiteTreeExtension' => 'SilverStripe\Core\Extension',
         'SilverStripe\Admin\LeftAndMainExtension' => 'SilverStripe\Core\Extension',
     ]);
-    $rectorConfig->importNames(removeUnusedImports: true);
+    $rectorConfig->importNames();
+    $rectorConfig->removeUnusedImports();
 };

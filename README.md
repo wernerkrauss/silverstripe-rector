@@ -39,57 +39,57 @@ A basic rector config can look like
 
 declare(strict_types=1);
 
-use Netwerkstatt\SilverstripeRector\Rector\Injector\UseCreateRector;
-use Netwerkstatt\SilverstripeRector\Rector\Misc\AddConfigPropertiesRector
-use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList;
+use Netwerkstatt\SilverstripeRector\Rector\Misc\AddConfigPropertiesRector;
 use Netwerkstatt\SilverstripeRector\Set\SilverstripeLevelSetList;
-use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
+use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList;
 use Rector\Config\RectorConfig;
+use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
+use Rector\TypeDeclaration\Rector\ClassMethod\ReturnNeverTypeRector;
+use Rector\ValueObject\PhpVersion;
 
-
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->paths([
+return RectorConfig::configure()
+    ->withPaths([
         __DIR__ . '/app/_config.php',
         __DIR__ . '/app/src',
-    ]);
-    $rectorConfig->autoloadPaths([
-        //composer autoload is already loaded
-    ]);
+    ])
+    ->withAutoloadPaths([
+        // composer autoload is already loaded
+    ])
     //add needed files from modules, that don't support composer autoload yet
-    $rectorConfig->bootstrapFiles([
+    ->withBootstrapFiles([
         __DIR__ . '/vendor/path/to/code/Foobar.php'
-    ]);
-
-
-
-//    // register a single rule
-    $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
-
-//    // define sets of rules
-    $rectorConfig->sets([
+    ])
+    ->withPhpVersion(PhpVersion::PHP_81)
+    ->withSets([
         //rector lists
-        LevelSetList::UP_TO_PHP_74,
+        LevelSetList::UP_TO_PHP_83,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         //silverstripe rector
         SilverstripeSetList::CODE_STYLE,
-        SilverstripeLevelSetList::UP_TO_SS_4_13
-    ]);
-
-    //add @config properites to configurations for phpstan
+        SilverstripeLevelSetList::UP_TO_SS_6_0
+    ])
+    ->withRules([
+        // any other rules
+    ])
+    //add @config properties to configurations for phpstan
     //configure your own configs    
-    $rectorConfig->ruleWithConfiguration(
+    ->withConfiguredRule(
         AddConfigPropertiesRector::class,
         [
             MyClass::class => [
-                'my_config', 
+                'my_config',
                 'another_config'
             ]
         ]
-    );
-};
+    )
+    // any rules that are included in the selected sets you want to skip
+    ->withSkip([
+        ClassPropertyAssignToConstructorPromotionRector::class,
+        ReturnNeverTypeRector::class
+    ]);
 ```
 
 Silverstripe-rector comes with two types of SetLists: `SilverstripeSetList` for single sets of rectors (e.g. upgrading from 5.0 to 5.1 or for genereal Silverstripe code styles) and `SilverstripeLevelSetList` for combining all set lists up to a given Silverstripe CMS version, e.g. running all upgrades to Silverstripe 5.1.
