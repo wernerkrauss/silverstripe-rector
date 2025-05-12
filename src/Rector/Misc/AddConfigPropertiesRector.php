@@ -69,7 +69,6 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
             'menu_icon',
             'menu_priority',
             'url_priority',
-            'url_segment',
         ],
         ModelAdmin::class => [
             'managed_models',
@@ -79,9 +78,7 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
         ],
         \SilverStripe\Core\Extension::class => [
             'allowed_actions',
-            'url_handlers'
-        ],
-        \SilverStripe\ORM\DataExtension::class => [
+            'url_handlers',
             'db',
             'has_one',
             'belongs_to',
@@ -174,13 +171,17 @@ CODE_SAMPLE,
     {
         $config = $this->getConfig();
         $this->nodeIsChanged = \false;
+        $propertiesToCheck = [];
 
         foreach ($config as $className => $configProperties) {
             if (!$this->isObjectType($node, new ObjectType($className))) {
                 continue;
             }
 
-            $node = $this->checkConfigProperties($node, $configProperties);
+            $propertiesToCheck = array_merge($propertiesToCheck, $configProperties);
+        }
+        if ($propertiesToCheck) {
+            $node = $this->checkConfigProperties($node, array_unique($propertiesToCheck));
         }
 
         return $this->nodeIsChanged ? $node : null;
