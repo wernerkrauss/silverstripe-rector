@@ -5,9 +5,7 @@
 [![PHPunit](https://github.com/wernerkrauss/silverstripe-rector/actions/workflows/phpunit.yml/badge.svg)](https://github.com/wernerkrauss/silverstripe-rector/actions/workflows/phpunit.yml)
 
 # silverstripe-rector
-A developer utility for automatically upgrading deprecated code for Silverstripe CMS
-
-# WIP currently collecting ideas what to automate
+A developer utility for automatically upgrading deprecated code for Silverstripe CMS. With rules for upgrades for Silverstripe 6.
 
 ## About rector
 
@@ -15,19 +13,24 @@ A developer utility for automatically upgrading deprecated code for Silverstripe
 
 ## Installation
 
-This module is installable via composer. As rector uses phpstan, it's a good idea to install `syntro/silverstripe-phpstan`, too.
+This module is installable via composer. As rector uses phpstan, it's a good idea to install `cambis/silverstan`, too.
+
+> Note: if you need to use PHPStan v1 in your project, use v0.x of this module
 
 ```
-composer require syntro/silverstripe-phpstan --dev
-composer require wernerkrauss/silverstripe-rector
+composer require phpstan/extension-installer --dev
+composer require cambis/silverstan  --dev
+composer require wernerkrauss/silverstripe-rector --dev
 vendor/bin/rector init
 ```
 
 Create a basic phpstan.neon file in your project root:
 
 ```yaml
-includes:
-    - vendor/syntro/silverstripe-phpstan/phpstan.neon
+parameters:
+  level: 1
+  paths:
+    - app/src
 ```
 
 This will add all requirements and create a file called `rector.php` in your project root. You'll need to adjust it, e.g. add the code directories to upgrade and the rules to use.
@@ -39,29 +42,22 @@ A basic rector config can look like
 
 declare(strict_types=1);
 
-use Netwerkstatt\SilverstripeRector\Rector\Misc\AddConfigPropertiesRector;
-use Netwerkstatt\SilverstripeRector\Set\SilverstripeLevelSetList;
-use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList;
 use Rector\Config\RectorConfig;
-use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
+use Rector\Set\ValueObject\SetList;
+use Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector;
+use Netwerkstatt\SilverstripeRector\Rector\Injectable\UseCreateRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
-use Rector\TypeDeclaration\Rector\ClassMethod\ReturnNeverTypeRector;
-use Rector\ValueObject\PhpVersion;
+use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList
+use Netwerkstatt\SilverstripeRector\Set\SilverstripeLevelSetList
 
 return RectorConfig::configure()
     ->withPaths([
         __DIR__ . '/app/_config.php',
         __DIR__ . '/app/src',
+        __DIR__ . '/app/tests',
     ])
-    ->withAutoloadPaths([
-        // composer autoload is already loaded
-    ])
-    //add needed files from modules, that don't support composer autoload yet
-    ->withBootstrapFiles([
-        __DIR__ . '/vendor/path/to/code/Foobar.php'
-    ])
-    ->withPhpVersion(PhpVersion::PHP_81)
+    ->withPreparedSets(deadCode: true);
     ->withSets([
         //rector lists
         LevelSetList::UP_TO_PHP_83,
@@ -72,27 +68,18 @@ return RectorConfig::configure()
         SilverstripeLevelSetList::UP_TO_SS_6_0
     ])
     ->withRules([
-        // any other rules
+        EnsureTableNameIsSetRector::class,
+        UseCreateRector::class
     ])
-    //add @config properties to configurations for phpstan
-    //configure your own configs    
-    ->withConfiguredRule(
-        AddConfigPropertiesRector::class,
-        [
-            MyClass::class => [
-                'my_config',
-                'another_config'
-            ]
-        ]
-    )
+       
     // any rules that are included in the selected sets you want to skip
     ->withSkip([
-        ClassPropertyAssignToConstructorPromotionRector::class,
-        ReturnNeverTypeRector::class
+//        ClassPropertyAssignToConstructorPromotionRector::class,
+//        ReturnNeverTypeRector::class
     ]);
 ```
 
-Silverstripe-rector comes with two types of SetLists: `SilverstripeSetList` for single sets of rectors (e.g. upgrading from 5.0 to 5.1 or for genereal Silverstripe code styles) and `SilverstripeLevelSetList` for combining all set lists up to a given Silverstripe CMS version, e.g. running all upgrades to Silverstripe 5.1.
+Silverstripe-rector comes with two types of SetLists: `SilverstripeSetList` for single sets of rectors (e.g. upgrading from 5.0 to 5.1 or for general Silverstripe code styles) and `SilverstripeLevelSetList` for combining all set lists up to a given Silverstripe CMS version, e.g. running all upgrades to Silverstripe 5.1.
 
 ## Running rector
 
@@ -111,9 +98,13 @@ The option `--dry-run` prints the code changes; if you're happy with the changes
 
 See `vendor/bin/rector --help` for more options.
 
-# TODO
+## Other useful modules you should know about
+* [cambis/silverstripe-rector](https://packagist.org/packages/cambis/silverstripe-rector)
 
-## SS3 to SS4 upgrades (before running official upgrader tool)
+
+## TODO
+
+### SS3 to SS4 upgrades (before running official upgrader tool)
 - [ ] rename `Foo_Controller` to `FooController`
   - how can this be made dynamically? via config script that scans the current project?
 - [ ] configure PSR4 Class To File
@@ -125,7 +116,7 @@ See `vendor/bin/rector --help` for more options.
   - this needs another file parser for Silverstripe templates
 - [ ] class `Object` to trait, see [ParentClassToTraitsRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#parentclasstotraitsrector)
 
-## SS4 upgrades
+### SS4 upgrades
 - [X] add `$table_name` if missing - use short classname instead
   - see similar [UnifyModelDatesWithCastsRector](https://github.com/rectorphp/rector-laravel/blob/main/src/Rector/Class_/UnifyModelDatesWithCastsRector.php)
 - [ ] various deprecations
@@ -134,12 +125,21 @@ See `vendor/bin/rector --help` for more options.
   - [ ] configurable exclude list if it's not wanted
   - [ ] configurable which relations should be automatically owned (e.g. other versioned DataObjects)
 
-## General
-### Misc
+### General
+#### Misc
 - [X] create SetLists for easier configuration
 
-### Code Quality
+#### Code Quality
 - [X] convert `new Foo()` to `Foo::create()` if it's a Silverstripe / Injectable class
   - see [NewToStaticCallRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#newtomethodcallrector)
 - [X] add `@config` param to `$db`, `$has_one`, etc.
-- [ ] use Request handler instead of superglobal $_GET and $_POST
+- [ ] use Request handler instead of superglobal `$_GET` and `$_POST`
+
+## Thanks to
+[xini](https://github.com/xini) for updating this module to Rector V2 and adding a lot of Silverstripe 6 rules.
+
+## Need Help?
+
+If you need some help with your Silverstripe project, feel free to [contact me](mailto:werner.krauss@netwerkstatt.at) ✉️.
+
+See you at next [StripeCon](https://stripecon.eu) 👋
