@@ -23,6 +23,7 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
 {
 
     private PhpDocTypeChanger $phpDocTypeChanger;
+
     private PhpDocInfoFactory $phpDocInfoFactory;
 
     /**
@@ -180,7 +181,8 @@ CODE_SAMPLE,
 
             $propertiesToCheck = array_merge($propertiesToCheck, $configProperties);
         }
-        if ($propertiesToCheck) {
+
+        if ($propertiesToCheck !== []) {
             $node = $this->checkConfigProperties($node, array_unique($propertiesToCheck));
         }
 
