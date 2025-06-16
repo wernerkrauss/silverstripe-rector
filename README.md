@@ -48,8 +48,8 @@ use Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector
 use Netwerkstatt\SilverstripeRector\Rector\Injectable\UseCreateRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
-use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList
-use Netwerkstatt\SilverstripeRector\Set\SilverstripeLevelSetList
+use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList;
+use Netwerkstatt\SilverstripeRector\Set\SilverstripeLevelSetList;
 
 return RectorConfig::configure()
     ->withPaths([
