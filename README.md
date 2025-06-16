@@ -42,22 +42,19 @@ A basic rector config can look like
 
 declare(strict_types=1);
 
+use Netwerkstatt\SilverstripeRector\Rector\Injector\UseCreateRector;
 use Rector\Config\RectorConfig;
-use Rector\Set\ValueObject\SetList;
 use Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector;
-use Netwerkstatt\SilverstripeRector\Rector\Injectable\UseCreateRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
-use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList
-use Netwerkstatt\SilverstripeRector\Set\SilverstripeLevelSetList
+use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList;
+use Netwerkstatt\SilverstripeRector\Set\SilverstripeLevelSetList;
 
 return RectorConfig::configure()
-    ->withPaths([
-        __DIR__ . '/app/_config.php',
-        __DIR__ . '/app/src',
-        __DIR__ . '/app/tests',
-    ])
-    ->withPreparedSets(deadCode: true);
+    ->withPreparedSets(
+        deadCode: true,
+        codeQuality: true
+    )
     ->withSets([
         //rector lists
         LevelSetList::UP_TO_PHP_83,
@@ -67,16 +64,20 @@ return RectorConfig::configure()
         SilverstripeSetList::CODE_STYLE,
         SilverstripeLevelSetList::UP_TO_SS_6_0
     ])
-    ->withRules([
-        EnsureTableNameIsSetRector::class,
-        UseCreateRector::class
-    ])
-       
+
     // any rules that are included in the selected sets you want to skip
-    ->withSkip([
-//        ClassPropertyAssignToConstructorPromotionRector::class,
-//        ReturnNeverTypeRector::class
-    ]);
+    // ->withSkip([
+    //     //        ClassPropertyAssignToConstructorPromotionRector::class,
+    //     //        ReturnNeverTypeRector::class
+    // ])
+    // // any rules that are included in the selected sets you want to skip
+    // ->withSkip([
+    //     ClassPropertyAssignToConstructorPromotionRector::class,
+    //     ReturnNeverTypeRector::class
+    // ])
+;
+
+
 ```
 
 Silverstripe-rector comes with two types of SetLists: `SilverstripeSetList` for single sets of rectors (e.g. upgrading from 5.0 to 5.1 or for general Silverstripe code styles) and `SilverstripeLevelSetList` for combining all set lists up to a given Silverstripe CMS version, e.g. running all upgrades to Silverstripe 5.1.
