@@ -13,18 +13,18 @@ A developer utility for automatically upgrading deprecated code for Silverstripe
 
 ## Installation
 
-This module is installable via composer. As rector uses phpstan, it's a good idea to install `cambis/silverstan`, too.
+This module is installable via composer. As Rector uses PHPstan, it's a good idea to install `cambis/silverstan`, too.
 
 > Note: if you need to use PHPStan v1 in your project, use v0.x of this module
 
-```
+```bash
 composer require phpstan/extension-installer --dev
 composer require cambis/silverstan  --dev
 composer require wernerkrauss/silverstripe-rector --dev
 vendor/bin/rector init
 ```
 
-Create a basic phpstan.neon file in your project root:
+Create a basic `phpstan.neon` file in your project root:
 
 ```yaml
 parameters:
@@ -35,62 +35,49 @@ parameters:
 
 This will add all requirements and create a file called `rector.php` in your project root. You'll need to adjust it, e.g. add the code directories to upgrade and the rules to use.
 
-A basic rector config can look like
+A basic Rector config can look like
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-use Netwerkstatt\SilverstripeRector\Rector\Injector\UseCreateRector;
-use Rector\Config\RectorConfig;
-use Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector;
-use Rector\Set\ValueObject\LevelSetList;
-use Rector\Set\ValueObject\SetList;
-use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList;
 use Netwerkstatt\SilverstripeRector\Set\SilverstripeLevelSetList;
+use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList;
+use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
     ->withPreparedSets(
         deadCode: true,
-        codeQuality: true
+        codeQuality: true,
+        codingStyle: true,
+        typeDeclarations: true,
+        instanceOf: true,
+        earlyReturn: true,
+        rectorPreset: true
     )
+    ->withPhpSets() //automatically gets the PHP version from composer.json
     ->withSets([
-        //rector lists
-        LevelSetList::UP_TO_PHP_83,
-        SetList::CODE_QUALITY,
-        SetList::CODING_STYLE,
         //silverstripe rector
         SilverstripeSetList::CODE_STYLE,
         SilverstripeLevelSetList::UP_TO_SS_6_0
-    ])
-
-    // any rules that are included in the selected sets you want to skip
-    // ->withSkip([
-    //     //        ClassPropertyAssignToConstructorPromotionRector::class,
-    //     //        ReturnNeverTypeRector::class
-    // ])
-    // // any rules that are included in the selected sets you want to skip
-    // ->withSkip([
-    //     ClassPropertyAssignToConstructorPromotionRector::class,
-    //     ReturnNeverTypeRector::class
-    // ])
-;
-
+    ]);
 
 ```
 
 Silverstripe-rector comes with two types of SetLists: `SilverstripeSetList` for single sets of rectors (e.g. upgrading from 5.0 to 5.1 or for general Silverstripe code styles) and `SilverstripeLevelSetList` for combining all set lists up to a given Silverstripe CMS version, e.g. running all upgrades to Silverstripe 5.1.
 
+See also [Rector documentation](https://getrector.com/documentation) for more configuration possibilities.
+
 ## Running rector
 
-Once it's configured, you can run rector in the command line using the following command:
+Once it's configured, you can run Rector in the command line using the following command:
 
 ```bash
 vendor/bin/rector --dry-run 
 ```
 
-The option `--dry-run` prints the code changes; if you're happy with the changes you can remove that option and rector will actually change the files.
+The option `--dry-run` prints the code changes; if you're happy with the changes, you can remove that option and rector will actually change the files.
 
 ### Useful options:
 
