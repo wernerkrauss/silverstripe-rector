@@ -86,9 +86,13 @@ The option `--dry-run` prints the code changes; if you're happy with the changes
 
 See `vendor/bin/rector --help` for more options.
 
+## Docs
+
+See a [list of custom Silverstripe related rectors](./docs/all_rectors_overview.md) in the docs.
+
+
 ## Other useful modules you should know about
 * [cambis/silverstripe-rector](https://packagist.org/packages/cambis/silverstripe-rector)
-
 
 ## TODO
 
