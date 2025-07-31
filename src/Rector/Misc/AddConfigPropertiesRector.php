@@ -16,10 +16,11 @@ use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Extensible;
 use SilverStripe\ORM\DataObject;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRectorInterface
+class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRectorInterface, DocumentedRuleInterface
 {
 
     private PhpDocTypeChanger $phpDocTypeChanger;
