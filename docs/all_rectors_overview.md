@@ -54,15 +54,11 @@ Renames ->addFieldsToTab($name, `$singleField)` to ->addFieldToTab($name, `$sing
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\RenameAddFieldsToTabWithoutArrayParamRector`](../src/Rector/Misc/RenameAddFieldsToTabWithoutArrayParamRector.php)
 
 ```diff
--class SomeClass
-+class SomeClass extends \SilverStripe\ORM\DataObject
+ class SomeClass extends \SilverStripe\ORM\DataObject
  {
--    public function getCMSFields()
--    {
--        $time = mktime(1, 2, 3);
--        $nextTime = mktime();
-+    public function getCMSFields() {
-+        $myfield = FormField::create();
+     public function getCMSFields() {
+         $myfield = FormField::create();
+-        $fields->addFieldsToTab('Root.Main', $myfield);
 +        $fields->addFieldToTab('Root.Main', $myfield);
      }
  }
