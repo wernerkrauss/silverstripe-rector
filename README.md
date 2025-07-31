@@ -88,7 +88,10 @@ See `vendor/bin/rector --help` for more options.
 
 ## Docs
 
-See a [list of custom Silverstripe related rectors](./docs/all_rectors_overview.md) in the docs.
+* See a [list of custom Silverstripe related rectors](./docs/all_rectors_overview.md) in the docs.
+
+* [Update from Silverstripe 5 to Silverstripe 6](https://www.s2-hub.com/articles/update-from-silverstripe-5-to-silverstripe-6/): article on s2-hub.com
+* [Better PHP with rector](https://www.youtube.com/watch?v=ORYlXK7I6Dw): Talk at StripeConEU 2023 in Hamburg
 
 
 ## Other useful modules you should know about
