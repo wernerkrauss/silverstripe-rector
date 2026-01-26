@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector;
+use Netwerkstatt\SilverstripeRector\Rector\Misc\ParentClassToTraits;
+use Netwerkstatt\SilverstripeRector\Rector\Misc\ParentClassToTraitsRector;
 use Rector\Config\RectorConfig;
-use Rector\Transform\Rector\Class_\ParentClassToTraitsRector;
-use Rector\Transform\ValueObject\ParentClassToTraits;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(EnsureTableNameIsSetRector::class);
