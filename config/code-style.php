@@ -2,9 +2,8 @@
 declare(strict_types=1);
 
 use Netwerkstatt\SilverstripeRector\Rector\Injector\UseCreateRector;
+use Netwerkstatt\SilverstripeRector\Rector\Misc\PropertyFetchToMethodCallRector;
 use Rector\Config\RectorConfig;
-use Rector\Transform\Rector\Assign\PropertyFetchToMethodCallRector;
-use Rector\Transform\ValueObject\PropertyFetchToMethodCall;
 
 return static function (RectorConfig $rectorConfig) : void {
     $rectorConfig->rule(UseCreateRector::class);
@@ -13,11 +12,10 @@ return static function (RectorConfig $rectorConfig) : void {
     $rectorConfig->ruleWithConfiguration(
         PropertyFetchToMethodCallRector::class,
         [
-            new PropertyFetchToMethodCall(
-                'SilverStripe\Core\Extension',
-                'owner',
-                'getOwner',
-            )
+            // class => [property => method]
+            SilverStripe\Core\Extension::class => [
+                'owner' => 'getOwner',
+            ],
         ]
     );
 };
