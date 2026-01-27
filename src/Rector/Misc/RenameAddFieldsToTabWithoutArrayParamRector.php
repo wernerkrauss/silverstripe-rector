@@ -1,6 +1,7 @@
 <?php
 
 declare (strict_types=1);
+
 namespace Netwerkstatt\SilverstripeRector\Rector\Misc;
 
 use PhpParser\Node;
@@ -15,9 +16,12 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class RenameAddFieldsToTabWithoutArrayParamRector extends AbstractRector implements DocumentedRuleInterface
 {
-    public function getRuleDefinition() : RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Renames ->addFieldsToTab($name, $singleField) to ->addFieldToTab($name, $singleField)', [new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Renames ->addFieldsToTab($name, $singleField) to ->addFieldToTab($name, $singleField)',
+            [
+                new CodeSample(<<<'CODE_SAMPLE'
 class SomeClass extends \SilverStripe\ORM\DataObject
 {
     public function getCMSFields() {
@@ -26,7 +30,7 @@ class SomeClass extends \SilverStripe\ORM\DataObject
     }
 }
 CODE_SAMPLE
-            , <<<'CODE_SAMPLE'
+                    , <<<'CODE_SAMPLE'
 class SomeClass extends \SilverStripe\ORM\DataObject
 {
     public function getCMSFields() {
@@ -35,20 +39,23 @@ class SomeClass extends \SilverStripe\ORM\DataObject
     }
 }
 CODE_SAMPLE
-        )]);
+                )
+            ]
+        );
     }
 
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
         return [MethodCall::class, NullsafeMethodCall::class];
     }
+
     /**
      * @param FuncCall $node
      */
-    public function refactor(Node $node) : ?Node
+    public function refactor(Node $node): ?Node
     {
         if (!$node->name === 'addFieldsToTab') {
             return null;
@@ -57,6 +64,7 @@ CODE_SAMPLE
         if ($node->args !== [] && $node->args[1]->value instanceof Node\Expr\Array_) {
             return null;
         }
+
         $node->name = new Name('addFieldToTab');
         return $node;
     }

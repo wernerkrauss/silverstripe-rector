@@ -118,8 +118,11 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
         ],
     ];
 
-    public function __construct(PhpDocTypeChanger $phpDocTypeChanger, DocBlockUpdater $docBlockUpdater, PhpDocInfoFactory $phpDocInfoFactory)
-    {
+    public function __construct(
+        PhpDocTypeChanger $phpDocTypeChanger,
+        DocBlockUpdater $docBlockUpdater,
+        PhpDocInfoFactory $phpDocInfoFactory
+    ) {
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->docBlockUpdater = $docBlockUpdater;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
@@ -132,15 +135,18 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Adds @config property to predefined private statics, e.g. $db or $allowed_actions',
+        return new RuleDefinition(
+            'Adds @config property to predefined private statics, e.g. $db or $allowed_actions',
             [
-                new ConfiguredCodeSample(<<<'CODE_SAMPLE'
+                new ConfiguredCodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass extends \SilverStripe\ORM\DataObject
 {
     private static $db = [];
 }
 CODE_SAMPLE
-                    , <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass extends \SilverStripe\ORM\DataObject
 {
     /**
@@ -155,7 +161,8 @@ CODE_SAMPLE,
                         ],
                     ]
                 )
-            ]);
+            ]
+        );
     }
 
     /**
@@ -192,7 +199,7 @@ CODE_SAMPLE,
 
     private function getConfig(): array
     {
-        $config =  array_merge_recursive($this->defaultClassConfigPairs, $this->classConfigPairs);
+        $config = array_merge_recursive($this->defaultClassConfigPairs, $this->classConfigPairs);
         //loop through the config and remove duplicate entries in the arrays
         //caused by e.g. $db being in default config and in project's rector.php
         foreach ($config as $className => $configProperties) {
