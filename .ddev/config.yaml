@@ -14,6 +14,11 @@ composer_version: "2"
 web_environment: []
 nodejs_version: "18"
 
+hooks:
+    post-start:
+        - exec: printf "\n\n****** run composer install ******\n\n" && bash -c 'composer install'
+
+
 # Key features of ddev's config.yaml:
 
 # name: <projectname> # Name of the project, automatically provides

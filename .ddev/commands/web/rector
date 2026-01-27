@@ -1,0 +1,12 @@
+#!/bin/bash
+
+## Description: run rector
+## Usage: rector
+
+if ! [ -x "$(command -v vendor/bin/rector)" ]; then
+  echo 'Error: rector/rector is not installed.' >&2
+  echo 'Please add it as a composer requirement.' >&2
+  exit 1
+fi
+
+php vendor/bin/rector

@@ -1,0 +1,47 @@
+#!/bin/bash
+
+## Description: runs CI tooling locally
+## Usage: ci [phpunit-args]
+
+set -uo pipefail
+
+# Variable für den Gesamtstatus
+EXIT_CODE=0
+
+# 1) PHPUnit (delegate to the dedicated ddev command to avoid duplication)
+echo "*** PHPUnit ***"
+if ! phpunit "$@"; then
+  echo "❌  PHPUnit tests failed."
+  EXIT_CODE=1
+else
+  echo "✅  PHPUnit OK"
+fi
+
+# 2) Linting
+echo "*** Linting ***"
+if ! phpcs; then
+  echo "❌  Linting found errors. Please run 'ddev fix' to fix errors automatically and 'ddev lint' to see what's still missing"
+  EXIT_CODE=1
+else
+  echo "✅  Linting OK"
+fi
+
+# 3) Rector (dry-run)
+echo "*** Rector ***"
+if ! rector --dry-run; then
+  echo "❌  Rector found things to improve. Please run 'ddev rector' and commit the fixes"
+  EXIT_CODE=1
+else
+  echo "✅  Rector OK"
+fi
+
+# 4) PHPStan Level 4
+echo "*** PHPStan Level 4 ***"
+if ! phpstan -l4; then
+  echo "❌  PHPStan found errors! Please fix"
+  EXIT_CODE=1
+else
+  echo "✅  PHPStan level 4 OK"
+fi
+
+exit $EXIT_CODE

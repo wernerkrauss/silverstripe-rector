@@ -14,7 +14,9 @@
     "rector/rector": "^2"
   },
   "require-dev": {
-    "phpunit/phpunit": "^11.3"
+    "phpunit/phpunit": "^11.3",
+    "squizlabs/php_codesniffer": "^4",
+    "phpstan/phpstan": "^2"
   },
   "autoload": {
     "psr-4": {

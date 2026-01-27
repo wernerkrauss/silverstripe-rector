@@ -1,0 +1,26 @@
+#!/bin/bash
+
+## Description: Run PHPUnit within the web container with DB root creds (for SilverStripe test DB creation)
+## Usage: phpunit [phpunit-args]
+## Example:
+##   ddev phpunit                      # run default suite
+##   ddev phpunit --testsuite Default  # run a specific suite
+##   ddev phpunit packages/biztalk/tests # run a directory
+##   ddev phpunit --filter SomeTest
+
+set -euo pipefail
+
+# Ensure phpunit is installed
+if ! [ -x "$(command -v vendor/bin/phpunit)" ]; then
+  echo 'Error: phpunit/phpunit is not installed.' >&2
+  echo 'Hint: Run "ddev composer install" to install dev dependencies.' >&2
+  exit 1
+fi
+
+# Force DB root credentials so SilverStripe can create a new test DB
+export SS_DATABASE_USERNAME="root"
+export SS_DATABASE_PASSWORD="root"
+
+# Allow overriding server/name via existing .env; only ensure creds are root.
+# Execute phpunit, passing all arguments through
+php -d memory_limit=-1 vendor/bin/phpunit "$@"

@@ -97,6 +97,76 @@ See `vendor/bin/rector --help` for more options.
 ## Other useful modules you should know about
 * [cambis/silverstripe-rector](https://packagist.org/packages/cambis/silverstripe-rector)
 
+## Developing
+This module is preconfigured to run with ddev and has some useful custom scripts for developing:
+
+### PHP Code Sniffer
+
+Code Sniffer is a tool to detect violations of a defined coding standard (mostly PSR-12)
+
+See phpcs.xml.dist for the ruleset used.
+
+Detect violations
+
+```bash
+ddev composer run lint
+```
+
+or
+```bash
+ddev lint
+```
+
+Fix most violations automatically
+```bash
+ddev composer run fix
+```
+
+or the shortcut
+```bash
+ddev fix
+```
+
+### PHPStan
+PHP Static Code Analyzer is a tool to detect bugs in your code without running it. It can be used to detect type errors, dead code, and other issues.
+
+Don't be too much annoyed by the errors. Rector can fix a lot of them automatically.
+
+A level of 4 should be doable.
+
+```bash
+ddev composer run phpstan
+```
+
+or
+```bash
+ddev stan
+```
+
+### Rector
+Rector is a tool to refactor code automatically. It can be used to upgrade code to a newer version of Silverstripe or PHP.
+
+See rector.php for rules and configuration.
+
+```bash 
+ddev composer run rector-dry #dry run
+ddev composer run rector
+```
+
+or
+```bash
+ddev rector --dry-run #dry-run
+ddev rector 
+```
+
+### Everything in one command
+
+There is also a CI tool to run everything in one command
+
+```bash
+ddev ci
+```
+
 ## TODO
 
 ### SS3 to SS4 upgrades (before running official upgrader tool)

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+## Description: run PHPCodeSniffer's fix tool
+## Usage: fix
+## Example: "ddev fix"
+
+if ! [ -x "$(command -v vendor/bin/phpcbf)" ]; then
+  echo 'Error: squizlabs/php_codesniffer is not installed.' >&2
+  echo 'Please add it as a composer requirement.' >&2
+  exit 1
+fi
+
+php vendor/bin/phpcbf

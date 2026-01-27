@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="SilverStripe-Rector">
+
+
+    <file>src</file>
+    <file>tests</file>
+    <exclude-pattern>tests/*/Fixture</exclude-pattern>
+
+
+
+    <!-- base rules are PSR-2 -->
+    <rule ref="PSR2" >
+
+    </rule>
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+            <property name="ignoreNewlines" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- include php files only -->
+    <arg name="extensions" value="php,lib,inc,php5"/>
+
+</ruleset>
