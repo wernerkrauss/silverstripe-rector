@@ -5,14 +5,14 @@ namespace Netwerkstatt\SilverstripeRector\Rector\Misc;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Stmt\Class_;
+use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * Replacement for the deprecated PropertyFetchToMethodCallRector without PHPStan/betterNodeFinder dependencies.
+ * Replacement for the deprecated PropertyFetchToMethodCallRector.
  *
  * Configuration format:
  *
@@ -22,7 +22,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *     ],
  * ]
  *
- * It matches by the containing class name only.
+ * It matches by the class name or its children.
  */
 final class PropertyFetchToMethodCallRector extends AbstractRector implements ConfigurableRectorInterface
 {
@@ -99,29 +99,12 @@ PHP
             return null;
         }
 
-        // Walk up the parent chain to find the containing class
-        $parent = $node->getAttribute('parent');
-        while ($parent instanceof Node && ! $parent instanceof Class_) {
-            $parent = $parent->getAttribute('parent');
-        }
-
-        if (! $parent instanceof Class_) {
-            // Not inside a class, nothing to do
-            return null;
-        }
-
-        $className = $this->getName($parent);
-        if ($className === null) {
-            return null;
-        }
-
-        // Match against configured class => [property => method] map
         foreach ($this->map as $configuredClass => $propertyToMethod) {
-            if ($className !== $configuredClass) {
+            if (! isset($propertyToMethod[$propertyName])) {
                 continue;
             }
 
-            if (! isset($propertyToMethod[$propertyName])) {
+            if (! $this->isObjectType($node->var, new ObjectType($configuredClass))) {
                 continue;
             }
 
@@ -129,7 +112,7 @@ PHP
 
             return new MethodCall(
                 $node->var,
-                $this->nodeFactory->createIdentifier($methodName)
+                $methodName
             );
         }
 
