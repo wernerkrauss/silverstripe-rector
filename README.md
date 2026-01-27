@@ -93,6 +93,25 @@ See `vendor/bin/rector --help` for more options.
 * [Update from Silverstripe 5 to Silverstripe 6](https://www.s2-hub.com/articles/update-from-silverstripe-5-to-silverstripe-6/): article on s2-hub.com
 * [Better PHP with rector](https://www.youtube.com/watch?v=ORYlXK7I6Dw): Talk at StripeConEU 2023 in Hamburg
 
+## IDE Support (PHPStorm)
+
+Since Rector uses PHPStan, which is often distributed as a PHAR file, your IDE might not find classes like `PHPStan\Type\ObjectType`.
+
+To fix this in PHPStorm:
+
+1. **Include PHPStan classes**:
+   - Go to `Settings` > `Languages & Frameworks` > `PHP`.
+   - In the **Include Path** tab, click `+`.
+   - Add the directory `vendor/phpstan/phpstan`. PHPStorm will automatically find and index the `phpstan.phar` inside it.
+   - *Alternatively*: Install the `phpdoc-parser` which provides many type definitions:
+     ```bash
+     composer require --dev phpstan/phpdoc-parser
+     ```
+
+2. **Exclude fixtures**:
+   To avoid "Duplicate class" errors from test fixtures, exclude the `tests/**/Fixture` directories from your project:
+   - Right-click on the `Fixture` folder in the project tree.
+   - Select `Mark Directory as` > `Excluded`.
 
 ## Other useful modules you should know about
 * [cambis/silverstripe-rector](https://packagist.org/packages/cambis/silverstripe-rector)

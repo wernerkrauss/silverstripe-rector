@@ -61,7 +61,7 @@ CODE_SAMPLE
     }
 
     /**
-     * @inheritDoc
+     * @param New_ $node
      */
     public function refactor(Node $node): ?Node
     {

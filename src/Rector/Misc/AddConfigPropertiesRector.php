@@ -22,13 +22,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRectorInterface, DocumentedRuleInterface
 {
-
-    private PhpDocTypeChanger $phpDocTypeChanger;
-
     private PhpDocInfoFactory $phpDocInfoFactory;
 
     /**
-     * @readonly
      * @var \Rector\Comments\NodeDocBlock\DocBlockUpdater
      */
     private $docBlockUpdater;
@@ -119,19 +115,17 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
     ];
 
     public function __construct(
-        PhpDocTypeChanger $phpDocTypeChanger,
         DocBlockUpdater $docBlockUpdater,
         PhpDocInfoFactory $phpDocInfoFactory
     ) {
-        $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->docBlockUpdater = $docBlockUpdater;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
 
     /**
-     * @var false
+     * @var bool
      */
-    private bool $nodeIsChanged;
+    private bool $nodeIsChanged = false;
 
     public function getRuleDefinition(): RuleDefinition
     {
@@ -178,8 +172,9 @@ CODE_SAMPLE,
      */
     public function refactor(Node $node): ?Node
     {
+        /** @var Class_ $node */
         $config = $this->getConfig();
-        $this->nodeIsChanged = \false;
+        $this->nodeIsChanged = false;
         $propertiesToCheck = [];
 
         foreach ($config as $className => $configProperties) {
@@ -191,9 +186,11 @@ CODE_SAMPLE,
         }
 
         if ($propertiesToCheck !== []) {
-            $node = $this->checkConfigProperties($node, array_unique($propertiesToCheck));
+            $this->checkConfigProperties($node, array_unique($propertiesToCheck));
         }
 
+
+        /** @phpstan-ignore ternary.alwaysFalse */
         return $this->nodeIsChanged ? $node : null;
     }
 
@@ -209,25 +206,25 @@ CODE_SAMPLE,
         return $config;
     }
 
-    private function checkConfigProperties(Node $node, array $configProperties): Node
+    private function checkConfigProperties(Class_ $node, array $configProperties): Class_
     {
         foreach ($configProperties as $configProperty) {
             $property = $node->getProperty($configProperty);
-            if (!$property) {
+            if (!$property instanceof \PhpParser\Node\Stmt\Property) {
                 continue;
             }
 
             //check if it's a private static
 
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if ($phpDocInfo->hasByName('@config')) {
+            if ($phpDocInfo->hasByName('config')) {
                 continue;
             }
 
             $phpDocInfo->addPhpDocTagNode(new PhpDocTextNode('@config'));
             $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($property);
 
-            $this->nodeIsChanged = \true;
+            $this->nodeIsChanged = true;
         }
 
         return $node;

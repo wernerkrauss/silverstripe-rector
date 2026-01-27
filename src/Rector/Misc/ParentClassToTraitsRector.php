@@ -106,6 +106,7 @@ PHP
                 if (! $stmt instanceof TraitUse) {
                     continue;
                 }
+
                 foreach ($stmt->traits as $traitName) {
                     $existingTraitFqns[] = $this->getName($traitName);
                 }
