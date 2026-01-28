@@ -8,7 +8,8 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
@@ -24,7 +25,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * It matches by the class name or its children.
  */
-final class PropertyFetchToMethodCallRector extends AbstractRector implements ConfigurableRectorInterface
+final class PropertyFetchToMethodCallRector extends AbstractRector implements ConfigurableRectorInterface,
+                                                                              DocumentedRuleInterface
 {
     /**
      * @var array<class-string, array<string, string>>
@@ -45,7 +47,7 @@ final class PropertyFetchToMethodCallRector extends AbstractRector implements Co
         return new RuleDefinition(
             'Replace specific property fetches with method calls',
             [
-                new CodeSample(
+                new ConfiguredCodeSample(
                     <<<'PHP'
 <?php
 
@@ -75,7 +77,11 @@ class User
         echo $this->getName();
     }
 }
-PHP
+PHP,
+                    [
+                        'ClassName' =>
+                            ['propertyName' => 'methodName']
+                    ]
                 ),
             ]
         );
@@ -100,11 +106,11 @@ PHP
         }
 
         foreach ($this->map as $configuredClass => $propertyToMethod) {
-            if (! isset($propertyToMethod[$propertyName])) {
+            if (!isset($propertyToMethod[$propertyName])) {
                 continue;
             }
 
-            if (! $this->isObjectType($node->var, new ObjectType($configuredClass))) {
+            if (!$this->isObjectType($node->var, new ObjectType($configuredClass))) {
                 continue;
             }
 

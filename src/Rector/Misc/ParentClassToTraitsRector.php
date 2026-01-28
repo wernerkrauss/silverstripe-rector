@@ -10,7 +10,9 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\TraitUse;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
@@ -28,7 +30,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *       use Injectable, Configurable, Extensible;
  *   }
  */
-final class ParentClassToTraitsRector extends AbstractRector implements ConfigurableRectorInterface
+final class ParentClassToTraitsRector extends AbstractRector implements ConfigurableRectorInterface, DocumentedRuleInterface
 {
     /**
      * @var ParentClassToTraits[]
@@ -40,7 +42,7 @@ final class ParentClassToTraitsRector extends AbstractRector implements Configur
         return new RuleDefinition(
             'Replace specific parent classes with traits and remove extends',
             [
-                new CodeSample(
+                new ConfiguredCodeSample(
                     <<<'PHP'
 <?php
 
@@ -61,7 +63,8 @@ class MyObject
     use Configurable;
     use Extensible;
 }
-PHP
+PHP,
+                    ['Trait1','Trait2']
                 ),
             ]
         );
