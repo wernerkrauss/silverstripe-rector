@@ -25,8 +25,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * It matches by the class name or its children.
  */
-final class PropertyFetchToMethodCallRector extends AbstractRector implements ConfigurableRectorInterface,
-                                                                              DocumentedRuleInterface
+final class PropertyFetchToMethodCallRector extends AbstractRector implements
+    ConfigurableRectorInterface,
+    DocumentedRuleInterface
 {
     /**
      * @var array<class-string, array<string, string>>

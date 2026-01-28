@@ -47,5 +47,4 @@ final class SilverstripeLevelSetList
     public const UP_TO_SS_6_1 = __DIR__ . '/../../config/level/up-to-silverstripe-6-1.php';
 
     public const UP_TO_SS_6_2 = __DIR__ . '/../../config/level/up-to-silverstripe-6-2.php';
-
 }

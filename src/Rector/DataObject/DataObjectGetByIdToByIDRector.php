@@ -17,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Netwerkstatt\SilverstripeRector\Tests\DataObject\DataObjectGetByIdToByIDRector\DataObjectGetByIdToByIDRectorTest
  */
-class DataObjectGetByIdToByIDRector extends AbstractRector  implements DocumentedRuleInterface
+class DataObjectGetByIdToByIDRector extends AbstractRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

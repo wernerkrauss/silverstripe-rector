@@ -6,6 +6,7 @@ This project provides Rector rules for Silverstripe CMS. Development is carried 
 
 - All code, including variable names, method names, and comments, must be written in English.
 - Documentation and commit messages should also be in English.
+- Line length should not exceed 120 characters.
 
 ## Development Environment (DDEV)
 

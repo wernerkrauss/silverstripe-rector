@@ -30,7 +30,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *       use Injectable, Configurable, Extensible;
  *   }
  */
-final class ParentClassToTraitsRector extends AbstractRector implements ConfigurableRectorInterface, DocumentedRuleInterface
+final class ParentClassToTraitsRector extends AbstractRector implements
+    ConfigurableRectorInterface,
+    DocumentedRuleInterface
 {
     /**
      * @var ParentClassToTraits[]

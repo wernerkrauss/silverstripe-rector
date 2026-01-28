@@ -3,3 +3,9 @@ parameters:
     paths:
         - src
         - tests
+    excludePaths:
+        - tests/PHPStan/Rules/Rector/Fixture/*
+    treatPhpDocTypesAsCertain: false
+
+rules:
+    - Netwerkstatt\SilverstripeRector\PHPStan\Rules\Rector\DocumentedRectorRule
