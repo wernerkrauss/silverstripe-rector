@@ -7,6 +7,18 @@
 # silverstripe-rector
 A developer utility for automatically upgrading deprecated code for Silverstripe CMS. With rules for upgrades for Silverstripe 6.
 
+## Table of Contents
+- [About rector](#about-rector)
+- [Installation](#installation)
+- [Running rector](#running-rector)
+- [Docs](#docs)
+- [IDE Support (PHPStorm)](#ide-support-phpstorm)
+- [Other useful modules you should know about](#other-useful-modules-you-should-know-about)
+- [Developing](#developing)
+- [TODO](#todo)
+- [Thanks to](#thanks-to)
+- [Need Help?](#need-help)
+
 ## About rector
 
 `rector` is a tool for automatic code upgrades and refactorings. See [rector homepage](https://getrector.org/) for more information.
@@ -69,6 +81,8 @@ Silverstripe-rector comes with two types of SetLists: `SilverstripeSetList` for 
 
 See also [Rector documentation](https://getrector.com/documentation) for more configuration possibilities.
 
+You can find a [list of Rectors provided by this module](./docs/all_rectors_overview.md) in the documentation.
+
 ## Running rector
 
 Once it's configured, you can run Rector in the command line using the following command:
@@ -87,7 +101,7 @@ The option `--dry-run` prints the code changes; if you're happy with the changes
 See `vendor/bin/rector --help` for more options.
 
 ## Docs
-
+* [Changelog](./CHANGELOG.md)
 * See a [list of custom Silverstripe related rectors](./docs/all_rectors_overview.md) in the docs.
 
 * [Update from Silverstripe 5 to Silverstripe 6](https://www.s2-hub.com/articles/update-from-silverstripe-5-to-silverstripe-6/): article on s2-hub.com
@@ -198,7 +212,7 @@ ddev ci
   -  easy fix would be to switch to new config layer in PHP and add an annotation to fix this manually
 - [ ] fix old `Image` functions in templates that got deprecated in SS3.2
   - this needs another file parser for Silverstripe templates
-- [ ] class `Object` to trait, see [ParentClassToTraitsRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#parentclasstotraitsrector)
+- [X] class `Object` to trait, see [ParentClassToTraitsRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#parentclasstotraitsrector)
 
 ### SS4 upgrades
 - [X] add `$table_name` if missing - use short classname instead
@@ -217,6 +231,7 @@ ddev ci
 - [X] convert `new Foo()` to `Foo::create()` if it's a Silverstripe / Injectable class
   - see [NewToStaticCallRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#newtomethodcallrector)
 - [X] add `@config` param to `$db`, `$has_one`, etc.
+- [X] use array notation for `->filter`, `->extend` and `->sort()`
 - [ ] use Request handler instead of superglobal `$_GET` and `$_POST`
 
 ## Thanks to
