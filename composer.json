@@ -34,7 +34,7 @@
     ]
   },
   "scripts": {
-    "docs:generate": "@php rule-doc-generator generate --output-file docs/all_rectors_overview.md  --ansi --categorize 2  -- ./src/"
+    "docs:generate": "vendor/bin/rule-doc-generator generate src --output-file docs/all_rectors_overview.md  --ansi --categorize 2"
   },
   "minimum-stability": "dev",
   "prefer-stable": true
