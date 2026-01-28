@@ -30,7 +30,7 @@ class ListFilterToArrayRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isNames($node->name, ['filter', 'exclude', 'filterAny', 'excludeAny', 'sort'])) {
+        if (!$this->isNames($node->name, ['filter', 'exclude', 'filterAny', 'excludeAny'])) {
             return null;
         }
 
@@ -72,7 +72,6 @@ $list->filter('key', 'value');
 $list->exclude('key', 'value');
 $list->filterAny('key', 'value');
 $list->excludeAny('key', 'value');
-$list->sort('key', 'DESC');
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
@@ -80,7 +79,6 @@ $list->filter(['key' => 'value']);
 $list->exclude(['key' => 'value']);
 $list->filterAny(['key' => 'value']);
 $list->excludeAny(['key' => 'value']);
-$list->sort(['key' => 'DESC']);
 CODE_SAMPLE
                 ),
             ]

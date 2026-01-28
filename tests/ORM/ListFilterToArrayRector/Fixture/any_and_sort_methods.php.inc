@@ -15,7 +15,6 @@ function anyMethodsTest()
     $list = MyDataObjectForAny::get();
     $list->filterAny('ID', 1);
     $list->excludeAny('Title', 'Page');
-    $list->sort('Title', 'DESC');
 }
 ?>
 -----
@@ -36,6 +35,5 @@ function anyMethodsTest()
     $list = MyDataObjectForAny::get();
     $list->filterAny(['ID' => 1]);
     $list->excludeAny(['Title' => 'Page']);
-    $list->sort(['Title' => 'DESC']);
 }
 ?>
