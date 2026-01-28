@@ -33,3 +33,13 @@ This project provides Rector rules for Silverstripe CMS. Development is carried 
 ## Quality Assurance
 
 - Run at least `ddev ci` before every `submit` to ensure no regressions have been introduced and the code meets the standards.
+
+## Changelog Guidelines
+
+- The project uses a `CHANGELOG.md` following the [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format.
+- Adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+- **External Contributors**: Always mention external contributors (non-Dependabot) with their GitHub handle (e.g., `(thanks to [@username](https://github.com/username))`).
+- **Issue Tracking**: Check if a commit fixes an issue (look for "fixes #123" or similar in commit messages) and link it in the changelog.
+- **Breaking Changes**: Clearly mark breaking changes and mention any incompatibilities (e.g., with specific `rector/rector` versions).
+- **Language**: Changelog entries must be written in English.
+- **Line Length**: Ensure lines in `CHANGELOG.md` do not exceed 120 characters.
