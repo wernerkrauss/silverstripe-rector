@@ -5,9 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.3.0 Unreleased]
 
 ### Added
+- Improved `BuildTaskUpdateRector` to handle comprehensive Silverstripe 6 BuildTask migration:
+    - Properties `$segment`, `$title`, `$description` are updated with correct visibility, static status and `string` types.
+    - `run()` is converted to `protected execute()` with `PolyOutput` and `int` return type.
+    - `echo` statements are converted to `$output->writeln()`.
+    - `$request->getVar()` is converted to `$input->getOption()`.
+    - `getOptions()` method is automatically generated when options are detected.
+    - Thanks to [@BettinaMaria98](https://github.com/BettinaMaria98) for the idea.
 - Added rules for Silverstripe 6.1 deprecations:
     - Added `DataObjectStaticMethodsToFluentRector` to replace `DataObject::get_by_id()`, `get_one()`, and `delete_by_id()` with fluent equivalents (e.g. `DataObject::get($className)->setUseCache(true)->byID($id)`).
 - Added rules for Silverstripe 6.2 deprecations:

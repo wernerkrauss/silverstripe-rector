@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-use Netwerkstatt\SilverstripeRector\Rector\Control\ReplaceHasCurrWithCurrRector;
-use Netwerkstatt\SilverstripeRector\Rector\DataObject\DataObjectGetByIdToByIDRector;
-use Netwerkstatt\SilverstripeRector\Rector\Misc\RemoveSilverstripeDeprecationCommentRector;
+use Netwerkstatt\SilverstripeRector\Rector\Misc\BuildTaskUpdateRector;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
@@ -17,6 +15,7 @@ use Rector\Renaming\ValueObject\RenameProperty;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 
 return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->rule(BuildTaskUpdateRector::class);
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
         'SilverStripe\ORM\ArrayLib' => 'SilverStripe\Core\ArrayLib',
         'SilverStripe\ORM\ArrayList' => 'SilverStripe\Model\List\ArrayList',
