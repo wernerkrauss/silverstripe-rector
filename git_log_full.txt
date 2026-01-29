@@ -1,0 +1,366 @@
+8af72ed2616fc6e1e6d2187e160f6af650008525 PHPStan: test if a rector rule is documented
+
+6a3891ab9620ad515eddde73045ca97ae4e5402d update command for generating rules
+
+aa0e0f90f0e04369d19d9ac885fef21feed9e8f2 [DOCS] Generate documentation
+
+Signed-off-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+d1c9ff4a62f86bc84516e7e6652b8a95167615ec add DocumentatedRuleInterface for docs generation
+
+53f2ac5a05f4dbaf39cc33a370b1fc8e231248c4 add new rectors to code quality set list
+
+66d4bdc48a3ca358b91d254eed2a246b7b64dbf2 ORM: array notation for sort
+
+fixes #12
+
+b1c47fcdfb1f2f96127c9ee00cf6bdf3c5b38707 add junie config
+
+8886555c1509f21c689520c7e8a0a38b395ab6e1 update gitignore
+
+bab3e9c875bb230b79beccd75497f4497fe63e04 ORM: convert DataObject::get_by_id() to DataObject::get()->byID()
+
+fixes #7
+
+a30977b7757c36425ddd22f4cf3250b9a0e51715 ORM: convert where('key','value') and others to array notation
+
+fixes #2
+
+2e08841d596fb1a726d08cc07c5db55fe0ec0659 Github CI: test on PHP8.5
+
+84faccdce65f2fef11d82bfa3cf01af1002a12d3 fix phpstan errors
+
+b43d02668a017655033b91b999003f116bf71f9d fix PropertyFetchToMethodCallRector; add test
+
+fixes #36
+
+8ccb9bba6ef22194b3a9841660bf232c3d3fffcf add missing classes
+
+b738d6a3f1a8ff99cea55323aa3549ea5848d728 upgrade to Rector 2.3.4
+
+054fb5299f75a874fa0c52474d0fc9df6e92226a fix linting errors
+
+c09f2bf574ef2185e85a1bd5e3e74e861499f0e9 add ddev commands for better developing
+
+8c30e25d67ba6946b38e1612fc5f72dae7f8ae69 README: more related infos
+
+5503b38f993e6883a5564f64897926c8f854aebf Bump stefanzweifel/git-auto-commit-action from 6.0.1 to 7.1.0
+
+Bumps [stefanzweifel/git-auto-commit-action](https://github.com/stefanzweifel/git-auto-commit-action) from 6.0.1 to 7.1.0.
+- [Release notes](https://github.com/stefanzweifel/git-auto-commit-action/releases)
+- [Changelog](https://github.com/stefanzweifel/git-auto-commit-action/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/stefanzweifel/git-auto-commit-action/compare/v6.0.1...v7.1.0)
+
+---
+updated-dependencies:
+- dependency-name: stefanzweifel/git-auto-commit-action
+  dependency-version: 7.1.0
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+66d3ea85e9ea2aa7ad373eb1a26cf58f85edda1f Bump actions/checkout from 5 to 6
+
+Bumps [actions/checkout](https://github.com/actions/checkout) from 5 to 6.
+- [Release notes](https://github.com/actions/checkout/releases)
+- [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/actions/checkout/compare/v5...v6)
+
+---
+updated-dependencies:
+- dependency-name: actions/checkout
+  dependency-version: '6'
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+6f516818a2552d46a007b0dffe54c9314376cd15 Bump actions/checkout from 4 to 5
+
+Bumps [actions/checkout](https://github.com/actions/checkout) from 4 to 5.
+- [Release notes](https://github.com/actions/checkout/releases)
+- [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/actions/checkout/compare/v4...v5)
+
+---
+updated-dependencies:
+- dependency-name: actions/checkout
+  dependency-version: '5'
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+6aa66d4633af421cf2aaae30b35b6f991c6f15bd Bump stefanzweifel/git-auto-commit-action from 5.0.1 to 6.0.1
+
+Bumps [stefanzweifel/git-auto-commit-action](https://github.com/stefanzweifel/git-auto-commit-action) from 5.0.1 to 6.0.1.
+- [Release notes](https://github.com/stefanzweifel/git-auto-commit-action/releases)
+- [Changelog](https://github.com/stefanzweifel/git-auto-commit-action/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/stefanzweifel/git-auto-commit-action/compare/v5.0.1...v6.0.1)
+
+---
+updated-dependencies:
+- dependency-name: stefanzweifel/git-auto-commit-action
+  dependency-version: 6.0.1
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+2833980c038bde586c46955f7896f2fb1ee5817e README: link to docs
+
+e9f324f9fb165cd3794e2982b2d1663bb6dcd208 [DOCS] Generate documentation
+
+Signed-off-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+532235e2b2fe70810bba336d67d218b05bbc3d20 fix docs
+
+c0fb8ecf40e46cd510f6a02ec7746ef003998f5d [DOCS] Generate documentation
+
+Signed-off-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+6f16526ee9127b36f9bdb47b69cd298cb02d4aee Document RenameAddFieldsToTabWithoutArrayParamRector
+
+db42fdb1e354ca60d4ca88e11d1c3a0a0ca297f9 Merge remote-tracking branch 'origin/main' into main
+
+2cd57c064e64d5adc818fe5ff695fbe6b6448b7d Rector: rename addFieldsToTab to addFieldToTab when param is a single field
+
+fixes #26
+
+88a25f89e5345e8da06498e9eadbe811840f00d6 [DOCS] Generate documentation
+
+Signed-off-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+d7ebfbd151e8851bebcd66ce9ffe5b0e2570cbfc update rule generation
+
+6210ed1044587c704ff007be9841d3a86a8fdfd8 update phpunit deprecations
+
+615429d576e928125a19efa987e2696288dc0f19 update README
+
+a490a45abd836de73c6daf1486b4908eb5cbce0c DOC: allow immediate plug-n-play
+4ba15e48dec5ede1ee0e4ec26b8ec870c60d1a00 FIX: cleanup example php code for Rector.php
+880f77fd92bbf0748ea5e3b1882bf241f24cf99f DOC: fix typo in README - missing ;
+ba131af981299a723bfe911d11bafb357d13f42b update README
+
+06dc2e3c1ab8e0eb0b1a6faaebbad9a0f4e6dc85 run rector
+
+6a4cf0f960d4507f606c9f50bfc4837affa0adcb upgrade ddev PHP Version to 8.2
+
+due to new PHPUnit
+
+3aaafd409c1de269208d9c7651b643026946f8e8 update tests to phpunit 11
+
+0966a830f1591e16231daa07cbc21ea044415a83 add basic rules for ss 5.3 and 5.4 deprecations, update to rector 2
+
+36f603542aad5865f44400445d232c5a69340443 upgrade to rector 2, add SS 5.3 and 5.4 updates
+
+498e47fefcbe835cd84c7e90fb0f7bd14b2b3255 SS6: add configuration for renamed classes
+
+fabb96236e703e675fb9f2f4187ded752919f582 AddConfigPropertiesRector: fix classnames in default config
+
+177ffdce24935602228fd529c99a93f0b71a1a3c Merge remote-tracking branch 'origin/main' into main
+
+ec4f40dbdf586a9b72e5d3cbbf9e0bd0e8b8ec57 AddConfigPropertiesRector: unique config per class
+
+5d2388af77265ca27644400d0f4a0e80dcba5472 [DOCS] Generate documentation
+
+Signed-off-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+85a7992441dce7dc873160c08afa9001117c4e06 docs generation - 2; update unit tests php versions
+
+c19636fa56214aa240a71f8b670872d12ab496ce fix docs generation
+
+taken from https://github.com/sabbelasichon/typo3-rector
+
+dc9095a6821e0b80b42507972b5d218b8becb161 Merge remote-tracking branch 'origin/dependabot/github_actions/stefanzweifel/git-auto-commit-action-5.0.1' into main
+
+cacee84c9cc942df97f27fb06c25030a608c6d66 Merge remote-tracking branch 'origin/dependabot/github_actions/ramsey/composer-install-3' into main
+
+bbfecef7b7d4d1ab0712459ad9edf2740fbc3f7b update @config configuration
+
+18a42350db438591ffd376b52a6c19fde5e415f9 add (empty) config sets for SS releases
+
+528045394d562f4378101e54ea1004c18af9b4cf fix deprecated creation of dynamic property
+
+e2496273696e335fae9c973bf9e8b8c5a42bbb9a Bump stefanzweifel/git-auto-commit-action from 5.0.0 to 5.0.1
+
+Bumps [stefanzweifel/git-auto-commit-action](https://github.com/stefanzweifel/git-auto-commit-action) from 5.0.0 to 5.0.1.
+- [Release notes](https://github.com/stefanzweifel/git-auto-commit-action/releases)
+- [Changelog](https://github.com/stefanzweifel/git-auto-commit-action/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/stefanzweifel/git-auto-commit-action/compare/v5.0.0...v5.0.1)
+
+---
+updated-dependencies:
+- dependency-name: stefanzweifel/git-auto-commit-action
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+adb98563fcb13c0d23351a7c6449a66d4037503f Bump ramsey/composer-install from 2 to 3
+
+Bumps [ramsey/composer-install](https://github.com/ramsey/composer-install) from 2 to 3.
+- [Release notes](https://github.com/ramsey/composer-install/releases)
+- [Commits](https://github.com/ramsey/composer-install/compare/v2...v3)
+
+---
+updated-dependencies:
+- dependency-name: ramsey/composer-install
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+9c5952638a438a7a6025cc74c82f338ab5d7442f Bump stefanzweifel/git-auto-commit-action from 4.16.0 to 5.0.0
+
+Bumps [stefanzweifel/git-auto-commit-action](https://github.com/stefanzweifel/git-auto-commit-action) from 4.16.0 to 5.0.0.
+- [Release notes](https://github.com/stefanzweifel/git-auto-commit-action/releases)
+- [Changelog](https://github.com/stefanzweifel/git-auto-commit-action/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/stefanzweifel/git-auto-commit-action/compare/v4.16.0...v5.0.0)
+
+---
+updated-dependencies:
+- dependency-name: stefanzweifel/git-auto-commit-action
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+31c0c274b10a29cfc911cb67f3e1ca48fab08baf [DOCS] Generate documentation
+
+Signed-off-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+f4aae6a4a75202bdcdff7ad0e34b1904077d3cc2 ignore some folders (stubs, tests, etc) for stable downloads
+
+df71e608ebaaa86efff919a42ee4457b2d61712a update README
+
+rector is now a dependency of this package
+
+8bd4b63a8248be539e612a2205bd48986a41cac9 add .ddev setup
+
+6a62e6b9cb061b4597c4e457f7a421499520f361 upgrade to Rector v1
+
+fixes #14
+
+795eb0687a99622153fbd88a076c5cd9cda0929e inject phpDocInfoFactory in construct
+
+fixes:
+
+Get phpDocInfoFactory property from AbstractRector on Netwerkstatt\SilverstripeRector\Rector\Misc\AddConfigPropertiesRector is deprecated, inject via __construct() instead
+
+b776e1d6031ef555ed9bedfeb96125ba176b0c05 Bump actions/checkout from 3 to 4
+
+Bumps [actions/checkout](https://github.com/actions/checkout) from 3 to 4.
+- [Release notes](https://github.com/actions/checkout/releases)
+- [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/actions/checkout/compare/v3...v4)
+
+---
+updated-dependencies:
+- dependency-name: actions/checkout
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+0685eb93a39bca7307214da0f004c0632cbe14b2 fix failing tests for rector 0.18.3
+
+9e805771a87c77a605ff28d698a88432f8a6c934 AddConfigPropertiesRector: add test for not adding config when already there
+
+7ac30a14a431d78c8d9dcfef6b81c46703875734 README: clarify different SetLists
+
+3dfee08e4703ef87446cd862bbee9aebe63c4f0e Update phpunit.yml
+13c9ed3de6d5cf22e21a0c853c1f13b0708f9907 fix level set list config
+
+d07a118efd381e8bfc625a1af6f13a207b14ff1e fix level set list config
+
+0ba6efd693d4422f387614ea230a6c0d11f698d3 fix level set list config
+
+db62877261b6684bb60dca5c509d9a1bd8500236 add missing files
+
+3e79110056da79f50b4efbc9d652d781e405930e Update README
+
+5a866b47ce1ee88d163ba28e5011fcedb31a7643 add a bunch of empty set lists for each minor silverstripe version
+
+add stuff when needed ;)
+
+5ef2ceb9af5547a3fcefc4ad40284e7e80ea37a0 add some badges to README
+
+4d1348e2d3151edf530ef9ccaf83843fea6e468d uninstall doc-generator
+
+as it needs php8.1 and breaks github action tests in 7.4
+
+44b4c1681b573346757055aa05dabf0d73b339c1 generate docs
+
+af7ab057ff281e4f6ea258e454f559401b6aa976 update composer.json
+
+81a642c0e6d604fffc04df339cfd71f0d6cdcbb5 add github configuration
+
+source: https://github.com/sabbelasichon/typo3-rector
+
+b48b253f9cc485c395094365ed9c861f85bcb5d5 Merge remote-tracking branch 'origin/main' into main
+
+9f531bedbadced6e392ada9114c44a0ad0d913b3 fix some tests
+
+b4c444c558c9310bce7a54a1af54335b713cc840 rm composer.lock
+
+deadc3b59b05cfb0b1e8910f1f3b4632affbfb6b phpunit.yml: update checkout action
+43c996fb2a56442553a1bd5a2b80c0ba5b366945 Update phpunit.yml
+f4560fdfceab7524d6082eb498e729ae8f30b6de Create phpunit.yml
+519404d568b127562f7344f96dc3397c8c09330a Stubs: DataExtension is a subclass of Extension
+
+aaad4673955c4edd8fe9d540a1d4ba92578fad40 update code using rector
+
+1d7df3d41f2d588898ac0ee2a200dd2827389152 add phpunit.xml.dist
+
+b31a5ee8b25c6c72611f3fdaeb0db2a2b289b53f config owner -> getOwner(); first setlists
+
+856aa0f3ed82bdafd7d7dd537c1305de25f6b7c3 allow rector 0.18
+
+fb291b8d591ee78a13b347eb7863a54bf71cf743 improve AddConfigPropertiesRector default config
+
+a0861730d93e5da93685585f0f12f05465ff278a fix UseCreateRector throwing errors on variable classnames
+
+91c71c5a2f6206c7aba21a5d31fc239dc6a7cadd update rector
+
+9a559c9623597da2f6db7ee262283b69f3f58ad8 more default config for AddConfigPropertiesRector
+
+1011e527c506195e6c58d6022dcde9c72205a38f update README.md
+
+2d76e85f94368ee2693ffe9bac724ff4faa5fb55 make AddConfigPropertiesRector configurable
+
+292c9e6d6595cbd1763f016992adeebff80fef61 new Rector to add @config property to DataObjects and Controllers
+
+ea77590426b60cd056004e3a949e079a5fd8671b useCreateRector: add test if parent class uses Injectable trait
+
+05871ee21cbe72b054677168833472fad59a0d26 update README
+
+0756fd44a732a9453d889bf09bfa5db75f65fb38 Merge pull request #4 from wernerkrauss/use-create-rector
+
+Use create rector
+1438fd3248738d287d99028d1b4ff654cc168b2e update README: installation and configuration
+
+455b6da81ffc8d801acd2cc0b85928ea1a4bcb6b Add rule to use ::create() if an instanced class uses Silverstripe's Injectable trait
+
+f1cadf32da3b5baf8765a1de963b936e6194128b update gitignore
+
+ignore PHPStorm folder
+
+26a269e800e251c42954fec218bd00818fa5021f Update to Rector 0.14.2
+
+e392cd26c8cc2ba1c86066ee065464ec2556ce3b include PhpParser\Builder directly instead of Astral PropertyBuilder
+
+fixes #1
+
+d966c398827bbcbd90904eec057336515f534d74 idea: automated $owns for images, files, versioned DOs
+
+f21750840831fdfc75f44d12dbdcb10616c79ecc first rule: ensure $table_name is set in DataObjects
+
+e9bbce361c1845dc10c14a9878a51bcc18f22e17 install development dependencies
+
+066c596aea9593e0be42d7536cb0c07f0989c3cb first composer.json
+
+11845db010d7519c0eebf091e10be4b9d7e9345c more ideas
+6440534a73d93e99418a29c273a1d65ec9266370 Note first ideas what would be useful
+c9b23b1ae3e0fb37d66db0ab57a554a9174923c0 Initial commit
