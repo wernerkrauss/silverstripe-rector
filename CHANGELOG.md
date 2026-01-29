@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `echo` statements are converted to `$output->writeln()`.
     - `$request->getVar()` is converted to `$input->getOption()`.
     - `getOptions()` method is automatically generated when options are detected.
+    - Handles `run()` without parameters and avoids conflicts if `execute()` already exists.
     - Thanks to [@BettinaMaria98](https://github.com/BettinaMaria98) for the idea.
 - Added rules for Silverstripe 6.1 deprecations:
     - Added `DataObjectStaticMethodsToFluentRector` to replace `DataObject::get_by_id()`, `get_one()`, and `delete_by_id()` with fluent equivalents (e.g. `DataObject::get($className)->setUseCache(true)->byID($id)`).
