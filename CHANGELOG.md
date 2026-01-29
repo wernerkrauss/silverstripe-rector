@@ -5,9 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - Unreleased
+
+### Added
+- Improved `BuildTaskUpdateRector` to handle comprehensive Silverstripe 6 BuildTask migration:
+  - Properties `$segment`, `$title`, `$description` are updated with correct visibility, static status and `string` types.
+  - `run()` is converted to `protected execute()` with `PolyOutput` and `int` return type.
+  - `echo` statements are converted to `$output->writeln()`.
+  - `$request->getVar()` is converted to `$input->getOption()`.
+  - `getOptions()` method is automatically generated when options are detected.
+  - Thanks to [@BettinaMaria98](https://github.com/BettinaMaria98) for the idea.
+
+## [1.2.1] - 2026-01-29
+
+Bugfix release
+
+- Added config dir to PHPStan to find errors in CI
+
+
 ## [1.2] - 2026-01-28
 
 ### Added
+
 - Added custom PHPStan rule `DocumentedRectorRule` to ensure all Rectors implement `DocumentedRuleInterface`.
 - Added check in PHPStan rule to ensure configurable Rectors return `ConfiguredCodeSample`.
 - Added `DataObjectGetByIdToByIDRector` to convert `DataObject::get_by_id()` to `DataObject::get()->byID()`.

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Netwerkstatt\SilverstripeRector\Rector\Misc\BuildTaskUpdateRector;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\ConstFetch\RenameConstantRector;
@@ -17,6 +18,7 @@ use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
 
 return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->rule(BuildTaskUpdateRector::class);
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
         'SilverStripe\ORM\ArrayLib' => 'SilverStripe\Core\ArrayLib',
         'SilverStripe\ORM\ArrayList' => 'SilverStripe\Model\List\ArrayList',

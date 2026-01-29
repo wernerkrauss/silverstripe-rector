@@ -24,11 +24,12 @@ use SilverStripe\Dev\BuildTask;
 
 class MyTask extends BuildTask
 {
-    protected $description = 'My Task';
+    protected string $title = 'My Task';
 
-    public function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\Symfony\Component\Console\Input\InputInterface $input, \SilverStripe\PolyExecution\PolyOutput $output): int
     {
-        echo "Running task";
+        $output->writeln('Running task');
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }
 
