@@ -136,7 +136,7 @@ CODE_SAMPLE
         }
 
         $runMethod = $node->getMethod('run');
-        if ($runMethod instanceof ClassMethod) {
+        if ($runMethod instanceof ClassMethod && $node->getMethod('execute') === null) {
             $runMethod->name = new Identifier('execute');
             $runMethod->flags = Class_::MODIFIER_PROTECTED;
             $runMethod->returnType = new Identifier('int');
