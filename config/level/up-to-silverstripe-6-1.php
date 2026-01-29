@@ -1,4 +1,4 @@
-up-to-silverstripe-6-0.php<?php
+<?php
 
 declare (strict_types=1);
 
