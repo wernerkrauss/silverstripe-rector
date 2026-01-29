@@ -71,19 +71,16 @@ CODE_SAMPLE
                     <<<'CODE_SAMPLE'
 use SilverStripe\Dev\BuildTask;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use SilverStripe\PolyExecution\PolyOutput;
 
 class MyTask extends BuildTask
 {
-    protected $description = 'My Task';
+    protected string $title = 'My Task';
 
-    /**
-     * @todo Check if input/output needs manual migration.
-     * @todo Define input parameters in getOptions() if needed.
-     */
-    public function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, PolyOutput $output): int
     {
-        echo "Running task";
+        $output->writeln('Running task');
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
     }
 }
 CODE_SAMPLE
@@ -92,9 +89,6 @@ CODE_SAMPLE
         );
     }
 
-    /**
-     * @return array<class-string<Node>>
-     */
     public function getNodeTypes(): array
     {
         return [Class_::class];
@@ -167,16 +161,6 @@ CODE_SAMPLE
             $runMethod->stmts[] = new Return_(
                 $this->nodeFactory->createClassConstFetch('Symfony\Component\Console\Command\Command', 'SUCCESS')
             );
-
-            $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($runMethod);
-            $phpDocInfo->addPhpDocTagNode(new PhpDocTagNode(
-                '@todo',
-                new GenericTagValueNode('Check if input/output needs manual migration.')
-            ));
-            $phpDocInfo->addPhpDocTagNode(new PhpDocTagNode(
-                '@todo',
-                new GenericTagValueNode('Define input parameters in getOptions() if needed.')
-            ));
 
             $options = $visitor->getOptions();
             if ($options !== []) {
