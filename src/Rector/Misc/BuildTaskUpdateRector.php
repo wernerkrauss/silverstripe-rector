@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Netwerkstatt\SilverstripeRector\Rector\Misc;
 
 use Netwerkstatt\SilverstripeRector\Rector\Misc\BuildTaskUpdateRector\RequestToInputOptionVisitor;
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
@@ -19,13 +18,9 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\VarLikeIdentifier;
 use PhpParser\NodeTraverser;
-use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Rector\AbstractRector;
@@ -112,19 +107,19 @@ CODE_SAMPLE
             if ($this->isName($property, 'segment')) {
                 $property->props[0]->name = new VarLikeIdentifier('commandName');
                 $property->type = new Identifier('string');
-                $property->flags = Class_::MODIFIER_PROTECTED | Class_::MODIFIER_STATIC;
+                $property->flags = Modifiers::PROTECTED | Modifiers::STATIC;
                 $hasChanged = true;
             }
 
             if ($this->isName($property, 'title')) {
                 $property->type = new Identifier('string');
-                $property->flags = Class_::MODIFIER_PROTECTED;
+                $property->flags = Modifiers::PROTECTED;
                 $hasChanged = true;
             }
 
             if ($this->isName($property, 'description')) {
                 $property->type = new Identifier('string');
-                $property->flags = Class_::MODIFIER_PROTECTED | Class_::MODIFIER_STATIC;
+                $property->flags = Modifiers::PROTECTED | Modifiers::STATIC;
                 $hasChanged = true;
             }
         }
@@ -132,7 +127,7 @@ CODE_SAMPLE
         $runMethod = $node->getMethod('run');
         if ($runMethod instanceof ClassMethod && $node->getMethod('execute') === null) {
             $runMethod->name = new Identifier('execute');
-            $runMethod->flags = Class_::MODIFIER_PROTECTED;
+            $runMethod->flags = Modifiers::PROTECTED;
             $runMethod->returnType = new Identifier('int');
 
             $inputVarName = 'input';
@@ -155,7 +150,7 @@ CODE_SAMPLE
             $traverser = new NodeTraverser();
             $traverser->addVisitor($visitor);
             /** @var Node\Stmt[] $stmts */
-            $stmts = (array) $traverser->traverse((array) $runMethod->stmts);
+            $stmts = (array)$traverser->traverse((array)$runMethod->stmts);
             $runMethod->stmts = $stmts;
 
             $runMethod->stmts[] = new Return_(
@@ -193,7 +188,7 @@ CODE_SAMPLE
         }
 
         $method = new ClassMethod('getOptions');
-        $method->flags = Class_::MODIFIER_PUBLIC;
+        $method->flags = Modifiers::PUBLIC;
         $method->returnType = new Identifier('array');
         $method->stmts = [
             new Return_(new Array_($optionNodes))
