@@ -10,9 +10,13 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\Concat;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar\String_;
@@ -94,6 +98,11 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
+        // Skip classes not extending another
+        if (! $node->extends instanceof Name) {
+            return null;
+        }
+
         if (!$this->isObjectType($node, new ObjectType('SilverStripe\Dev\BuildTask')) &&
             !$this->isName($node->extends, 'SilverStripe\Dev\BuildTask') &&
             !$this->isName($node->extends, 'BuildTask')
@@ -151,6 +160,10 @@ CODE_SAMPLE
             $traverser->addVisitor($visitor);
             /** @var Node\Stmt[] $stmts */
             $stmts = (array)$traverser->traverse((array)$runMethod->stmts);
+
+            // Transform DB::alteration_message() to $output->writeln()
+            $stmts = $this->transformDBAlterationMessage($stmts, $outputVarName);
+
             $runMethod->stmts = $stmts;
 
             $runMethod->stmts[] = new Return_(
@@ -166,6 +179,127 @@ CODE_SAMPLE
         }
 
         return $hasChanged ? $node : null;
+    }
+
+    /**
+     * Transform DB::alteration_message() to $output->writeln() with appropriate tags
+     */
+    private function transformDBAlterationMessage(array $stmts, string $outputVarName): array
+    {
+        foreach ($stmts as $key => $stmt) {
+            $stmts[$key] = $this->transformDBInNode($stmt, $outputVarName);
+        }
+
+        return $stmts;
+    }
+
+    /**
+     * Recursively transform DB::alteration_message in nodes
+     *
+     * Recursion is necessary because DB::alteration_message calls can appear
+     * nested inside control structures (if/else, try/catch, loops, etc.)
+     * not just at the top level of the execute() method.
+     */
+    private function transformDBInNode(Node $node, string $outputVarName): Node
+    {
+        // Transform StaticCall to DB::alteration_message
+        if ($node instanceof StaticCall) {
+            if ($this->isDBAlterationMessage($node)) {
+                return $this->createWritelnCall($node, $outputVarName);
+            }
+        }
+
+        // Recursively process child nodes (needed for nested calls in if/try/catch/loops)
+        foreach ($node->getSubNodeNames() as $subNodeName) {
+            $subNode = $node->$subNodeName;
+
+            if ($subNode instanceof Node) {
+                $node->$subNodeName = $this->transformDBInNode($subNode, $outputVarName);
+            } elseif (is_array($subNode)) {
+                foreach ($subNode as $k => $item) {
+                    if ($item instanceof Node) {
+                        $subNode[$k] = $this->transformDBInNode($item, $outputVarName);
+                    }
+                }
+                $node->$subNodeName = $subNode;
+            }
+        }
+
+        return $node;
+    }
+
+    /**
+     * Check if StaticCall is DB::alteration_message
+     */
+    private function isDBAlterationMessage(StaticCall $staticCall): bool
+    {
+        if (! $staticCall->name instanceof Identifier) {
+            return false;
+        }
+
+        if ($staticCall->name->toString() !== 'alteration_message') {
+            return false;
+        }
+
+        if ($staticCall->class instanceof Name) {
+            $className = $staticCall->class->toString();
+            return $className === 'DB' || $className === 'SilverStripe\\ORM\\DB';
+        }
+
+        return false;
+    }
+
+    /**
+     * Create $output->writeln() call with appropriate tag
+     *
+     * Maps Silverstripe DB::alteration_message types to Symfony Console output tags:
+     * - SS5: created, changed, repaired, obsolete, deleted, error (per DB.php @param doc)
+     * - Symfony: error, info, comment, question (standard tags)
+     *
+     * Mapping rationale:
+     * - error → error (exact match)
+     * - created → info (success/positive action)
+     * - changed/repaired → comment (modification/warning level)
+     * - obsolete/deleted → comment (deprecation/removal notice)
+     * - no type → plain text (no formatting)
+     */
+    private function createWritelnCall(StaticCall $staticCall, string $outputVarName): MethodCall
+    {
+        $args = $staticCall->args;
+        $message = $args[0]->value ?? new String_('');
+        $type = isset($args[1]) ? $args[1]->value : null;
+
+        // Map Silverstripe alteration_message type to Symfony Console tag
+        $tag = match (true) {
+            $type instanceof String_ && $type->value === 'error' => 'error',
+            $type instanceof String_ && $type->value === 'created' => 'info',
+            $type instanceof String_ && in_array($type->value, ['changed', 'repaired', 'obsolete', 'deleted']) => 'comment',
+            default => null,
+        };
+
+        // Wrap message with tag if needed
+        if ($tag !== null && $message instanceof String_) {
+            // Create new string with tags but preserve original string kind (single/double quotes)
+            $newString = new String_("<{$tag}>{$message->value}</{$tag}>");
+            $newString->setAttribute('kind', $message->getAttribute('kind', String_::KIND_SINGLE_QUOTED));
+            $message = $newString;
+        } elseif ($tag !== null) {
+            // If message is not a simple string (e.g., variable), we need to concatenate
+            $message = new Concat(
+                new Concat(
+                    new String_("<{$tag}>"),
+                    $message
+                ),
+                new String_("</{$tag}>")
+            );
+        }
+        // else: no tag, pass message as-is (preserves original quotes)
+
+        return new MethodCall(
+            new Variable($outputVarName),
+            new Identifier('writeln'),
+            [new Arg($message)]
+        );
     }
 
     private function createGetOptionsMethod(array $options): ClassMethod
