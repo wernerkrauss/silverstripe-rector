@@ -13,6 +13,7 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar\String_;
@@ -94,6 +95,11 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
+        // Skip classes not extending another
+        if (! $node->extends instanceof Name) {
+            return null;
+        }
+
         if (!$this->isObjectType($node, new ObjectType('SilverStripe\Dev\BuildTask')) &&
             !$this->isName($node->extends, 'SilverStripe\Dev\BuildTask') &&
             !$this->isName($node->extends, 'BuildTask')
