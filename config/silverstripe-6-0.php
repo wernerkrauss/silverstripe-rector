@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Netwerkstatt\SilverstripeRector\Rector\Misc\ForTemplateToReturnStringRector;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\ConstFetch\RenameConstantRector;
@@ -131,4 +132,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(RenameClassConstFetchRector::class, [
         new RenameClassAndConstFetch('SilverStripe\Admin\LeftAndMain', 'SCHEMA_HEADER', 'SilverStripe\Forms\Schema\FormSchema', 'SCHEMA_HEADER'),
     ]);
+    $rectorConfig->rule(ForTemplateToReturnStringRector::class);
 };
