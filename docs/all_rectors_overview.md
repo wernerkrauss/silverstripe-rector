@@ -1,10 +1,10 @@
-# 9 Rules Overview
+# 10 Rules Overview
 
 <br>
 
 ## Categories
 
-- [Rector](#rector) (9)
+- [Rector](#rector) (10)
 
 <br>
 
@@ -163,6 +163,22 @@ Renames ->addFieldsToTab($name, `$singleField)` to ->addFieldToTab($name, `$sing
 -        $fields->addFieldsToTab('Root.Main', $myfield);
 +        $fields->addFieldToTab('Root.Main', $myfield);
      }
+ }
+```
+
+<br>
+
+### ReplaceHasCurrWithCurrRector
+
+Replace `Controller::has_curr()` with `Controller::curr()` !== null
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Control\ReplaceHasCurrWithCurrRector`](../src/Rector/Control/ReplaceHasCurrWithCurrRector.php)
+
+```diff
+ use SilverStripe\Control\Controller;
+-if (Controller::has_curr()) {
++if (Controller::curr() !== null) {
+     // ...
  }
 ```
 

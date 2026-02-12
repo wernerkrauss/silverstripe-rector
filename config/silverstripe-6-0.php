@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Netwerkstatt\SilverstripeRector\Rector\Control\ReplaceHasCurrWithCurrRector;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\ConstFetch\RenameConstantRector;
@@ -128,6 +129,7 @@ return static function (RectorConfig $rectorConfig): void {
         new MethodCallRename('SilverStripe\Model\List\ListDecorator', 'TotalItems', 'getTotalItems'),
         new MethodCallRename('SilverStripe\Model\List\PaginatedList', 'TotalItems', 'getTotalItems'),
     ]);
+    $rectorConfig->rule(ReplaceHasCurrWithCurrRector::class);
     $rectorConfig->ruleWithConfiguration(RenameClassConstFetchRector::class, [
         new RenameClassAndConstFetch('SilverStripe\Admin\LeftAndMain', 'SCHEMA_HEADER', 'SilverStripe\Forms\Schema\FormSchema', 'SCHEMA_HEADER'),
     ]);
