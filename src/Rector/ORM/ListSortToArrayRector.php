@@ -22,7 +22,7 @@ class ListSortToArrayRector extends AbstractRector implements DocumentedRuleInte
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Translates Silverstripe ORM sort() calls from string notation to array notation.',
+            'Code Style: Translates Silverstripe ORM sort() calls from string notation to array notation.',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

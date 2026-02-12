@@ -12,7 +12,7 @@
 
 ### AddConfigPropertiesRector
 
-Adds `@config` property to predefined private statics, e.g. `$db` or `$allowed_actions`
+Code Style: Adds `@config` property to predefined private statics, e.g. `$db` or `$allowed_actions`
 
 :wrench: **configure it!**
 
@@ -32,7 +32,7 @@ Adds `@config` property to predefined private statics, e.g. `$db` or `$allowed_a
 
 ### DataObjectGetByIdToByIDRector
 
-Changes DataObject::get_by_id('ClassName', `$id)` to `ClassName::get()->byID($id)`
+Code Style: Changes DataObject::get_by_id('ClassName', `$id)` to `ClassName::get()->byID($id)`
 
 - class: [`Netwerkstatt\SilverstripeRector\Rector\DataObject\DataObjectGetByIdToByIDRector`](../src/Rector/DataObject/DataObjectGetByIdToByIDRector.php)
 
@@ -45,7 +45,7 @@ Changes DataObject::get_by_id('ClassName', `$id)` to `ClassName::get()->byID($id
 
 ### EnsureTableNameIsSetRector
 
-DataObject subclasses must have "$table_name" defined
+Silverstripe 4.0: DataObject subclasses must have "$table_name" defined
 
 - class: [`Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector`](../src/Rector/DataObject/EnsureTableNameIsSetRector.php)
 
@@ -62,7 +62,7 @@ DataObject subclasses must have "$table_name" defined
 
 ### ListFilterToArrayRector
 
-Translates Silverstripe ORM `filter()` and similar calls from string notation to array notation.
+Code Style: Translates Silverstripe ORM `filter()` and similar calls from string notation to array notation.
 
 - class: [`Netwerkstatt\SilverstripeRector\Rector\ORM\ListFilterToArrayRector`](../src/Rector/ORM/ListFilterToArrayRector.php)
 
@@ -81,7 +81,7 @@ Translates Silverstripe ORM `filter()` and similar calls from string notation to
 
 ### ListSortToArrayRector
 
-Translates Silverstripe ORM `sort()` calls from string notation to array notation.
+Code Style: Translates Silverstripe ORM `sort()` calls from string notation to array notation.
 
 - class: [`Netwerkstatt\SilverstripeRector\Rector\ORM\ListSortToArrayRector`](../src/Rector/ORM/ListSortToArrayRector.php)
 
@@ -98,7 +98,7 @@ Translates Silverstripe ORM `sort()` calls from string notation to array notatio
 
 ### ParentClassToTraitsRector
 
-Replace specific parent classes with traits and remove extends
+Silverstripe 4.0: Replace specific parent classes with traits and remove extends
 
 :wrench: **configure it!**
 
@@ -124,7 +124,7 @@ Replace specific parent classes with traits and remove extends
 
 ### PropertyFetchToMethodCallRector
 
-Replace specific property fetches with method calls
+Code Style: Replace specific property fetches with method calls
 
 :wrench: **configure it!**
 
@@ -151,7 +151,7 @@ Replace specific property fetches with method calls
 
 ### RenameAddFieldsToTabWithoutArrayParamRector
 
-Renames ->addFieldsToTab($name, `$singleField)` to ->addFieldToTab($name, `$singleField)`
+Silverstripe 5.3: Renames ->addFieldsToTab($name, `$singleField)` to ->addFieldToTab($name, `$singleField)`
 
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\RenameAddFieldsToTabWithoutArrayParamRector`](../src/Rector/Misc/RenameAddFieldsToTabWithoutArrayParamRector.php)
 
@@ -170,7 +170,7 @@ Renames ->addFieldsToTab($name, `$singleField)` to ->addFieldToTab($name, `$sing
 
 ### ReplaceHasCurrWithCurrRector
 
-Replace `Controller::has_curr()` with `Controller::curr()` !== null
+Silverstripe 6.0: Replace `Controller::has_curr()` with `Controller::curr()` !== null
 
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Control\ReplaceHasCurrWithCurrRector`](../src/Rector/Control/ReplaceHasCurrWithCurrRector.php)
 
@@ -186,7 +186,7 @@ Replace `Controller::has_curr()` with `Controller::curr()` !== null
 
 ### UseCreateRector
 
-Change new Object to static call for classes that use Injectable trait
+Code Style: Change new Object to static call for classes that use Injectable trait
 
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Injector\UseCreateRector`](../src/Rector/Injector/UseCreateRector.php)
 

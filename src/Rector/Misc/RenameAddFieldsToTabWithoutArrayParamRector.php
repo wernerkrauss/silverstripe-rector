@@ -19,7 +19,7 @@ final class RenameAddFieldsToTabWithoutArrayParamRector extends AbstractRector i
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Renames ->addFieldsToTab($name, $singleField) to ->addFieldToTab($name, $singleField)',
+            'Silverstripe 5.3: Renames ->addFieldsToTab($name, $singleField) to ->addFieldToTab($name, $singleField)',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

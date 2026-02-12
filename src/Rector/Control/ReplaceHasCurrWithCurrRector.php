@@ -25,7 +25,7 @@ final class ReplaceHasCurrWithCurrRector extends AbstractRector implements Docum
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Replace Controller::has_curr() with Controller::curr() !== null',
+            'Silverstripe 6.0: Replace Controller::has_curr() with Controller::curr() !== null',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

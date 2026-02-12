@@ -65,7 +65,8 @@ class ListFilterToArrayRector extends AbstractRector implements DocumentedRuleIn
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Translates Silverstripe ORM filter() and similar calls from string notation to array notation.',
+            'Code Style: Translates Silverstripe ORM filter() and similar calls from string notation to array ' .
+            'notation.',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

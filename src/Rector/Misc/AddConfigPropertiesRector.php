@@ -130,7 +130,7 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Adds @config property to predefined private statics, e.g. $db or $allowed_actions',
+            'Code Style: Adds @config property to predefined private statics, e.g. $db or $allowed_actions',
             [
                 new ConfiguredCodeSample(
                     <<<'CODE_SAMPLE'

@@ -42,7 +42,7 @@ final class ParentClassToTraitsRector extends AbstractRector implements
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Replace specific parent classes with traits and remove extends',
+            'Silverstripe 4.0: Replace specific parent classes with traits and remove extends',
             [
                 new ConfiguredCodeSample(
                     <<<'PHP'

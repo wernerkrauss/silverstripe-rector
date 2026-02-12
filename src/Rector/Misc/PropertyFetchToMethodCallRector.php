@@ -46,7 +46,7 @@ final class PropertyFetchToMethodCallRector extends AbstractRector implements
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Replace specific property fetches with method calls',
+            'Code Style: Replace specific property fetches with method calls',
             [
                 new ConfiguredCodeSample(
                     <<<'PHP'

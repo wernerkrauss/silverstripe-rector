@@ -22,7 +22,7 @@ class DataObjectGetByIdToByIDRector extends AbstractRector implements Documented
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Changes DataObject::get_by_id(\'ClassName\', $id) to ClassName::get()->byID($id)',
+            'Code Style: Changes DataObject::get_by_id(\'ClassName\', $id) to ClassName::get()->byID($id)',
             [
                 new CodeSample(
                     'DataObject::get_by_id(\'MyPage\', $id);',

@@ -29,8 +29,10 @@ class UseCreateRector extends AbstractRector implements DocumentedRuleInterface
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Change new Object to static call for classes that use Injectable trait', [
-            new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Code Style: Change new Object to static call for classes that use Injectable trait',
+            [
+                new CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -49,7 +51,8 @@ class SomeClass
 }
 CODE_SAMPLE
             )
-        ]);
+            ]
+        );
     }
 
     /**

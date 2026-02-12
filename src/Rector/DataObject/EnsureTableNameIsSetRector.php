@@ -21,7 +21,7 @@ final class EnsureTableNameIsSetRector extends AbstractRector implements Documen
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'DataObject subclasses must have "$table_name" defined',
+            'Silverstripe 4.0: DataObject subclasses must have "$table_name" defined',
             [
                 new CodeSample(<<<'CODE_SAMPLE'
 class SomeClass extends \SilverStripe\ORM\DataObject

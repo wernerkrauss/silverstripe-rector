@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Updated documentation to include Silverstripe version or setlist in rule descriptions.
 - Added `ReplaceHasCurrWithCurrRector` to replace `Controller::has_curr()` with `Controller::curr() !== null` for Silverstripe 6.
 
 ## [1.2] - 2026-01-28
