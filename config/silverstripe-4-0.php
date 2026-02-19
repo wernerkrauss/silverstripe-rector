@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Netwerkstatt\SilverstripeRector\Rector\Config\StatToConfigGetRector;
 use Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector;
 use Netwerkstatt\SilverstripeRector\Rector\Misc\ParentClassToTraits;
 use Netwerkstatt\SilverstripeRector\Rector\Misc\ParentClassToTraitsRector;
@@ -9,6 +10,7 @@ use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(EnsureTableNameIsSetRector::class);
+    $rectorConfig->rule(StatToConfigGetRector::class);
 
     //pre 4.0
     $object_traits = [

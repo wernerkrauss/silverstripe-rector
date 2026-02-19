@@ -1,10 +1,12 @@
 <?php
 
-namespace SilverStripe\ORM;
-if (class_exists('SilverStripe\ORM\DataObject')) {
+namespace SilverStripe\Core\Config;
+
+if (trait_exists('SilverStripe\Core\Config\Configurable')) {
     return;
 }
-class DataObject
+
+trait Configurable
 {
     /**
      * @param string $name

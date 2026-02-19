@@ -1,10 +1,10 @@
-# 10 Rules Overview
+# 11 Rules Overview
 
 <br>
 
 ## Categories
 
-- [Rector](#rector) (10)
+- [Rector](#rector) (11)
 
 <br>
 
@@ -179,6 +179,24 @@ Silverstripe 6.0: Replace `Controller::has_curr()` with `Controller::curr()` !==
 -if (Controller::has_curr()) {
 +if (Controller::curr() !== null) {
      // ...
+ }
+```
+
+<br>
+
+### StatToConfigGetRector
+
+Silverstripe 4.0: Replace `$this->stat('foo')` with `static::config()->get('foo')`
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Config\StatToConfigGetRector`](../src/Rector/Config/StatToConfigGetRector.php)
+
+```diff
+ class MyClass {
+     use \SilverStripe\Core\Config\Configurable;
+     public function myMethod() {
+-        $this->stat('foo');
++        static::config()->get('foo');
+     }
  }
 ```
 
