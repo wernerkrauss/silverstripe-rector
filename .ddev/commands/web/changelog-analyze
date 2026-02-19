@@ -1,0 +1,39 @@
+#!/bin/bash
+## Description: Analyze downloaded Silverstripe changelogs and generate TODO lists
+## Usage: changelog-analyze [version|all] (e.g. 5.3.0, 6.1.0, all)
+## Example: ddev changelog-analyze all
+
+set -e
+
+ANALYZE_VERSION=$1
+
+analyze_file() {
+    local FILE=$1
+    if [ -f "$FILE" ]; then
+        php scripts/internal/analyze_changelog.php "$FILE"
+    else
+        echo "Error: File $FILE not found."
+    fi
+}
+
+if [ "$ANALYZE_VERSION" == "all" ]; then
+    echo "Analyzing all downloaded changelogs..."
+    for f in .changelogs/ss-*.html; do
+        if [ -e "$f" ]; then
+            analyze_file "$f"
+        fi
+    done
+elif [ -n "$ANALYZE_VERSION" ]; then
+    FILE=".changelogs/ss-${ANALYZE_VERSION}.html"
+    if [ ! -f "$FILE" ]; then
+        echo "Error: Changelog file for ${ANALYZE_VERSION} not found at ${FILE}."
+        echo "Please run 'ddev changelog-sync ${ANALYZE_VERSION}' first."
+        exit 1
+    fi
+    analyze_file "$FILE"
+else
+    echo "Usage: ddev changelog-analyze <version|all>"
+    echo "Available downloaded changelogs:"
+    ls .changelogs/ss-*.html 2>/dev/null | sed 's/\.html//g' | sed 's/ss-//g'
+    exit 1
+fi

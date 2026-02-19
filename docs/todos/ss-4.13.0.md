@@ -1,0 +1,47 @@
+# Silverstripe 4.13.0 Rector TODOs
+
+Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/4/changelogs/4.13.0/#api-changes)
+
+- [ ] [DEPRECATED] Deprecated class CWP\CWP\Extensions\CwpSiteSummaryExtension Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated class DNADesign\Elemental\TopPage\TestState Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated method DNADesign\Elemental\TopPage\DataExtension::getTopPageUpdate() Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated method DNADesign\Elemental\TopPage\DataExtension::enableTopPageUpdate() Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated method DNADesign\Elemental\TopPage\DataExtension::disableTopPageUpdate() Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated method DNADesign\Elemental\TopPage\DataExtension::withTopPageUpdate() Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated class SilverStripe\CMS\Tasks\RemoveOrphanedPagesTask Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated class SilverStripe\CMS\Tasks\MigrateSiteTreeLinkingTask Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated class SilverStripe\CMS\Tasks\SiteTreeMaintenanceTask Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated class SilverStripe\CMS\Controllers\SilverStripeNavigatorItem_Unversioned Will be renamed SilverStripe\Admin\Navigator\SilverStripeNavigatorItem_Unversioned
+- [ ] [DEPRECATED] Deprecated class SilverStripe\CMS\Controllers\SilverStripeNavigatorItem_StageLink Will be renamed SilverStripe\VersionedAdmin\Navigator\SilverStripeNavigatorItem_StageLink
+- [ ] [DEPRECATED] Deprecated class SilverStripe\CMS\Controllers\SilverStripeNavigator Will be renamed SilverStripe\Admin\Navigator\SilverStripeNavigator
+- [ ] [DEPRECATED] Deprecated class SilverStripe\CMS\Controllers\SilverStripeNavigatorItem_LiveLink Will be renamed SilverStripe\VersionedAdmin\Navigator\SilverStripeNavigatorItem_LiveLink
+- [ ] [DEPRECATED] Deprecated class SilverStripe\CMS\Controllers\SilverStripeNavigatorItem_ArchiveLink Will be renamed SilverStripe\VersionedAdmin\Navigator\SilverStripeNavigatorItem_ArchiveLink
+- [ ] [DEPRECATED] Deprecated class SilverStripe\CMS\Controllers\SilverStripeNavigatorItem Will be renamed SilverStripe\Admin\Navigator\SilverStripeNavigatorItem
+- [ ] [DEPRECATED] Deprecated class SilverStripe\ORM\Map_Iterator Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated class SilverStripe\ORM\Connect\PDOConnector Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated class SilverStripe\ORM\Connect\PDOQuery Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated class SilverStripe\ORM\Connect\PDOStatementHandle Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated class SilverStripe\Dev\TestSession_STResponseWrapper Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated class SilverStripe\Dev\CSVParser Use League\Csv\Reader instead
+- [ ] [DEPRECATED] Deprecated class SilverStripe\View\Parsers\Diff Will be replaced with SilverStripe\View\Parsers\HtmlDiff
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\DataList::getGenerator() Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\Connect\Query::rewind() Will be replaced by getIterator() in CMS 5
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\Connect\Query::current() Will be replaced by getIterator() in CMS 5
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\Connect\Query::first() Will be replaced by getIterator() in CMS 5
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\Connect\Query::key() Will be replaced by getIterator() in CMS 5
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\Connect\Query::next() Will be replaced by getIterator() in CMS 5
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\Connect\Query::valid() Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\Connect\Query::nextRecord() Will be replaced by getIterator() in CMS 5
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\Connect\Query::seek() Will be replaced by getIterator() in CMS 5
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\Connect\MySQLStatement::seek() Will be replaced by getIterator() in CMS 5
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\Connect\MySQLStatement::nextRecord() Will be replaced by getIterator() in CMS 5
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\Connect\MySQLQuery::seek() Will be replaced by getIterator() in CMS 5
+- [ ] [DEPRECATED] Deprecated method SilverStripe\ORM\Connect\MySQLQuery::nextRecord() Will be replaced by getIterator() in CMS 5
+- [ ] [DEPRECATED] Deprecated method SilverStripe\Core\BaseKernel::sessionEnvironment() Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated method SilverStripe\Dev\TestMailer::saveEmail() Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated method SilverStripe\View\Parsers\Diff::cleanHTML() Will be removed without equivalent functionality
+- [ ] [DEPRECATED] Deprecated method SilverStripe\View\Parsers\Diff::compareHTML() Will be replaced with SilverStripe\View\Parsers\HtmlDiff::compareHTML()
+- [ ] [DEPRECATED] Deprecated method SilverStripe\View\Parsers\Diff::getHTMLChunks() Will be removed without equivalent functionality
+- [ ] [DEPRECATED] Deprecated method SilverStripe\Control\Email\Email::mergeConfiguredEmails() Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated method SilverStripe\Control\HTTP::get_cache_age() Will be removed without equivalent functionality to replace it
+- [ ] [DEPRECATED] Deprecated config SilverStripe\Control\Director.alternate_public_dir Will be removed without equivalent functionality to replace it

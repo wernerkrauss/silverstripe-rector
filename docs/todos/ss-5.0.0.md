@@ -1,0 +1,44 @@
+# Silverstripe 5.0.0 Rector TODOs
+
+Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/changelogs/5.0.0/#api-changes)
+
+- [ ] SecurityAdmin is a SilverStripe\Admin\ModelAdmin. Previous extension hook implementations of SecurityAdmin::updateEditForm($form) still works as the extension hook is called in ModelAdmin::getEditForm().
+- [ ] The Users, Groups and Roles tabs no longer share the /admin/security path and instead have their own dedicated paths. e.g. /admin/security/users
+- [ ] [REMOVED] isDev and isTest query string arguments have been removed due to security concerns (see ss-2018-005).
+- [ ] The updateRelativeLink() extension hook for updating the result of SiteTree::RelativeLink() has changed signature, allowing you to update the resultant link itself instead of just the component parts. If you are using this extension hook, you will need to update the method signature and logic to match. See SiteTreeExtension::updateRelativeLink() for more details.
+- [ ] The default value for the RESOURCES_DIR const has been changed to "_resources" The Library::DEFAULT_RESOURCES_DIR constant in silverstripe/vendor-plugin has been changed to match.
+- [ ] This can still be customised using extra.resources-dir in your composer.json file (see the configuring your project exposed folders documentation).
+- [ ] If your composer.json file has its extra.resources-dir key set to _resources, you can remove that now.
+- [ ] If your composer.json file already does not have an extra.resources-dir key and you want to keep your resources in the resources directory, you can set extra.resources-dir to resources.
+- [ ] If your composer.json file already does not have an extra.resources-dir key and you want to use the new default _resources directory, you may need to check that your code and templates don't assume the directory name for those resources. In your templates, it is preferred to use $resourePath() or $resourceURL() to get paths for resources.
+- [ ] The use of the public/ directory for the public web root is now mandatory. This was introduced as the default for new projects in CMS 4.1.0. If you are still not using the public/ directory as your web root, follow the instructions in the Silverstripe CMS 4.1.0 changelog.
+- [ ] The legacy file resolution strategy introduced in CMS 4.4.0 is no longer available. If you still use the legacy file resolution strategy, follow the file migration instructions and then change your file resolution configuration to match the defaults in the assets.yml file in silverstripe/installer.
+- [ ] [REMOVED] Removed the HTMLValue injection "shorthand", use the fully qualified HTMLValue instead.
+- [ ] In silverstripe/staticpublishqueue, the class SilverStripe\StaticPublishQueue\Dev\StaticPublisherState is no longer enabled by default and can be enabled via opt-in. There are opt-in instructions in the README.md of the module.
+- [ ] SiteTree no longer automatically detects the controller if the controller name is &#x3C;PageClass>_Controller - it must be &#x3C;PageClass>Controller or be declared in the SiteTree.controller_name configuration property. See Connecting Pages to ContentControllers for more details.
+- [ ] In CMS 4, email messages were sent using SwiftMailer, which has since gone End Of Life. In CMS 5, this has been replaced with symfony/mailer. symfony/mailer is the currently maintained email package from Symfony. It's a more flexible email system that allows easier integration with third-party email providers.
+- [ ] In CMS 4, the SilverStripe\Control\Email\Email class subclassed SilverStripe\View\ViewableData. In CMS 5, it subclasses Symfony\Component\Mime\Email.
+- [ ] MailTransport, which used the PHP native mail() function, is no longer present in CMS 5. This is because Symfony considers mail() to be insecure.
+- [ ] If your site has a custom email configuration e.g. SMTP configuration, this will need to be updated, as the configuration has changed from Silverstripe yml to a much more flexible and standardised DSN string. See the email documentation for more details. The configuration for email has changed completely - read the updated documentation carefully.
+- [ ] The following return types were changed on the following methods in SilverStripe\Control\Email\Email. Used to return a string, now returns an nullable Address object. getReturnPath()
+- [ ] getSender()
+- [ ] Used to return an array of strings, now returns an array of Address objects. getFrom()
+- [ ] getTo()
+- [ ] getBCC() - note - changed casing to getBcc()
+- [ ] getCC() - note - changed casing to getCc()
+- [ ] Used to return bool, now return void: send()
+- [ ] sendPlain()
+- [ ] Catch TransportExceptionInterface from Symfony Mailer to handle failure to send email.
+- [ ] Various other methods have added strong typing to parameter and return types. Also, some parameter names have changed.
+- [ ] DataList::sort() no longer accepts raw SQL. A new DataList::orderBy() method has been created which accepts raw SQL, though it's recommended to continue using DataList::sort() if possible to reduce the risk of SQL injection vulnerabilities.
+- [ ] Passing null to DataList::sort() i.e. sort(null) now clears any existing sort values on a DataList. Passing an empty string (i.e. sort('') or array i.e. sort([])) now causes an InvalidArgumentException to be thrown.
+- [ ] Prior to 5.0.0, when using SQLSelect::setFrom() or SQLSelect::create('*', $from) to set table or subselect definitions, their aliases (applied by setting a string key for the array) were being ignored. This bug has been fixed - if you were working around this by manually setting the alias e.g. in a join, you can remove those workarounds.
+- [ ] Query now implements IteratorAggregate instead of Iterator. This means seek() and other iterator methods are no longer available on this class and its subclasses. Use getIterator() instead.
+- [ ] [REMOVED] DataList, its subclasses, Map, and ArrayList all now return generators from getIterator(). This reduces memory usage when looping over large result sets. As a result of this, getGenerator() has been removed as it is no longer needed. Note that DataList::chunkedFetch() has not been removed, as it may still be useful for very large result sets to fetch results in smaller chunks at a time.
+- [ ] Limitable::limit() is now strongly typed. Calling limit() with a 0 or false length now limits the list to 0 entry. In Silverstripe CMS 4, any "falsy" value would unset the limit. To unset a list's limit in Silverstripe CMS 5, call limit() with an explicit null. This affects DataList, ArrayList and all other classes implementing Limitable. In Silverstripe CMS 4, calling SQLSelect::setLimit() with 0 as argument would unset the limit. In Silverstripe CMS 5, it sets a limit of 0 causing the query to return no results. Call setLimit() with null to unset the limit.
+- [ ] ArrayList::limit() in Silverstripe CMS 5 throws an InvalidArgumentException when called with a negative $length or $offset.
+- [ ] [REMOVED] PDO database connector support has been fully removed. Update the SS_DATABASE_CLASS environment variable to use a regular connector instead. For instance, change MySQLPDOConnector to MySQLDatabase.
+- [ ] [DEPRECATED] PHP Dynamic properties were deprecated in PHP 8.2 to minimise the confusion caused by having API that was not explicitly declared.
+- [ ] To support backwards compatibility with project and module code, the magic methods __get() and __set() on SilverStripe\View\ViewableData will simulate dynamic properties by writing values to an array stored as a private property.
+- [ ] This functionality may not work if subclasses override any of the following methods: __get(), __set(), getField(), setField(), hasField().
+- [ ] If these method overrides don't call the parent methods, they may need access to the dynamic data. The private property array that stores the values can be accessed with via the following methods: SilverStripe\View\ViewableData::getDynamicData(), SilverStripe\View\ViewableData::setDynamicData(), SilverStripe\View\ViewableData::hasDynamicData()

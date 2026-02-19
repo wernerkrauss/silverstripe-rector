@@ -1,0 +1,48 @@
+#!/bin/bash
+## Description: Sync Silverstripe changelogs from docs.silverstripe.org
+## Usage: changelog-sync [version|all] (e.g. 5.3.0, 6.1.0, all)
+## Example: ddev changelog-sync all
+
+set -e
+
+SYNC_VERSION=$1
+
+# static list of minor versions of SS4 and SS5; now new versions due to EOL
+SS4_MINORS="4.0.0 4.1.0 4.2.0 4.3.0 4.4.0 4.5.0 4.6.0 4.7.0 4.8.0 4.9.0 4.10.0 4.11.0 4.12.0 4.13.0"
+SS5_MINORS="5.0.0 5.1.0 5.2.0 5.3.0 5.4.0"
+
+get_ss6_minors() {
+    curl -s https://packagist.org/p2/silverstripe/framework.json | \
+    grep -oE '"version":"6\.[0-9]+\.0"' | cut -d'"' -f4 | sort -ur
+}
+
+sync_version() {
+    local VERSION=$1
+    local MAJOR=$(echo $VERSION | cut -d'.' -f1)
+    local URL="https://docs.silverstripe.org/en/${MAJOR}/changelogs/${VERSION}/"
+    local FILE=".changelogs/ss-${VERSION}.html"
+
+    echo "Downloading changelog for ${VERSION} from ${URL}..."
+    if curl -s -L -f "$URL" -o "$FILE"; then
+        echo "Saved to ${FILE}"
+    else
+        echo "Warning: Could not download changelog for version ${VERSION}. URL: ${URL} (Status 404?)"
+    fi
+}
+
+mkdir -p .changelogs
+
+if [ "$SYNC_VERSION" == "all" ]; then
+    echo "Syncing all minor versions..."
+    for v in $SS4_MINORS $SS5_MINORS $(get_ss6_minors); do
+        sync_version $v
+    done
+elif [ -n "$SYNC_VERSION" ]; then
+    sync_version "$SYNC_VERSION"
+else
+    echo "Usage: ddev changelog-sync <version|all>"
+    echo ""
+    echo "Available SS6 Minor versions on Packagist:"
+    get_ss6_minors
+    exit 1
+fi

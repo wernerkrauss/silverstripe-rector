@@ -1,0 +1,469 @@
+# Silverstripe 4.0.0 Rector TODOs
+
+Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/4/changelogs/4.0.0/#api-changes)
+
+- [ ] Minimum PHP version raised to 5.6 (with support for PHP 7.x)
+- [ ] [REMOVED] Dropped support for PHP safe mode (removed PHP 5.4).
+- [ ] Once PHP versions become unsupported by the PHP Project, we drop support for those versions in the next minor release This means PHP 5.6 and PHP 7.0 support will become unsupported in Dec 2018.
+- [ ] Minimum CMS browser requirement raised from Internet Explorer 8 to Internet Explorer 11
+- [ ] Updated PHPUnit from 3.7 to 4.8 (upgrade notes). Please remove any PHPUnit related require_once() calls (e.g. in FeatureContext definitions of the behat-extension module). Run composer require --dev 'phpunit/phpunit:~4.8' on existing projects to pull in the new dependency.
+- [ ] [REMOVED] always_populate_raw_post_data will now raise a deprecation warning in install.php when running in PHP 5.x, unless set to -1. This is due to $HTTP_RAW_POST_DATA being removed in PHP 7. See the PHP documentation for more information.
+- [ ] Admin URL can now be configured via custom Director routing rule
+- [ ] Controller::init visibility changed to protected. Use Controller::doInit() instead.
+- [ ] Controller::join_links supports an array of link sections.
+- [ ] [REMOVED] Object::useCustomClass has been removed. You should use the config API with Injector instead. {#object-usecustomclass}
+- [ ] Object::invokeWithExtensions now has the same method signature as Object::extend and behaves the same way.
+- [ ] ServiceConfigurationLocator is now an interface not a class.
+- [ ] i18nTextCollectorTask merge is now true by default.
+- [ ] Object has been broken up into various traits, each of which can be added to other objects independently: Configurable Provides Config API helper methods
+- [ ] Injectable Provides Injector API helper methods
+- [ ] Extensible Allows extensions to be applied
+- [ ] Convert class has extra methods for formatting file sizes in PHP ini compatible format Convert::memstring2bytes() will parse a PHP ini memory size.
+- [ ] Convert::bytes2memstring() will format the memory size with the appropriate scale.
+- [ ] [DEPRECATED] SiteTree.alternatePreviewLink is deprecated. Use updatePreviewLink instead.
+- [ ] Injector dependencies no longer automatically inherit from parent classes.
+- [ ] $action parameter to Controller::Link() method is standardised.
+- [ ] [RENAME/MOVE] Moved test database cleanup task from sake dev/tests/cleanupdb to sake dev/tasks/CleanupTestDatabasesTask
+- [ ] Injector::load given a src parameter will no longer guess the service name from the filename. Now the service name will either by the array key, or the class parameter value.
+- [ ] Uniqueness checks for File.Name is performed on write only (not in setName())
+- [ ] Created Resettable interface to better declare objects which should be reset between tests.
+- [ ] Added a server requirement for the php-intl extension (shipped by default with most PHP distributions)
+- [ ] Replaced Zend_Date and Zend_Locale with the php-intl extension.
+- [ ] Consistently use CLDR date formats (rather than a mix of CLDR and date() formats)
+- [ ] [RENAME/MOVE] Moved config into a new module: silverstripe/config. See upgrading notes below.
+- [ ] Falsey config values (null, 0, false, etc) can now replace non-falsey values.
+- [ ] Introduced new ModuleLoader manifest, which allows modules to be found via composer name. e.g. $cms = ModuleLoader::inst()->getManifest()->getModule('silverstripe/cms')
+- [ ] ClassManifest::getOwnerModule() now returns a Module object instance.
+- [ ] [RENAME/MOVE] Moved Object::parse_class_spec() to ClassInfo
+- [ ] [REMOVED] Removed create_from_spec(). Supportede by Injector natively.
+- [ ] [RENAME/MOVE] Moved Controller::Link() to parent class (RequestHandler)
+- [ ] [RENAME/MOVE] Moved Controller::redirect() to parent class (RequestHandler)
+- [ ] [RENAME/MOVE] Moved Controller::redirectBack() to parent class (RequestHandler)
+- [ ] RequestHandler::Link() now relies on the url_segment handler being provided for the class. If left unset, this will raise an error. RequestHandler::getBackURL() and getReturnReferer() have been added to safely inspect the current request to see if there is a URL to redirect back to.
+- [ ] [RENAME/MOVE] Renamed LeftAndMain_TreeNode to CMSMain_TreeNode
+- [ ] [REMOVED] Removed LeftAndMain::SiteTreeAsUL() (override left in CMSMain)
+- [ ] [DEPRECATED] Removed LeftAndMain::setApplicationLink() (Deprecated from 3.x)
+- [ ] [DEPRECATED] Removed LeftAndMain::setApplicationName() (Deprecated from 3.x)
+- [ ] [RENAME/MOVE] Moved LeftAndMain::getSiteTreeFor() to CMSMain
+- [ ] [RENAME/MOVE] Moved LeftAndMain::getsubtree() to CMSMain
+- [ ] [RENAME/MOVE] Moved LeftAndMain::updatetreenodes() to CMSMain
+- [ ] [RENAME/MOVE] Moved LeftAndMain::savetreenodes() to CMSMain
+- [ ] [RENAME/MOVE] Renamed LeftAndMain::EditorToolbar() to Modals(). Returns a ModalController handler instance rather than a HTMLEditorField_Toolbar
+- [ ] [REMOVED] Removed Director::$dev_servers and Director::$test_servers
+- [ ] [REMOVED] Removed Director::$urlParams and Director::setUrlParams()
+- [ ] [REMOVED] Removed Director.alternate_host. Use Director.alternate_base_url instead.
+- [ ] [REMOVED] Removed Director.alternate_protocol. Use Director.alternate_base_url instead.
+- [ ] [REMOVED] 'BlockUntrustedIPS' env setting has been removed. All IPs are untrusted unless SS_TRUSTED_PROXY_IPS is set to '*' See Environment Management docs for full details.
+- [ ] SS_TRUSTED_PROXY_HOST_HEADER, SS_TRUSTED_PROXY_PROTOCOL_HEADER, and SS_TRUSTED_PROXY_IP_HEADER are no longer supported. These settings should go into the Injector service configuration for TrustedProxyMiddleware instead.
+- [ ] [REMOVED] Removed SS_HOST environment constant. Use SS_BASE_URL instead.
+- [ ] Member::canLogIn() now returns boolean. Use Member::validateCanLogin() to get a ValidationResult
+- [ ] [RENAME/MOVE] Moved Security::has_default_admin to DefaultAdminService::hasDefaultAdmin()
+- [ ] [RENAME/MOVE] Moved Security::check_default_admin to DefaultAdminService::isDefaultAdminCredentials()
+- [ ] [RENAME/MOVE] Moved Security::default_admin_torname to DefaultAdminService::getDefaultAdminUsername()
+- [ ] [RENAME/MOVE] Moved Security::default_admin_password to DefaultAdminService::getDefaultAdminPassword()
+- [ ] [RENAME/MOVE] Moved Security::setDefaultAdmin to DefaultAdminService::setDefaultAdmin()
+- [ ] [RENAME/MOVE] Moved Security::clearDefaultAdmin to DefaultAdminService::clearDefaultAdmin()
+- [ ] [RENAME/MOVE] Moved Security::findAnAdministrator to DefaultAdminService::findOrCreateDefaultAdmin()
+- [ ] [DEPRECATED] Deprecated Member::checkPassword(). Use Authenticator::checkPassword() instead
+- [ ] [DEPRECATED] Deprecated RequestFilter. Use HTTPMiddleware instead.
+- [ ] [REMOVED] Changed RequestFilter: The $session and $dataModel variables removed from preRequest / postRequest.
+- [ ] Extension instances are now singletons and no longer are constructed once per extended object. See the 'Upgrade extensions to work as singletons' section on this page for more information.
+- [ ] [REMOVED] Removed ConfigureFromEnv.php
+- [ ] [REMOVED] Changed Session object to avoid static access (Session::inst()). Use it from the current request via $request->getSession() instead. All static methods have been removed, and the inst_ prefix removed from all instance members.
+- [ ] Director.rules config no longer support redirect:&#x3C;url> directly via config.
+- [ ] [REMOVED] Removed Director::get_environment_type() and Director::set_environment_type(). Get the Kernel instance via injector and query getEnvironment() instead. (e.g. $type = Injector::inst()->get(Kernel::class)->getEnvironment())
+- [ ] [REMOVED] Removed Director.environment_type to configure the environment via YAML. Use a .env file to manage environment settings.
+- [ ] [REMOVED] Removed increase_xdebug_nesting_level_to() (functionality has been inlined into AppKernel)
+- [ ] [RENAME/MOVE] Moved set_increase_time_limit_max() to Environment::setTimeLimitMax()
+- [ ] [RENAME/MOVE] Moved get_increase_time_limit_max() to Environment::getTimeLimitMax()
+- [ ] [RENAME/MOVE] Moved set_increase_memory_limit_max() to Environment::setMemoryLimitMax()
+- [ ] [RENAME/MOVE] Moved get_increase_memory_limit_max() to Environment::getMemoryLimitMax()
+- [ ] [RENAME/MOVE] Moved increase_time_limit_to() to Environment::increaseTimeLimitTo()
+- [ ] [RENAME/MOVE] Moved increase_memory_limit_to() to Environment::increaseMemoryLimitTo()
+- [ ] [RENAME/MOVE] Moved translate_memstring() to Convert::memstring2bytes.
+- [ ] [RENAME/MOVE] Moved getTempFolder() to TempFolder::getTempFolder()
+- [ ] [REMOVED] Removed getTempParentFolder()
+- [ ] [REMOVED] Removed getTempFolderUsername()
+- [ ] [REMOVED] Removed CMSMain::buildbrokenlinks()
+- [ ] [REMOVED] Removed Injector::unregisterAllObjects(). Use unregisterObjects to unregister groups of objects limited by type instead.
+- [ ] [REMOVED] Removed SS_Log. Use Injector::inst()->get(LoggerInterface::class) instead.
+- [ ] [REMOVED] Removed CMSBatchAction_Delete
+- [ ] [REMOVED] Removed CMSBatchAction_DeleteFromLive
+- [ ] [REMOVED] Removed CMSMain.enabled_legacy_actions config.
+- [ ] CMSmain.getCMSTreeTitle is now ignored on extensions. Use updateCMSTreeTitle in extensions instead.
+- [ ] [REMOVED] Removed ability to run tests via web requests (http://mydomain.com/dev/tests), use the standard CLI command instead (vendor/bin/phpunit).
+- [ ] [REMOVED] Removed dev/jstests/ controller
+- [ ] [REMOVED] Removed TestRunner and JSTestRunner
+- [ ] [REMOVED] Removed PhpUnitWrapper, PhpUnitWrapper_3_4, PhpUnitWrapper_3_5, PhpUnitWrapper_Generic, SapphireTestSuite APIs
+- [ ] [REMOVED] Removed SapphireTestReporter and CliTestReporter
+- [ ] [REMOVED] Removed SapphireTest::skipTest(), use markTestSkipped() in a setUp() method instead
+- [ ] [REMOVED] debugmethods querystring argument has been removed from debugging.
+- [ ] [RENAME/MOVE] Moved ErrorPage into a new module: silverstripe/errorpage. See upgrading notes in that module.
+- [ ] [REMOVED] Removed VirtualPage_Controller. Virtual pages will now share whichever controller the “target” page uses
+- [ ] [REMOVED] Removed Config_LRU
+- [ ] [REMOVED] Removed SilverStripeInjectionCreator
+- [ ] [REMOVED] Removed i18n::get_translatable_modules method.
+- [ ] [REMOVED] Removed i18nTextCollector_Writer_Php
+- [ ] i18nTextCollector no longer collects from themes/&#x3C;theme> root dir. Modules which provide themes via &#x3C;moduleName>/themes/&#x3C;theme> are now preferred.
+- [ ] [REMOVED] Removed i18nSSLegacyAdapter
+- [ ] [REMOVED] Removed FunctionalTest::stat()
+- [ ] [REMOVED] Removed LeftAndMainMarkingFilter
+- [ ] [REMOVED] Removed Controller::getFormOwner()
+- [ ] [REMOVED] Removed TeamCityListener
+- [ ] [REMOVED] Removed the Spyc YAML library. Please load it yourself, or use the included Symfony YAML component.
+- [ ] [REMOVED] Removed RestfulService. Use Guzzle instead (details)
+- [ ] [REMOVED] Removed Oembed in favour of a oscarotero/Embed
+- [ ] [REMOVED] Removed TextParser and BBCodeParser. These are available in an archived module, silverstripe-archive/bbcodeparser
+- [ ] [REMOVED] Removed ViewableData::ThemeDir. Use ThemeResourceLoader::findThemedResource in conjunction with SSViewer::get_themes instead.
+- [ ] [REMOVED] Removed Config::FIRST_SET and Config::INHERITED
+- [ ] [REMOVED] Removed RequestHandler.require_allowed_actions. This is now fixed to on and cannot be disabled.
+- [ ] [REMOVED] Removed ClassManifest::getModules(). Use ModuleLoader instead
+- [ ] [REMOVED] Removed ClassManifest::getConfigDirs(). Use ModuleLoader instead
+- [ ] [REMOVED] Removed ClassManifest::getConfigs(). Use ModuleLoader instead
+- [ ] [REMOVED] Removed Session::set_config() and Session::get_config(). Use the Session.timeout config setting instead
+- [ ] [REMOVED] Removed Security::set_login_recording() and Security::get_login_recording(). Use the Security.login_recording config setting instead.
+- [ ] [REMOVED] Removed ModelAsController::find_old_page(). Use OldPageRedirector::find_old_page() instead
+- [ ] [REMOVED] Removed RootURLController:set_default_homepage_link() and RootURLController::get_default_homepage_link(). Use the RootURLController.default_homepage_link config setting instead.
+- [ ] [REMOVED] Removed CreditCardField, CountryDropdownField, PhoneNumberField, MemberDatetimeOptionsetField, InlineFormAction. Use custom code instead
+- [ ] [REMOVED] Removed ResetFormAction, use FormAction::create()->setAttribute('type', 'reset') instead
+- [ ] [RENAME/MOVE] Injector now complies with PSR-11. Accordingly, hasService() has been renamed to has(), and get() will throw SilverStripe\Core\Injector\InjectorNotFoundException when the service can't be found.
+- [ ] [REMOVED] Removed CustomMethods::createMethod(). Use closures instead.
+- [ ] [REMOVED] Removed Extension::$ownerBaseClass property. You should use $this->owner->baseClass() instead. The second argument of Extension::setOwner() has also been removed.
+- [ ] [DEPRECATED] Deprecated ClassInfo::baseDataClass(). Use DataObject::getSchema()->baseDataClass() instead.
+- [ ] [DEPRECATED] Deprecated ClassInfo::table_for_object_field(). Use DataObject::getSchema()->tableForField() instead
+- [ ] [DEPRECATED] Deprecated Config::inst()->update(). Use Config::modify()->set() or Config::modify()->merge() instead.
+- [ ] [DEPRECATED] Deprecated SQLQuery in favour SQLSelect (details)
+- [ ] Added DataObject.many_many 'through' relationships now support join dataobjects in place of automatically generated join tables. See the [/developer_guides/relations](datamodel relationship docs) for more info.
+- [ ] Added DataList::filter() by null now internally generates "IS NULL" or "IS NOT NULL" conditions appropriately on queries.
+- [ ] Changed DataObject constructor to require an additional parameter, which must be included in subclasses.
+- [ ] DataObject::db now returns composite fields.
+- [ ] DataObject::ClassName field has been refactored into a DBClassName type field (instead of a string).
+- [ ] DataObject::can() has new method signature with $context parameter.
+- [ ] DataObject::duplicate() now requires explicit flag to duplicate belongs_many_many (off by default), but now works with unsaved relations. By default only many_many are duplicated.
+- [ ] HTMLText no longer enables shortcodes by default. Two injector aliases have been created for this class which can be used to select the correct behaviour. Use HTMLText for shortcodes enabled, and HTMLFragment without shortcodes enabled (the new default).
+- [ ] [RENAME/MOVE] Renamed String::NoHTML() to Plain()
+- [ ] [REMOVED] Removed String::LimitWordCountXML(). Use LimitWordCount() instead.
+- [ ] [REMOVED] Removed String::BigSummary(). Use Summary() instead.
+- [ ] Changed HTMLText limit methods to operate on plain text rather than attempt to manipulate the underlying HTML.
+- [ ] FormField::Title() and FormField::RightTitle() are now cast as plain text by default (but can be overridden).
+- [ ] [RENAME/MOVE] Renamed FormField#createTag() to FormField::create_tag()
+- [ ] Hierarchy class has had much of it's functionality refactored out into MarkedSet: isMarked()
+- [ ] isTreeOpened()
+- [ ] isExpanded()
+- [ ] markByID()
+- [ ] markPartialTree()
+- [ ] markExpanded()
+- [ ] markUnexpanded()
+- [ ] markToExpose()
+- [ ] markClosed()
+- [ ] markOpened()
+- [ ] markedNodeIDs()
+- [ ] getChildrenAsUL() replaced with renderChildren(), which now takes a template name.
+- [ ] markingFilterMatches() (and made protected)
+- [ ] markChildren() (and made protected)
+- [ ] Search filter classes (e.g. ExactMatchFilter) are now registered with Injector via a new DataListFilter. prefix convention. see search filter documentation for more information.
+- [ ] [RENAME/MOVE] Permission::flush_permission_cache() renamed to reset() and added to Resettable interface.
+- [ ] Changed Versioned constructor now only allows a single string to declare whether staging is enabled or not. The number of names of stages are no longer able to be specified. See below for upgrading notes for models with custom stages.
+- [ ] [RENAME/MOVE] Renamed Versioned::reading_stage() to set_stage() (throws an error if setting an invalid stage)
+- [ ] [RENAME/MOVE] Renamed Versioned::current_stage() to get_stage()
+- [ ] [REMOVED] Removed Versioned::getVersionedStages()
+- [ ] [REMOVED] Removed Versioned::get_live_stage(). Use the Versioned::LIVE constant instead.
+- [ ] [REMOVED] Removed Versioned::getDefaultStage(). Use the Versioned::DRAFT constant instead.
+- [ ] Changed Versioned::$versionableExtensions from private static to protected static
+- [ ] Added Versioned::hasStages() to check if an object has a given stage.
+- [ ] Added Versioned::stageTable() to get the table for a given class and stage.
+- [ ] [REMOVED] Any extension declared via versionableExtensions config on Versioned dataobject must now VersionableExtension interface at a minimum. Translatable has been removed from default versionableExtensions
+- [ ] The default CMS delete behaviour for versioned dataobjects is now to delete from both draft and live stages, and to save to the archive. There is no longer a separate "Archive" action.
+- [ ] Any writes to versioned dataobjects (in either Draft or Live) will always write to the draft (main) table as a source of truth. This means that records created in Live mode will always be available to the CMS and in draft mode.
+- [ ] [RENAME/MOVE] _versions suffixed tables are now renamed to _Versions. This fix will be automatically applied during dev/build.
+- [ ] A lot of standard versioned API has been refactored from SiteTree into Versioned extension.
+- [ ] All versioned DataObjects have canPublish(), canArchive(), canUnpublish() permission checks
+- [ ] All versioned Dataobjects have doPublish(), doArchive(), doPublish(), and doUnpublish() actions. However, do*() methods will no longer automatically check can*() permissions, and must be done by usercode before invocation.
+- [ ] [RENAME/MOVE] Moved SiteTree::getIsAddedToStage() to Versioned::isOnDraftOnly()
+- [ ] [RENAME/MOVE] Moved SiteTree::getIsModifiedOnStage() to Versioned::isModifiedOnDraft()
+- [ ] [RENAME/MOVE] Moved SiteTree::isPublished() to Versioned.
+- [ ] [RENAME/MOVE] Renamed SiteTree::getExistsOnLive() to isPublished()
+- [ ] Added Versioned::isOnDraft()
+- [ ] Added Versioned::isArchived()
+- [ ] Added Versioned::isOnLiveOnly()
+- [ ] Added ChangeSet and ChangeSetItem for batch publishing of versioned dataobjects.
+- [ ] Added DataObject.table_name config to customise the database table for any record.
+- [ ] Added DataObjectSchema class to assist with mapping between classes and tables.
+- [ ] Changed DataObject.indexes to use columns instead of value to define index contents.
+- [ ] Changed Money to treat values as empty only if Amount field is null. If an Amount value is provided without a Currency specified, it will be formatted as per the current locale.
+- [ ] [REMOVED] Removed DatabaseAdmin#clearAllData(). Use DB::get_conn()->clearAllData() instead
+- [ ] [RENAME/MOVE] Moved SapphireTest temp DB methods into a new TempDatabase class. This allows applications to create temp databases when not running tests.
+- [ ] [RENAME/MOVE] Moved SapphireTest::using_temp_db() to TempDatabase->isUsed()
+- [ ] [RENAME/MOVE] Moved SapphireTest::kill_temp_db() to TempDatabase->kill()
+- [ ] [RENAME/MOVE] Moved SapphireTest::empty_temp_db() to TempDatabase->clearAllData()
+- [ ] [RENAME/MOVE] Moved SapphireTest::create_temp_db() to TempDatabase->build()
+- [ ] [RENAME/MOVE] Moved SapphireTest::delete_all_temp_dbs() to TempDatabase->deleteAll()
+- [ ] [RENAME/MOVE] Moved SapphireTest::resetDBSchema() to TempDatabase->resetSchema()
+- [ ] DBDate, DBTime and DBDatetime have changed methods: Added getTimestamp() to get the respective date / time as unix timestamp (seconds since 1970-01-01)
+- [ ] Changed Format() method to use CLDR format strings, rather than PHP format string. e.g. d/m/Y H:i:s (PHP format) should be replaced with to dd/MM/y HH:mm:ss (CLDR format).
+- [ ] Added getISOFormat() to return the standard date/time ISO 8601 pattern in CLDR format.
+- [ ] Changed setValue() method to expect dates and times to be passed in ISO 8601 format (y-MM-dd) or (HH:mm:ss). Certain date formats will attempt to parse with the below restrictions: /, . or - are supported date separators, but will be replaced with - internally.
+- [ ] US date formats (m-d-y / y-d-m) will not be supported and may be parsed incorrectly. (Note: Date form fields will still support localised date formats).
+- [ ] dd-MM-y will be converted to y-MM-dd internally.
+- [ ] 2-digit values for year will now raise errors.
+- [ ] Changed FormatFromSettings() to default to Nice() format if no member is logged in.
+- [ ] Changed Nice(), Long() and Full() methods to follow standard formatting rules for the current locale, rather than pre-defined formats.
+- [ ] Added Short() to format concise date/time values, as a shorter version than Nice
+- [ ] Added getFormatter() to return a locale-specific date/time formatter.
+- [ ] Added DBTime::FormatFromSettings()
+- [ ] [DEPRECATED] Deprecated globals $database and $databaseConfig. Use DB::setConfig() instead.
+- [ ] [REMOVED] Removed DataModel
+- [ ] Changed DataObject::can*() methods to no longer accept a member ID. These must now be passed a Member object or left null
+- [ ] [RENAME/MOVE] Moved DataObject::db() to DataObjectSchema::fieldSpec() and DataObjectSchema::fieldSpecs()
+- [ ] [RENAME/MOVE] Moved DataObject::manyManyComponent() to DataObjectSchema (access through DataObject->getSchema())
+- [ ] [RENAME/MOVE] Moved DataObject::belongsToComponent() to DataObjectSchema (access through DataObject->getSchema())
+- [ ] [RENAME/MOVE] Moved DataObject::hasOneComponent() to DataObjectSchema (access through DataObject->getSchema())
+- [ ] [RENAME/MOVE] Moved DataObject::hasManyComponent() to DataObjectSchema (access through DataObject->getSchema())
+- [ ] [RENAME/MOVE] Moved DataObject::getRemoteJoinField() to DataObjectSchema (access through DataObject->getSchema())
+- [ ] [RENAME/MOVE] Moved DataObject::database_fields() to DataObjectSchema::databaseFields()
+- [ ] [RENAME/MOVE] Moved DataObject::has_own_table() to DataObjectSchema::classHasTable()
+- [ ] [RENAME/MOVE] Moved DataObject::composite_fields() to DataObjectSchema::compositeFields()
+- [ ] [RENAME/MOVE] Moved DataObject::manyManyExtraFieldsForComponent() to DataObjectSchema
+- [ ] [DEPRECATED] Deprecated DataObject::$destroyed
+- [ ] [REMOVED] Removed DataObject::validateModelDefinitions. Relations are now validated within DataObjectSchema
+- [ ] [REMOVED] Removed DataObject methods hasOwnTableDatabaseField, has_own_table_database_field and {#dataobject-has-own} hasDatabaseFields are superseded by DataObjectSchema::fieldSpec. Use $schema->fieldSpec($class, $field, DataObjectSchema::DB_ONLY | DataObjectSchema::UNINHERITED ). Exclude uninherited option to search all tables in the class hierarchy.
+- [ ] [RENAME/MOVE] Renamed DataObject::is_composite_field() to DataObjectSchema::compositeField()
+- [ ] [RENAME/MOVE] Renamed DataObject::custom_database_fields()to DataObjectSchema::databaseFields() or DataObjectSchema::fieldSpecs() instead.
+- [ ] [REMOVED] Removed DataList::getRelation, as it was mutable. Use DataList::applyRelation instead, which is immutable.
+- [ ] [REMOVED] Member Field 'RememberLoginToken' removed, replaced with 'RememberLoginHashes' has_many relationship
+- [ ] [REMOVED] Removed UpgradeSiteTreePermissionSchemaTask
+- [ ] [REMOVED] Removed EncryptAllPasswordsTask
+- [ ] [REMOVED] Removed DBString::LimitWordCountXML() method. Use LimitWordCount() for XML safe version.
+- [ ] [REMOVED] Removed SiteTree::getExistsOnLive(). Use isPublished() instead.
+- [ ] [REMOVED] Removed SiteTree::getIsDeletedFromStage(). Use isOnDraft() instead (inverse case).
+- [ ] Changed DataObject.many_many to remove triangular resolution. Both the many_many and belongs_many_many must point directly to the specific class on the opposing side, not a subclass or parent.
+- [ ] [REMOVED] Removed DataObject::validateModelDefinitions(). Validation and parsing of config is now handled within DataObjectSchema.
+- [ ] [REMOVED] CMSBatchAction_Delete removed. Use CMSBatchAction_Archive instead.
+- [ ] [REMOVED] Removed Date::past_date()
+- [ ] [REMOVED] Removed Date::prior_monday()
+- [ ] [REMOVED] Removed Date::weekday()
+- [ ] [REMOVED] Removed Date::next_day()
+- [ ] [REMOVED] Removed Date::day_before()
+- [ ] [REMOVED] Removed Date::days_between()
+- [ ] [REMOVED] Removed Date::nice_format(). Use locale-specific formatting for Nice()
+- [ ] [REMOVED] Removed Time::nice_format(). Use locale-specific formatting for Nice()
+- [ ] [REMOVED] Removed Datetime::nice_format(). Use locale-specific formatting for Nice()
+- [ ] [REMOVED] Removed Time::TwelveHour()
+- [ ] [REMOVED] Removed Time::Nice24()
+- [ ] [REMOVED] Removed Money::NiceWithShortname()
+- [ ] [REMOVED] Removed Money::NiceWithName()
+- [ ] [REMOVED] Removed Money::getShortName()
+- [ ] [REMOVED] Removed Money::getCurrencyName()
+- [ ] [REMOVED] Removed additional arguments from Money::getSymbol(). The result of this value is now localised based on the currency code assigned to the Money instance
+- [ ] [REMOVED] Removed Money::getAllowedCurrencies. Apply validation to MoneyField instead.
+- [ ] [REMOVED] Removed Hierarchy::parentStack() removed. Use getAncestors() instead
+- [ ] [REMOVED] Removed Hierarchy::doAllChildrenIncludingDeleted(). Use AllChildrenIncludingDeleted() instead
+- [ ] [REMOVED] Removed Hierarchy::naturalNext()
+- [ ] [REMOVED] Removed Hierarchy::naturalPrev()
+- [ ] [REMOVED] Removed Hierarchy::markingFinished()
+- [ ] [RENAME/MOVE] Image manipulations have been moved into a new ImageManipulation trait.
+- [ ] [REMOVED] Removed CMSFileAddController
+- [ ] UploadField::setAllowedFileCategories('image') now excludes non-resizeable images. 'unresizeable_image' is can be used to validate these types.
+- [ ] Image_Backend API now loads and saves from AssetContainer instances rather than local files.
+- [ ] [RENAME/MOVE] The following File categories have been renamed: 'zip' to 'archive', 'doc' to 'document', and 'mov' to 'video'
+- [ ] File::updateLinks() no longer takes urls as parameters. All file links are now identified either by the DataObject::ID in a data-fileid property, or via shortcodes. This is necessary because file urls are no longer able to identify assets.
+- [ ] [REMOVED] Extension point HtmlEditorField::processImage has been removed, and moved to Image::regenerateImageHTML()
+- [ ] Upload::load() now stores assets directly without saving into a File dataobject.
+- [ ] Protected file storage is now a core Framework API. See File Security for more information.
+- [ ] File is now versioned, and should be published before they can be used on the frontend. See file migration for upgrade notes.
+- [ ] New filesystem abstraction including new DBFile database field to hold file references.
+- [ ] ShortcodeHandler interface to help generate standard handlers for HTML shortcodes in the editor.
+- [ ] [RENAME/MOVE] File::handle_shortcode() and Image::handle_shortcode() have moved to their own classes in SilverStripe\Assets\Shortcodes, and are named FileShortcodeProvider and ImageShortcodeProvider respectively.
+- [ ] AssetNameGenerator interface, including a DefaultAssetNameGenerator implementation, which is used to generate renaming suggestions based on an original given filename in order to resolve file duplication issues.
+- [ ] GeneratedAssetHandler API now used to store and manage generated files (such as those used for error page cache or combined files).
+- [ ] Requirements_Minifier API can be used to declare any new mechanism for minifying combined required files. By default this API is provided by the JSMinifier class, but user code can substitute their own.
+- [ ] AssetControlExtension is applied by default to all DataObjects, in order to support the management of linked assets and file protection.
+- [ ] ProtectedFileController class is used to serve up protected assets.
+- [ ] AssetAdaptor has a new config default_server which helps tell the code which server type to use if no matching type was found by scanning the server software - defaults to apache
+- [ ] [RENAME/MOVE] Renamed Image::SetRatioSize() to Fit()
+- [ ] [RENAME/MOVE] Renamed Image::SetWidth() to ScaleWidth()
+- [ ] [RENAME/MOVE] Renamed Image::SetHeight() to ScaleHeight()
+- [ ] [RENAME/MOVE] Renamed Image::SetSize() to Pad()
+- [ ] [RENAME/MOVE] Renamed Image::PaddedImage() to Pad()
+- [ ] [RENAME/MOVE] Renamed Image::CroppedImage() to Fill()
+- [ ] [RENAME/MOVE] Renamed Image::AssetLibraryPreview() to PreviewThumbnail()
+- [ ] [RENAME/MOVE] Renamed Image::AssetLibraryThumbnail() to CMSThumbnail()
+- [ ] [REMOVED] Removed File::deletedatabaseOnly()
+- [ ] [RENAME/MOVE] Renamed File::link_shortcode_handler() to handle_shortcode()
+- [ ] [REMOVED] Removed File::setParentID()
+- [ ] [REMOVED] Removed File::getFullPath()
+- [ ] [REMOVED] Removed File::getRelativePath()
+- [ ] [REMOVED] Removed File::Content database field (wasn't used by core)
+- [ ] [REMOVED] Removed Image_Cached
+- [ ] [REMOVED] Removed Image::regenerateFormattedImages()
+- [ ] [REMOVED] Removed Image::getGeneratedImages()
+- [ ] [REMOVED] Removed Image::deleteFormattedImages()
+- [ ] [REMOVED] Removed Image::handle_shortcode() moved to SilverStripe\Assets\Shortcodes\ImageShortcodeProvider::handle_shortcode()
+- [ ] [REMOVED] Removed AssetAdmin::deleteunusedthumbnails()
+- [ ] [REMOVED] Removed AssetAdmin::getUnusedThumbnails()
+- [ ] [REMOVED] Removed Folder_UnusedAssetsField
+- [ ] [REMOVED] Removed Folder::syncChildren()
+- [ ] [REMOVED] Removed Folder::constructChild()
+- [ ] [REMOVED] Removed Folder::addUploadToFolder()
+- [ ] [REMOVED] Removed RegenerateCachedImagesTask
+- [ ] [REMOVED] Removed CleanImageManipulationCache
+- [ ] [REMOVED] Removed Filesystem::sync()
+- [ ] [REMOVED] Removed AssetAdmin::doSync()
+- [ ] Upgrade to TinyMCE 4.x
+- [ ] Templates now use a standard template lookup system via SSViewer::get_templates_by_class() which builds a candidate list for a given class. Actual resolution of existing templates for any list of candidates is actually performed by SSViewer::chooseTemplate
+- [ ] HtmlEditorConfig is now an abstract class, with a default implementation TinyMCEConfig for the built in TinyMCE editor.
+- [ ] HtmlEditorField::setEditorConfig() may now take an instance of a HtmlEditorConfig class, as well as a standard config identifier name.
+- [ ] HeaderField requires a $name constructor argument (new HeaderField('MyName', 'My Title')
+- [ ] FormField templates no longer look in the 'forms' folder for templates. As all form fields are now namespaced, the path for these templates will now match the namespace of the given class instead.
+- [ ] [REMOVED] $module parameter in themedCSS() and themedJavascript() removed.
+- [ ] [REMOVED] Ability to select a theme through admin/settings has been removed from SiteConfig. Please use SSViewer.themes config instead.
+- [ ] FormAction::setValidationExempt()) can be used to turn on or off form validation for individual actions
+- [ ] GridField edit form now has improved support for versioned DataObjects, with basic publishing actions available when editing records.
+- [ ] PopoverField added to provide popup-menu behaviour in react forms (currently not available for non-react forms).
+- [ ] Introduction of experimental FormFactory API as a substitute for DataObject classes being responsible for building their own form fields. This builds a form based on a given controller and model, and can be customised on a case by case basis. This has been introduced initially for the asset-admin module.
+- [ ] Introduced AssetAdmin\Forms\UploadField as a React-friendly version of UploadField. This may also be used in normal entwine forms for managing files in a similar way to UploadField. However, this does not support inline editing of files.
+- [ ] Added method FormField::setSubmittedValue($value, $data) to process input submitted from form submission, in contrast to FormField::setValue($value, $data) which is intended to load its value from the ORM. The second argument to setValue() has been added.
+- [ ] [RENAME/MOVE] FormField::create_tag() moved to SilverStripe\View\HTML->createTag().
+- [ ] [REMOVED] CompositeField::setID() is removed. ID is generated from name indirectly. Use SilverStripe\Form\FormField::setName() instead
+- [ ] Changed ListboxField to multiple only. Previously, this field would operate as either a single select (default) or multi-select through setMultiple(). Now this field should only be used for multi-selection. Single-selection should be done using a regular DropdownField.
+- [ ] GroupedDropdownField::setDisabled() now only accepts a list of values instead of a list of grouped values. The method now expects a non-associative array of values (not titles) or an SS_List.
+- [ ] [RENAME/MOVE] Renamed $combine_files to $combinedFiles
+- [ ] [RENAME/MOVE] Renamed $combine_js_with_min to $minifyCombinedFiles
+- [ ] [RENAME/MOVE] Renamed $write_header_comments to $writeHeaderComment
+- [ ] [RENAME/MOVE] Renamed $write_js_to_body to $writeJavascriptToBody
+- [ ] [RENAME/MOVE] Renamed $force_js_to_bottom to $forceJSToBottom
+- [ ] [RENAME/MOVE] Renamed get_combined_files_enabled() to getCombinedFilesEnabled()
+- [ ] [RENAME/MOVE] Renamed set_combined_files_enabled() to setCombinedFilesEnabled()
+- [ ] [RENAME/MOVE] Renamed get_suffix_requirements() to getSuffixRequirements()
+- [ ] [RENAME/MOVE] Renamed set_suffix_requirements() to setSuffixRequirements()
+- [ ] [RENAME/MOVE] Renamed get_custom_scripts() to getCustomScripts()
+- [ ] [RENAME/MOVE] Renamed unblock_all() to unblockAll()
+- [ ] [RENAME/MOVE] Renamed include_in_response() to includeInResponse()
+- [ ] [RENAME/MOVE] Renamed combine_files() to combineFiles()
+- [ ] [RENAME/MOVE] Renamed get_combine_files() to getCombinedFiles()
+- [ ] [RENAME/MOVE] Renamed clear_combined_files() to clearCombinedFiles()
+- [ ] [RENAME/MOVE] Renamed process_combined_files() to processCombinedFiles()
+- [ ] [RENAME/MOVE] Renamed set_write_js_to_body() to setWriteJavascriptToBody()
+- [ ] [RENAME/MOVE] Renamed set_force_js_to_bottom() to setForceJSToBottom()
+- [ ] Added get_minify_combined_js_files() and set_minify_combined_js_files()
+- [ ] Added get_force_js_to_bottom()
+- [ ] Added get_write_js_to_body()
+- [ ] Changed includeInHTML() to remove the first parameter ($template)
+- [ ] __construct() now allows a RequestHandler to be passed as a first argument, rather than a controller. In addition this argument is now optional. This allows forms to be constructed as a model only.
+- [ ] validate is replaced with validationResult instead, which returns a ValidationResult instance. This is no longer automatically persisted in the state by default, unless a redirection occurs. You can also save any response in the state by manually invoking saveFormState inside a custom validation response handler.
+- [ ] [RENAME/MOVE] Renamed setupFormErrors() to restoreFormState()
+- [ ] [RENAME/MOVE] Renamed resetValidation() to clearFormState()
+- [ ] Added loadMessagesFrom() to load a ValidationResult into a form.
+- [ ] Changed setMessage() to accept $cast as a third parameter (instead of a $escapeHtml boolean)
+- [ ] [REMOVED] Removed messageForForm(). Use setMessage() or sessionMessage() instead.
+- [ ] Added getSessionValidationResult() / setSessionValidationResult() to get / set session errors
+- [ ] Added getSessionData() / setSessionData() to get / set field values cached in the session
+- [ ] [REMOVED] Removed addErrorMessage(). Use sessionMessage() or sessionError() to add a form level message, throw a ValidationException during submission, or add a custom validator.
+- [ ] Form is no longer a RequestHandler, but implements the HasRequestHandler interface and returns a FormRequestHandler instance from getRequestHandler(). the Form constructor no longer has any mandatory parameters, and the first parameter allows a non-Controller RequestHandler to be passed.
+- [ ] [RENAME/MOVE] Moved buttonClicked() to FormRequestHandler
+- [ ] [RENAME/MOVE] Moved checkAccessAction() to FormRequestHandler
+- [ ] [RENAME/MOVE] Moved handleField() to FormRequestHandler
+- [ ] [RENAME/MOVE] Moved httpSubmission() to FormRequestHandler
+- [ ] [RENAME/MOVE] Moved Link() to FormRequestHandler
+- [ ] Changed validate() to return a ValidationResult instance.
+- [ ] [REMOVED] Removed requireField(). Use RequiredFields subclass instead.
+- [ ] Added serialize() / unserialize() for saving within session state
+- [ ] [RENAME/MOVE] Renamed messageList() to getMessages()
+- [ ] Changed error() to addMessage() / addError() / addFieldMessage() / addFieldError()
+- [ ] [RENAME/MOVE] Renamed valid() to isValid()
+- [ ] Changed constructor to remove second argument ($message). It now only accepts $result, which may be a string, and optional $code
+- [ ] Added getTimezone() / setTimezone()
+- [ ] Added getDateTimeOrder() / setDateTimeOrder()
+- [ ] Added getLocale() / setLocale()
+- [ ] [REMOVED] Removed datavaluefield config as internal data value is now fixed to ISO 8601 format
+- [ ] [REMOVED] It uses a combined input instead of a composite from DateField and TimeField Consequently, getDateField() and getTimeField() have been removed.
+- [ ] It returns ISO 8601 normalised dates by default in Value(), which include a "T" separator between date and time. This is required to allow HTML5 input. Either use setHTML5(false) to set your custom format, or use dataValue() to retrieve a whitespace separated representation.
+- [ ] It no longer accepts setValue() as an array with 'date' and 'time' keys
+- [ ] Added getHTML5() / setHTML5()
+- [ ] Added getDateFormat() / setDateFormat()
+- [ ] Added getMinDate() / setMinDate()
+- [ ] Added getMaxDate() / setMaxDate()
+- [ ] Added getLocale() / setLocale()
+- [ ] DateField no longer provides a jQuery UI date picker (showcalendar option), and uses HTML5 date pickers by default instead.
+- [ ] DateField provides an optional polyfill for browsers without HTML5 date picker support
+- [ ] The dmyfields option has been replced with native HTML5 behaviour (as one single &#x3C;input type=date>).
+- [ ] [REMOVED] getClientLocale / setClientLocale have been removed (handled by DateField->locale and browser settings)
+- [ ] Added getTimeFormat() / setTimeFormat()
+- [ ] Added getLocale() / setLocale()
+- [ ] [REMOVED] Removed TabularStyle
+- [ ] [REMOVED] Removed NestedForm
+- [ ] [REMOVED] Removed FieldList->getTabPathRewrites()
+- [ ] [REMOVED] Removed FieldList->setTabPathRewrites()
+- [ ] [REMOVED] Removed FieldList->rewriteTabPath()
+- [ ] [REMOVED] Removed Form->transformTo()
+- [ ] [REMOVED] Removed Form->callfieldmethod()
+- [ ] [REMOVED] Removed Form->single_field_required()
+- [ ] [REMOVED] Removed Form->current_action()
+- [ ] [REMOVED] Removed Form->set_current_action()
+- [ ] [REMOVED] Removed Form->testSubmission()
+- [ ] [REMOVED] Removed Form->testAjaxSubmission()
+- [ ] [REMOVED] Removed ValidationResult->messageList()
+- [ ] [REMOVED] Removed ValidationResult->codeList()
+- [ ] [REMOVED] Removed ValidationResult->message()
+- [ ] [REMOVED] Removed ValidationResult->starredList()
+- [ ] [REMOVED] Removed ValidationResult->error()
+- [ ] [REMOVED] Removed ValidationResult->valid()
+- [ ] [REMOVED] Removed ReportAdminForm.ss template
+- [ ] [REMOVED] Removed FormField::dontEscape(). Escaping is now managed on a class by class basis.
+- [ ] [REMOVED] Removed PermissionCheckboxSetField::getAssignedPermissionCodes()
+- [ ] [REMOVED] Removed Requirements::delete_combined_files()
+- [ ] [REMOVED] Removed NumericField_Readonly. Use setReadonly(true) instead.
+- [ ] [REMOVED] Removed SSViewer->set_source_file_comments()
+- [ ] [REMOVED] Removed SSViewer->get_source_file_comments()
+- [ ] [REMOVED] Removed SSViewer->getOption()
+- [ ] [REMOVED] Removed SSViewer->setOption()
+- [ ] [REMOVED] Removed MemberDatetimeOptionsetField (no replacement)
+- [ ] [REMOVED] Removed DateField_View_JQuery (replaced with native HTML5 support in DateField)
+- [ ] [RENAME/MOVE] Moved HTMLEditorField_Toolbar to SilverStripe\Admin\ModalController
+- [ ] [RENAME/MOVE] Moved HTMLEditorField_Embed toSilverStripe\AssetAdmin\EmbedResource
+- [ ] [REMOVED] Removed HTMLEditorField_File
+- [ ] [REMOVED] Removed HTMLEditorField_Flash
+- [ ] [REMOVED] Removed HTMLEditorField_Image
+- [ ] Upgrade of i18n to symfony/translation
+- [ ] Localisation based on language-only (without any specific locale) is now supported
+- [ ] i18nEntityProvider::provideI18nEntities() Now is expected to return only a single array map of key to default values.
+- [ ] i18n keys for '.PLURAL_NAME' and '.SINGULAR_NAME' have been changed back to use the namespaced class names for all DataObject subclasses, rather than just the basename without namespace.
+- [ ] i18n key for locale-respective pluralisation rules added as '.PLURALS'. These can be configured within YAML in array format as per ruby i18n pluralization rules.
+- [ ] [RENAME/MOVE] Moved i18n.all_locales config setting to SilverStripe\i18n\Data\Locales.locales
+- [ ] [RENAME/MOVE] Moved i18n.common_languages config setting to SilverStripe\i18n\Data\Locales.languages
+- [ ] [RENAME/MOVE] Moved i18n.likely_subtags config setting to SilverStripe\i18n\Data\Locales.likely_subtags
+- [ ] [RENAME/MOVE] Moved i18n.tinymce_lang config setting to SilverStripe\Forms\HTMLEditor\TinyMCEConfig.tinymce_lang
+- [ ] [RENAME/MOVE] Moved i18n::get_tinymce_lang() to SilverStripe\Forms\HTMLEditor\TinyMCEConfig::get_tinymce_lang()
+- [ ] [RENAME/MOVE] Moved i18n::get_locale_from_lang() to SilverStripe\i18n\Data\Locales::localeFromLang()
+- [ ] [RENAME/MOVE] Moved i18n::get_lange_from_locale() to SilverStripe\i18n\Data\Locales::langFromLocale()
+- [ ] [RENAME/MOVE] Moved i18n::validate_locale() to SilverStripe\i18n\Data\Locales::validate()
+- [ ] [RENAME/MOVE] Moved i18n::get_common_languages() to SilverStripe\i18n\Data\Locales::getLanguages()
+- [ ] [RENAME/MOVE] Moved i18n::get_locale_name() to SilverStripe\i18n\Data\Locales::localeName()
+- [ ] [RENAME/MOVE] Moved i18n::get_language_name() to SilverStripe\i18n\Data\Locales::languageName()
+- [ ] [RENAME/MOVE] Moved i18n.module_priority config setting to SilverStripe\i18n\Data\Sources.module_priority
+- [ ] [RENAME/MOVE] Moved i18n::get_owner_module() to SilverStripe\Core\Manifest\ClassManifest::getOwnerModule() This now returns a Module object instance instead of a string.
+- [ ] [RENAME/MOVE] Moved i18n::get_existing_translations() to SilverStripe\i18n\Data\Sources::getKnownLocales()
+- [ ] [REMOVED] Removed Zend_Translate
+- [ ] Changed i18n::_t() to remove support for sprintf-style %s arguments
+- [ ] Changed i18n::_t() to remove support for non-associative injection with named parameters
+- [ ] [REMOVED] Removed i18n::get_language_name()
+- [ ] [REMOVED] Removed i18n::get_language_code()
+- [ ] [REMOVED] Removed i18n::get_common_locales()
+- [ ] [REMOVED] Removed i18n.common_locales
+- [ ] Changed Mailer to an interface
+- [ ] Email re-written to be powered by SwiftMailer
+- [ ] [RENAME/MOVE] Default template body variable renamed from $Body to $EmailContent
+- [ ] [RENAME/MOVE] Renamed Email->setTemplate() to Email->setHTMLTemplate()
+- [ ] Added Email->setPlainTemplate() for rendering plain versions of email
+- [ ] [RENAME/MOVE] Renamed Email->populateTemplate() to Email->setData()
+- [ ] is_running_tests() is no longer public and user code should not rely on this. Test-specific behaviour should be implemented in setUp() and tearDown()
+- [ ] [REMOVED] Removed setUpOnce(). Please use setUpBeforeClass()
+- [ ] [REMOVED] Removed tearDownOnce(). Please use tearDownAfterClass()
+- [ ] [REMOVED] Removed TestListener
+- [ ] [RENAME/MOVE] Renamed $requiredExtensions to $required_extensions (and made static)
+- [ ] [RENAME/MOVE] Renamed $extraDataObjects to $extra_dataobjects (and made static)
+- [ ] [RENAME/MOVE] Renamed $extraControllers to $extra_controllers (and made static)
+- [ ] LoginForm now has an abstract method getAuthenticatorName(). If you have made subclasses of this, you will need to define this method and return a short name describing the login method.
+- [ ] MemberLoginForm has a new constructor argument for the authenticator class, although this is usually constructed by MemberAuthenticator and won't affect normal use.
+- [ ] [DEPRECATED] Authenticator methods register() and unregister() are deprecated in favour of using Config
+- [ ] [REMOVED] Unused SetPassword property removed from Member. Use Member::changePassword or set Password directly.
