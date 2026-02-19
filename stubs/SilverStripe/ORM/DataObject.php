@@ -1,19 +1,12 @@
 <?php
 
 namespace SilverStripe\ORM;
+use SilverStripe\Core\Config\Configurable;
+
 if (class_exists('SilverStripe\ORM\DataObject')) {
     return;
 }
 class DataObject
 {
-    /**
-     * @param string $name
-     * @param bool $uninherited
-     * @return mixed
-     * @deprecated 4.0.0 Use self::config()->get($name) instead
-     */
-    public function stat($name, $uninherited = false)
-    {
-        return null;
-    }
+    use Configurable;
 }

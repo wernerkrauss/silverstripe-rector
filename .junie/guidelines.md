@@ -44,6 +44,10 @@ This project provides Rector rules for Silverstripe CMS. Development is carried 
 
 - Run at least `ddev ci` before every `submit` to ensure no regressions have been introduced and the code meets the standards.
 
+## Troubleshooting
+
+- If a new stub class in `stubs/` is not being found, run `ddev composer dump-autoload` and try again.
+
 ## Changelog Guidelines
 
 - The project uses a `CHANGELOG.md` following the [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format.

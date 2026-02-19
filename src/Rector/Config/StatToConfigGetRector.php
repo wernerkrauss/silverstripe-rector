@@ -60,8 +60,7 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node->var, new ObjectType('SilverStripe\Core\Config\Configurable'))
-            && !$this->isObjectType($node->var, new ObjectType(\SilverStripe\ORM\DataObject::class))
+        if (!$this->isObjectType($node->var, new ObjectType(\SilverStripe\Core\Config\Configurable::class))
         ) {
             return null;
         }
