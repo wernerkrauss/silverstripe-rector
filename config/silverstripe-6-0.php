@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use Netwerkstatt\SilverstripeRector\Rector\Control\ReplaceHasCurrWithCurrRector;
+use Netwerkstatt\SilverstripeRector\Rector\DataObject\DataObjectGetByIdToByIDRector;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
-use Rector\Renaming\Rector\ConstFetch\RenameConstantRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector;
@@ -14,8 +14,6 @@ use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\Renaming\ValueObject\RenameProperty;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
-use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
-use Rector\Transform\ValueObject\MethodCallToStaticCall;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
@@ -36,6 +34,7 @@ return static function (RectorConfig $rectorConfig): void {
         'SilverStripe\GraphQL\Extensions\DevBuildExtension' => 'SilverStripe\GraphQL\Extensions\DbBuildExtension',
         'SilverStripe\Security\PasswordValidator' => 'SilverStripe\Security\Validation\RulesPasswordValidator',
         'SilverStripe\View\SSViewer_Scope' => 'SilverStripe\TemplateEngine\ScopeManager',
+        'SilverStripe\View\SSViewer_DataPresenter' => 'SilverStripe\TemplateEngine\ScopeManager',
         'SilverStripe\Forms\Validator' => 'SilverStripe\Forms\Validation\Validator',
         'SilverStripe\Forms\RequiredFields' => 'SilverStripe\Forms\Validation\RequiredFieldsValidator',
         'SilverStripe\Forms\CompositeValidator' => 'SilverStripe\Forms\Validation\CompositeValidator',
@@ -55,6 +54,8 @@ return static function (RectorConfig $rectorConfig): void {
         'SilverStripe\Forms\HTMLEditor\TinyMCECombinedGenerator' => 'SilverStripe\TinyMCE\TinyMCECombinedGenerator',
         'SilverStripe\Forms\HTMLEditor\TinyMCEConfig' => 'SilverStripe\TinyMCE\TinyMCEConfig',
         'SilverStripe\Forms\HTMLEditor\TinyMCEScriptGenerator' => 'SilverStripe\TinyMCE\TinyMCEScriptGenerator',
+        'SilverStripe\Dev\Constraint\ViewableDataContains' => 'SilverStripe\Dev\Constraint\ModelDataContains',
+        'SilverStripe\Dev\Validation\DatabaseAdminExtension' => 'SilverStripe\Dev\Validation\DbBuildExtension',
 
         'SilverStripe\ORM\Filterable' => 'SilverStripe\Model\List\Filterable',
         'SilverStripe\ORM\Limitable' => 'SilverStripe\Model\List\Limitable',
@@ -87,8 +88,10 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->importNames();
     $rectorConfig->removeUnusedImports();
     $rectorConfig->ruleWithConfiguration(RenameStaticMethodRector::class, [
-        new RenameStaticMethod('SilverStripe\View\SSViewer', 'flush', 'SilverStripe\TemplateEngine\SSTemplateEngine', 'flush'),
-        new RenameStaticMethod('SilverStripe\ORM\FieldType\DBEnum', 'flushCache', 'SilverStripe\ORM\FieldType\DBEnum', 'reset'),
+        new RenameStaticMethod('SilverStripe\View\SSViewer', 'flush', 'SilverStripe\TemplateEngine\SSTemplateEngine',
+            'flush'),
+        new RenameStaticMethod('SilverStripe\ORM\FieldType\DBEnum', 'flushCache', 'SilverStripe\ORM\FieldType\DBEnum',
+            'reset'),
     ]);
     $rectorConfig->ruleWithConfiguration(RenamePropertyRector::class, [
         new RenameProperty('SilverStripe\Admin\LeftAndMain', 'tree_class', 'model_class'),
@@ -123,14 +126,17 @@ return static function (RectorConfig $rectorConfig): void {
         new MethodCallRename('SilverStripe\CMS\Controllers\CMSMain', 'getPageTypes', 'getRecordTypes'),
         new MethodCallRename('SilverStripe\CMS\Controllers\CMSMain', 'PageTypes', 'RecordTypes'),
         new MethodCallRename('SilverStripe\CMS\Controllers\CMSMain', 'SiteTreeHints', 'TreeHints'),
-        new MethodCallRename('SilverStripe\CMS\Controllers\LeftAndMainRecordIconsExtension', 'generatePageIconsCss', 'generateRecordIconsCss'),
+        new MethodCallRename('SilverStripe\CMS\Controllers\LeftAndMainRecordIconsExtension', 'generatePageIconsCss',
+            'generateRecordIconsCss'),
         new MethodCallRename('SilverStripe\Forms\Form', 'validationResult', 'validate'),
         new MethodCallRename('SilverStripe\Forms\TextareaField', 'ValueEntities', 'getFormattedValueEntities'),
         new MethodCallRename('SilverStripe\Model\List\ListDecorator', 'TotalItems', 'getTotalItems'),
         new MethodCallRename('SilverStripe\Model\List\PaginatedList', 'TotalItems', 'getTotalItems'),
     ]);
     $rectorConfig->rule(ReplaceHasCurrWithCurrRector::class);
+    $rectorConfig->rule(DataObjectGetByIdToByIDRector::class);
     $rectorConfig->ruleWithConfiguration(RenameClassConstFetchRector::class, [
-        new RenameClassAndConstFetch('SilverStripe\Admin\LeftAndMain', 'SCHEMA_HEADER', 'SilverStripe\Forms\Schema\FormSchema', 'SCHEMA_HEADER'),
+        new RenameClassAndConstFetch('SilverStripe\Admin\LeftAndMain', 'SCHEMA_HEADER',
+            'SilverStripe\Forms\Schema\FormSchema', 'SCHEMA_HEADER'),
     ]);
 };
