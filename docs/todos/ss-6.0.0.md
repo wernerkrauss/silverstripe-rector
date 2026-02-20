@@ -61,3 +61,20 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/6/c
 - [ ] [RENAME/MOVE] Extension hook updateLink($base, &$link, $action) in SiteTreeExtension has been renamed to updateLink(&$link).
 - [ ] [RENAME/MOVE] Extension hook updateAbsoluteLink($base, &$link, $action) in SiteTree has been renamed to updateAbsoluteLink(&$link).
 - [ ] [RENAME/MOVE] Extension hook updateAbsoluteLink($base, &$link, $action) in SiteTreeExtension has been renamed to updateAbsoluteLink(&$link).
+- [x] [RENAME/MOVE] Extension hook afterMemberLoggedIn has been renamed to onAfterMemberLoggedIn.
+- [x] [RENAME/MOVE] Extension hook afterMemberLoggedOut has been renamed to onAfterMemberLoggedOut.
+- [x] [RENAME/MOVE] Extension hook authenticationFailed has been renamed to onAuthenticationFailed.
+- [x] [RENAME/MOVE] Extension hook authenticationFailedUnknownUser has been renamed to onAuthenticationFailedUnknownUser.
+- [x] [RENAME/MOVE] Extension hook authenticationSucceeded has been renamed to onAuthenticationSucceeded.
+- [x] [RENAME/MOVE] Extension hook beforeMemberLoggedIn has been renamed to onBeforeMemberLoggedIn.
+- [x] [RENAME/MOVE] Extension hook beforeMemberLoggedOut has been renamed to onBeforeMemberLoggedOut.
+- [x] [RENAME/MOVE] Extension hook registerFailedLogin has been renamed to onRegisterFailedLogin.
+- [x] [RENAME/MOVE] Extension hook init has been renamed to onInit.
+- [x] [RENAME/MOVE] Extension hook flushCache has been renamed to onFlushCache.
+- [x] [RENAME/MOVE] Extension hook populateDefaults has been renamed to onAfterPopulateDefaults.
+- [x] [RENAME/MOVE] Extension hook requireDefaultRecords has been renamed to onRequireDefaultRecords.
+- [x] [RENAME/MOVE] Extension hook forgotPassword has been renamed to onForgotPassword.
+- [x] [RENAME/MOVE] Extension hook getDefaultRecords has been renamed to updateDefaultRecords.
+- [x] [RENAME/MOVE] Extension hook MetaComponents has been renamed to updateMetaComponents.
+- [x] [RENAME/MOVE] Extension hook MetaTags has been renamed to updateMetaTags.
+- [x] [RENAME/MOVE] Extension hook validate has been renamed to updateValidate.

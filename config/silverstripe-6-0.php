@@ -132,6 +132,32 @@ return static function (RectorConfig $rectorConfig): void {
         new MethodCallRename('SilverStripe\Forms\TextareaField', 'ValueEntities', 'getFormattedValueEntities'),
         new MethodCallRename('SilverStripe\Model\List\ListDecorator', 'TotalItems', 'getTotalItems'),
         new MethodCallRename('SilverStripe\Model\List\PaginatedList', 'TotalItems', 'getTotalItems'),
+
+        // Member hooks
+        new MethodCallRename('SilverStripe\Core\Extension', 'afterMemberLoggedIn', 'onAfterMemberLoggedIn'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'afterMemberLoggedOut', 'onAfterMemberLoggedOut'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'authenticationFailed', 'onAuthenticationFailed'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'authenticationFailedUnknownUser',
+            'onAuthenticationFailedUnknownUser'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'authenticationSucceeded', 'onAuthenticationSucceeded'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'beforeMemberLoggedIn', 'onBeforeMemberLoggedIn'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'beforeMemberLoggedOut', 'onBeforeMemberLoggedOut'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'registerFailedLogin', 'onRegisterFailedLogin'),
+        // LeftAndMain hooks
+        new MethodCallRename('SilverStripe\Core\Extension', 'init', 'onInit'),
+        // DataObject hooks
+        new MethodCallRename('SilverStripe\Core\Extension', 'flushCache', 'onFlushCache'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'populateDefaults', 'onAfterPopulateDefaults'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'requireDefaultRecords', 'onRequireDefaultRecords'),
+        // LostPasswordHandler hooks
+        new MethodCallRename('SilverStripe\Core\Extension', 'forgotPassword', 'onForgotPassword'),
+        // ErrorPage hooks
+        new MethodCallRename('SilverStripe\Core\Extension', 'getDefaultRecords', 'updateDefaultRecords'),
+        // SiteTree hooks
+        new MethodCallRename('SilverStripe\Core\Extension', 'MetaComponents', 'updateMetaComponents'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'MetaTags', 'updateMetaTags'),
+        // DataObject validation hook
+        new MethodCallRename('SilverStripe\Core\Extension', 'validate', 'updateValidate'),
     ]);
     $rectorConfig->rule(ReplaceHasCurrWithCurrRector::class);
     $rectorConfig->rule(DataObjectGetByIdToByIDRector::class);
