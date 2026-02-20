@@ -21,21 +21,31 @@ $version = basename($htmlFile, '.html');
 $version = str_replace('ss-', '', $version);
 $html = file_get_contents($htmlFile) ?: '';
 
-// Extract the "API changes" section
-// Try multiple patterns; some older docs might not have the id attribute
-$sectionMatch = false;
+// Extract multiple potential sections: "API changes", "Many renamed classes", etc.
+$sectionsToParse = [
+    'api-changes' => 'API changes',
+    'renamed-classes' => 'Many renamed classes',
+];
+
 $sectionContent = '';
-if (preg_match('/<h2 id="api-changes">\s*API changes.*?<\/h2>(.*?)<h2/si', $html, $m)) {
-    $sectionContent = $m[1];
-    $sectionMatch = true;
-} elseif (preg_match('/<h2>\s*API changes.*?<\/h2>(.*?)<h2/si', $html, $m)) {
-    $sectionContent = $m[1];
-    $sectionMatch = true;
+$sectionMatch = false;
+
+foreach ($sectionsToParse as $id => $title) {
+    if (preg_match('/<h[23] id="' . $id . '">.*?(<\/h[23]>)(.*?)(?:<h[23]|$)/si', $html, $m)) {
+        $sectionContent .= $m[2];
+        $sectionMatch = true;
+    } elseif (preg_match('/<h[23]>.*?' . $title . '.*?(<\/h[23]>)(.*?)(?:<h[23]|$)/si', $html, $m)) {
+        $sectionContent .= $m[2];
+        $sectionMatch = true;
+    }
 }
 
 if ($sectionMatch) {
     // Find <li> elements inside the section
     preg_match_all('/<li>(.*?)<\/li>/si', $sectionContent, $liMatches);
+
+    // Also look for tables, which are common in "renamed-classes"
+    preg_match_all('/<tr>\s*<td>(.*?)<\/td>\s*<td>(.*?)<\/td>\s*<\/tr>/si', $sectionContent, $tableMatches);
 
     $todos = [];
     foreach ($liMatches[1] as $li) {
@@ -55,6 +65,14 @@ if ($sectionMatch) {
         }
 
         $todos[] = sprintf('- %s %s', $category, $text);
+    }
+
+    foreach ($tableMatches[1] as $i => $oldClass) {
+        $newClass = strip_tags($tableMatches[2][$i]);
+        $oldClass = strip_tags($oldClass);
+
+        $text = sprintf('%s has been renamed to %s', trim($oldClass), trim($newClass));
+        $todos[] = sprintf('- [ ] [RENAME/MOVE] %s', $text);
     }
 
     if ($todos === []) {
@@ -83,11 +101,18 @@ if ($sectionMatch) {
     }
 
     $finalTodos = [];
+    $seenTasks = [];
     foreach ($todos as $todoLine) {
         // Extract the text part of the new todo to compare with existing completed tasks
         // Format: - [ ] [CATEGORY] Task Text
         if (preg_match('/- \[ \] (?:\[.*?\] )?(.*)/i', $todoLine, $m)) {
             $taskText = trim($m[1]);
+            if (isset($seenTasks[$taskText])) {
+                continue;
+            }
+
+            $seenTasks[$taskText] = true;
+
             if (in_array($taskText, $existingCompleted)) {
                 $finalTodos[] = str_replace('- [ ]', '- [x]', $todoLine);
                 continue;

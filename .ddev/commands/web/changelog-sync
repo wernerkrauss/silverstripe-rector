@@ -20,13 +20,34 @@ sync_version() {
     local VERSION=$1
     local MAJOR=$(echo $VERSION | cut -d'.' -f1)
     local URL="https://docs.silverstripe.org/en/${MAJOR}/changelogs/${VERSION}/"
-    local FILE=".changelogs/ss-${VERSION}.html"
+    local FILE_HTML=".changelogs/ss-${VERSION}.html"
+    local FILE_MD=".changelogs/ss-${VERSION}.md"
 
-    echo "Downloading changelog for ${VERSION} from ${URL}..."
-    if curl -s -L -f "$URL" -o "$FILE"; then
-        echo "Saved to ${FILE}"
+    # Determine GitHub MD URL based on Major version
+    local GH_PATH=""
+    if [ "$MAJOR" == "6" ]; then
+        GH_PATH="08_Changelogs"
+    elif [ "$MAJOR" == "5" ]; then
+        GH_PATH="08_Changelogs"
+    elif [ "$MAJOR" == "4" ]; then
+        GH_PATH="04_Changelogs"
+    fi
+
+    if [ -n "$GH_PATH" ]; then
+        local GH_URL="https://raw.githubusercontent.com/silverstripe/developer-docs/${MAJOR}/en/${GH_PATH}/${VERSION}.md"
+        echo "Downloading Markdown changelog for ${VERSION} from GitHub..."
+        if curl -s -L -f "$GH_URL" -o "$FILE_MD"; then
+            echo "Saved Markdown to ${FILE_MD}"
+        else
+             echo "Warning: Could not download Markdown from GitHub. URL: ${GH_URL}"
+        fi
+    fi
+
+    echo "Downloading HTML changelog for ${VERSION} from ${URL}..."
+    if curl -s -L -f "$URL" -o "$FILE_HTML"; then
+        echo "Saved HTML to ${FILE_HTML}"
     else
-        echo "Warning: Could not download changelog for version ${VERSION}. URL: ${URL} (Status 404?)"
+        echo "Warning: Could not download HTML changelog for version ${VERSION}. URL: ${URL} (Status 404?)"
     fi
 }
 

@@ -107,6 +107,26 @@ See `vendor/bin/rector --help` for more options.
 * [Update from Silverstripe 5 to Silverstripe 6](https://www.s2-hub.com/articles/update-from-silverstripe-5-to-silverstripe-6/): article on s2-hub.com
 * [Better PHP with rector](https://www.youtube.com/watch?v=ORYlXK7I6Dw): Talk at StripeConEU 2023 in Hamburg
 
+## Changelog Analysis Process
+
+To keep up with new Silverstripe releases, we use an AI-assisted workflow:
+
+1.  **Sync Changelogs**: Download both HTML (for reference) and Markdown (for analysis) files.
+    ```bash
+    ddev changelog-sync 6.2.0
+    ```
+2.  **Generate AI Prompt**: This script extracts the most relevant sections (API changes, renames, deprecations) from the Markdown file.
+    ```bash
+    ddev changelog-analyze-ai 6.2.0
+    ```
+3.  **Process with AI**: Copy the generated prompt into an AI (like ChatGPT or Claude).
+4.  **Update TODOs**: Copy the AI's response into `docs/todos/ss-X.Y.Z.md`.
+
+Standard TODO Format:
+- `[RENAME/MOVE] Old\Namespace\Class has been renamed to New\Namespace\Class`
+- `[DEPRECATED] Method OldClass::method() is deprecated, use NewClass::method() instead`
+- `[REMOVED] Class/Method ... has been removed.`
+
 ## IDE Support (PHPStorm)
 
 Since Rector uses PHPStan, which is often distributed as a PHAR file, your IDE might not find classes like `PHPStan\Type\ObjectType`.

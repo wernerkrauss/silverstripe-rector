@@ -1,0 +1,28 @@
+#!/bin/bash
+## Description: Analyze downloaded Silverstripe changelogs using AI prompt generation
+## Usage: changelog-analyze-ai [version] (e.g. 5.3.0, 6.1.0)
+## Example: ddev changelog-analyze-ai 6.1.0
+
+set -e
+
+ANALYZE_VERSION=$1
+
+if [ -n "$ANALYZE_VERSION" ]; then
+    # Prefer Markdown if available, otherwise fallback to HTML
+    if [ -f ".changelogs/ss-${ANALYZE_VERSION}.md" ]; then
+        FILE=".changelogs/ss-${ANALYZE_VERSION}.md"
+    else
+        FILE=".changelogs/ss-${ANALYZE_VERSION}.html"
+    fi
+    if [ ! -f "$FILE" ]; then
+        echo "Error: Changelog file for ${ANALYZE_VERSION} not found at ${FILE}."
+        echo "Please run 'ddev changelog-sync ${ANALYZE_VERSION}' first."
+        exit 1
+    fi
+    php scripts/internal/analyze_changelog_ai.php "$FILE"
+else
+    echo "Usage: ddev changelog-analyze-ai <version>"
+    echo "Available downloaded changelogs:"
+    ls .changelogs/ss-*.html 2>/dev/null | sed 's/\.html//g' | sed 's/ss-//g'
+    exit 1
+fi

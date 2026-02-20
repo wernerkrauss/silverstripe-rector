@@ -2,37 +2,62 @@
 
 Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/6/changelogs/6.0.0/#api-changes)
 
-- [ ] Added a new ViewLayerData class which sits between the template layer and the model layer. All data that gets used in the template layer gets wrapped in a ViewLayerData instance first. This class provides a consistent API and value lookup logic so that all data gets treated the same way once it's in the template layer.
-- [ ] Move casting logic into a new CastingService class. This class is responsible for casting data to the correct model (e.g. by default strings get cast to DBText and booleans get cast to DBBoolean). If the source of the data is known and is an instance of ModelData, the casting service calls ModelData::castingHelper() to ensure the ModelData.casting configuration and (in the case of DataObject) the db schema are taken into account.
-- [ ] Implemented a default ModelData::forTemplate() method which will attempt to render the model using templates named after it and its superclasses. See forTemplate and $Me for information about this method's usage. ModelDataCustomised::forTemplate() explicitly uses the forTemplate() method of the class being customised, not from the class providing the customisation.
-- [ ] [REMOVED] The ModelData::XML_val() method has been removed as it is no longer needed to get values for usage in templates.
-- [ ] The ModelData::obj() method now also passes arguments into getter methods. Note however that this method is no longer used to get values in the template layer.
-- [ ] The ModelData::objCacheSet() and ModelData::objCacheGet() methods now deal with raw values prior to being cast. This is so that ViewLayerData can use the cache reliably.
-- [ ] Nothing in core or supported modules (except for the template engine itself) relies on absolute file paths for templates - instead, template names and relative paths (without the .ss extension) are used. Email::getHTMLTemplate() now returns an array of template candidates, unless a specific template was set using setHTMLTemplate().
-- [ ] [REMOVED] ThemeResourceLoader::findTemplate() has been removed without a replacement.
-- [ ] [REMOVED] SSViewer::chooseTemplate() has been removed without a replacement.
-- [ ] TemplateEngine classes will throw a MissingTemplateException if there is no file mapping to any of the template candidates passed to them.
-- [ ] The Email::setHTMLTemplate() and Email::setPlainTemplate() methods used to strip the .ss extension off strings passed into them. They no longer do this. You should double check any calls to those methods and remove the .ss extension from any strings you're passing in, unless those strings represent full absolute file paths.
-- [ ] [REMOVED] The old &#x3C;% _t("My_KEY", "Default text") %> and &#x3C;% sprintf(_t("My_KEY", "Default text with %s"), "replacement") %> i18n syntaxes have been removed. Use the syntax described in the i18n documentation instead.
-- [ ] Act as the barrier between the template layer and the model layer
-- [ ] Actually process and render templates
-- [ ] The SSViewer.global_key configuration property is now SSTemplateEngine.global_key.
-- [ ] [REMOVED] SSViewer::chooseTemplate() has been removed without a replacement.
-- [ ] SSViewer::hasTemplate() is now TemplateEngine::hasTemplate().
-- [ ] SSViewer::fromString() and the SSViewer_FromString class have been replaced with TemplateEngine::renderString().
-- [ ] [REMOVED] The SiteTree.need_permission configuration property has been removed. This wasn't used in permission checks anyway, so these permissions would have had to be separately checked in canCreate() to have the intended effect. If you were using this configuration property, implement a change to canCreate() in your Page class instead.
-- [ ] [RENAME/MOVE] The SiteTree.description configuration property has been renamed to class_description. This configuration has been added to DataObject along with the corresponding classDescription() and i18n_classDescription() methods.
-- [ ] The BaseElement::getTypeNice() method now calls i18n_classDescription() to get the text it will display.
-- [ ] The Hierarchy extension now has a bunch of configuration and methods which used to be exclusive to SiteTree.
-- [ ] FormField::getValue() which usually returns an unmodified version of the value
-- [ ] FormField::getFormattedValue() which is intended to be modified with things like localisation formatting and will be displayed to users
-- [ ] FormField::dataValue() which represents the value as passed into a record when saveInto() is called. Usually this is the same as getValue().
-- [ ] DataObject::validate() now has an explicit ValidationResult return type.
-- [ ] DataObject::write() has a new boolean $skipValidation parameter. This can be useful for scenarios where you want to automatically create a new record with no data initially without restricting how developers can set up their validation rules.
-- [ ] FieldList is now strongly typed. Methods that previously allowed any iterable variables to be passed, namely FieldList::addFieldsToTab() and FieldList::removeFieldsFromTab(), now require an array to be passed instead.
-- [ ] [REMOVED] DNADesign\Elemental\Models\BaseElement::getDescription() and the corresponding DNADesign\Elemental\Models\BaseElement.description configuration property have been removed. If you were using either of these in your custom elemental blocks, either set the new class_description configuration property or override one of the i18n_classDescription() or getTypeNice() methods instead.
-- [ ] [REMOVED] SilverStripe\ORM\DataExtension, SilverStripe\CMS\Model\SiteTreeExtension, and SilverStripe\Admin\LeftAndMainExtension have been removed. If you subclass any of these classes, you must now subclass Extension directly instead.
-- [ ] [REMOVED] The SilverStripe\Model\List\ArrayList.default_case_sensitive configuration property has been removed. This means the default case sensitivity of ArrayList is now the same as any other list which uses search filters. If you were using that configuration property, or you were relying on ArrayList being case sensitive by default, you should double check that your list filters are working the way you expect. See search filters for details about case sensitivity in search filters.
-- [ ] The execution flow for ChangePasswordHandler::changepassword() has changed slightly. The session isn't updated until after the redirect now. If you overrode that method expecting the session to be updated prior to the redirect, you probably want to override the new protected createChangePasswordResponse() method instead.
-- [ ] [RENAME/MOVE] The CMSEditLink() method on many DataObject subclasses has been renamed to getCMSEditLink().
-- [ ] [REMOVED] Support for the $CurrentPageURL template variable, which was previously used to populate email templates with the current page URL, has been removed. This variable was unreliable and is no longer supported.
+- [ ] [RENAME/MOVE] SilverStripe\ORM\ArrayLib has been renamed to SilverStripe\Core\ArrayLib
+- [ ] [RENAME/MOVE] SilverStripe\ORM\ArrayList has been renamed to SilverStripe\Model\List\ArrayList
+- [ ] [RENAME/MOVE] SilverStripe\ORM\GroupedList has been renamed to SilverStripe\Model\List\GroupedList
+- [ ] [RENAME/MOVE] SilverStripe\ORM\ListDecorator has been renamed to SilverStripe\Model\List\ListDecorator
+- [ ] [RENAME/MOVE] SilverStripe\ORM\Map has been renamed to SilverStripe\Model\List\Map
+- [ ] [RENAME/MOVE] SilverStripe\ORM\PaginatedList has been renamed to SilverStripe\Model\List\PaginatedList
+- [ ] [RENAME/MOVE] SilverStripe\ORM\SS_List has been renamed to SilverStripe\Model\List\SS_List
+- [ ] [RENAME/MOVE] SilverStripe\ORM\ValidationException has been renamed to SilverStripe\Core\Validation\ValidationException
+- [ ] [RENAME/MOVE] SilverStripe\ORM\ValidationResult has been renamed to SilverStripe\Core\Validation\ValidationResult
+- [ ] [RENAME/MOVE] SilverStripe\View\ArrayData has been renamed to SilverStripe\Model\ArrayData
+- [ ] [RENAME/MOVE] SilverStripe\View\ViewableData has been renamed to SilverStripe\Model\ModelData
+- [ ] [RENAME/MOVE] SilverStripe\View\ViewableData_Customised has been renamed to SilverStripe\Model\ModelDataCustomised
+- [ ] [RENAME/MOVE] SilverStripe\View\ViewableData_Debugger has been renamed to SilverStripe\Model\ModelDataDebugger
+- [ ] [RENAME/MOVE] SilverStripe\View\SSViewer_BasicIteratorSupport has been renamed to SilverStripe\TemplateEngine\BasicIteratorSupport
+- [ ] [RENAME/MOVE] SilverStripe\View\SSTemplateParseException has been renamed to SilverStripe\TemplateEngine\Exception\SSTemplateParseException
+- [ ] [RENAME/MOVE] SilverStripe\View\SSTemplateParser has been renamed to SilverStripe\TemplateEngine\SSTemplateParser
+- [ ] [RENAME/MOVE] SilverStripe\View\SSViewer_Scope has been renamed to SilverStripe\TemplateEngine\ScopeManager
+- [ ] [RENAME/MOVE] SilverStripe\View\SSViewer_DataPresenter has been renamed to SilverStripe\TemplateEngine\ScopeManager
+- [ ] [RENAME/MOVE] SilverStripe\View\TemplateIteratorProvider has been renamed to SilverStripe\TemplateEngine\TemplateIteratorProvider
+- [ ] [RENAME/MOVE] SilverStripe\View\TemplateParser has been renamed to SilverStripe\TemplateEngine\TemplateParser
+- [ ] [RENAME/MOVE] SilverStripe\ExternalLinks\BrokenExternalLinksReport has been renamed to SilverStripe\Reports\ExternalLinks\Reports\BrokenExternalLinksReport
+- [ ] [RENAME/MOVE] SilverStripe\ExternalLinks\Controllers\CMSExternalLinksController has been renamed to SilverStripe\Reports\ExternalLinks\Controllers\CMSExternalLinksController
+- [ ] [RENAME/MOVE] SilverStripe\ExternalLinks\Jobs\CheckExternalLinksJob has been renamed to SilverStripe\Reports\ExternalLinks\Jobs\CheckExternalLinksJob
+- [ ] [RENAME/MOVE] SilverStripe\ExternalLinks\Model\BrokenExternalLink has been renamed to SilverStripe\Reports\ExternalLinks\Model\BrokenExternalLink
+- [ ] [RENAME/MOVE] SilverStripe\ExternalLinks\Model\BrokenExternalPageTrack has been renamed to SilverStripe\Reports\ExternalLinks\Model\BrokenExternalPageTrack
+- [ ] [RENAME/MOVE] SilverStripe\ExternalLinks\Model\BrokenExternalPageTrackStatus has been renamed to SilverStripe\Reports\ExternalLinks\Model\BrokenExternalPageTrackStatus
+- [ ] [RENAME/MOVE] SilverStripe\ExternalLinks\Tasks\CheckExternalLinksTask has been renamed to SilverStripe\Reports\ExternalLinks\Tasks\CheckExternalLinksTask
+- [ ] [RENAME/MOVE] SilverStripe\ExternalLinks\Tasks\CurlLinkChecker has been renamed to SilverStripe\Reports\ExternalLinks\Tasks\CurlLinkChecker
+- [ ] [RENAME/MOVE] SilverStripe\ExternalLinks\Tasks\LinkChecker has been renamed to SilverStripe\Reports\ExternalLinks\Tasks\LinkChecker
+- [ ] [RENAME/MOVE] SilverStripe\SecurityReport\Forms\GridFieldExportReportButton has been renamed to SilverStripe\Reports\SecurityReport\Forms\GridFieldExportReportButton
+- [ ] [RENAME/MOVE] SilverStripe\SecurityReport\Forms\GridFieldPrintReportButton has been renamed to SilverStripe\Reports\SecurityReport\Forms\GridFieldPrintReportButton
+- [ ] [RENAME/MOVE] SilverStripe\SecurityReport\MemberReportExtension has been renamed to SilverStripe\Reports\SecurityReport\MemberReportExtension
+- [ ] [RENAME/MOVE] SilverStripe\SecurityReport\UserSecurityReport has been renamed to SilverStripe\Reports\SecurityReport\UserSecurityReport
+- [ ] [RENAME/MOVE] SilverStripe\SiteWideContentReport\Form\GridFieldBasicContentReport has been renamed to SilverStripe\Reports\SiteWideContentReport\Form\GridFieldBasicContentReport
+- [ ] [RENAME/MOVE] SilverStripe\SiteWideContentReport\Model\SitewideContentTaxonomy has been renamed to SilverStripe\Reports\SiteWideContentReport\Model\SitewideContentTaxonomy
+- [ ] [RENAME/MOVE] SilverStripe\SiteWideContentReport\SitewideContentReport has been renamed to SilverStripe\Reports\SiteWideContentReport\SitewideContentReport
+- [ ] [RENAME/MOVE] SilverStripe\Forms\Validator has been renamed to SilverStripe\Forms\Validation\Validator
+- [ ] [RENAME/MOVE] SilverStripe\Forms\RequiredFields has been renamed to SilverStripe\Forms\Validation\RequiredFieldsValidator
+- [ ] [RENAME/MOVE] SilverStripe\Forms\CompositeValidator has been renamed to SilverStripe\Forms\Validation\CompositeValidator
+- [ ] [RENAME/MOVE] SilverStripe\UserForms\Form\UserFormsRequiredFields has been renamed to SilverStripe\UserForms\Form\UserFormsRequiredFieldsValidator
+- [ ] [RENAME/MOVE] Symbiote\AdvancedWorkflow\Forms\AWRequiredFields has been renamed to Symbiote\AdvancedWorkflow\Forms\AWRequiredFieldsValidator
+- [ ] [RENAME/MOVE] SilverStripe\Security\PasswordValidator has been renamed to SilverStripe\Security\Validation\RulesPasswordValidator
+- [ ] [RENAME/MOVE] DNADesign\Elemental\TopPage\DataExtension has been renamed to DNADesign\Elemental\Extensions\TopPageElementExtension
+- [ ] [RENAME/MOVE] DNADesign\Elemental\TopPage\FluentExtension has been renamed to DNADesign\Elemental\Extensions\TopPageFluentElementExtension
+- [ ] [RENAME/MOVE] DNADesign\Elemental\TopPage\SiteTreeExtension has been renamed to DNADesign\Elemental\Extensions\TopPageSiteTreeExtension
+- [ ] [RENAME/MOVE] SilverStripe\CMS\Controllers\LeftAndMainPageIconsExtension has been renamed to SilverStripe\CMS\Controllers\LeftAndMainRecordIconsExtension
+- [ ] [RENAME/MOVE] SilverStripe\CMS\Model\CurrentPageIdentifier has been renamed to SilverStripe\CMS\Model\CurrentRecordIdentifier
+- [ ] [RENAME/MOVE] SilverStripe\Dev\Constraint\ViewableDataContains has been renamed to SilverStripe\Dev\Constraint\ModelDataContains
+- [ ] [RENAME/MOVE] SilverStripe\Dev\Validation\DatabaseAdminExtension has been renamed to SilverStripe\Dev\Validation\DbBuildExtension
+- [ ] [RENAME/MOVE] SilverStripe\Logging\HTTPOutputHandler has been renamed to SilverStripe\Logging\ErrorOutputHandler
+- [ ] [REMOVED] SilverStripe\ORM\DataObject::get_by_id() has been removed. Use DataObject::get($className)->byID($id) instead.
+- [ ] [REMOVED] SilverStripe\ORM\DataObject::get_one() has been removed. Use DataObject::get($className)->first() instead.
+- [ ] [REMOVED] SilverStripe\ORM\DataObject::delete_by_id() has been removed. Use DataObject::get($className)->byID($id)->delete() instead.
+- [ ] [RENAME/MOVE] Extension hook updateRelativeLink($base, &$relativeLink, $action) in SiteTree has been renamed to updateRelativeLink(&$link).
+- [ ] [RENAME/MOVE] Extension hook updateRelativeLink($base, &$relativeLink, $action) in SiteTreeExtension has been renamed to updateRelativeLink(&$link).
+- [ ] [RENAME/MOVE] Extension hook updateLink($base, &$link, $action) in SiteTree has been renamed to updateLink(&$link).
+- [ ] [RENAME/MOVE] Extension hook updateLink($base, &$link, $action) in SiteTreeExtension has been renamed to updateLink(&$link).
+- [ ] [RENAME/MOVE] Extension hook updateAbsoluteLink($base, &$link, $action) in SiteTree has been renamed to updateAbsoluteLink(&$link).
+- [ ] [RENAME/MOVE] Extension hook updateAbsoluteLink($base, &$link, $action) in SiteTreeExtension has been renamed to updateAbsoluteLink(&$link).
