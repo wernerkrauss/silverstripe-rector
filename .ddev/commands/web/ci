@@ -5,43 +5,113 @@
 
 set -uo pipefail
 
+# ANSI Color Codes
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+BLACK_ON_GREEN='\033[0;30;42m'
+BLACK_ON_RED='\033[0;30;41m'
+NC='\033[0m' # No Color
+
+# Helper for banners
+print_banner() {
+    local message="$1"
+    local color="$2"
+    local width=100
+    echo -e "\n${color}$(printf '%*s' $width '')${NC}"
+    echo -e "${color} $(printf '%-*s' $((width - 1)) "$message")${NC}"
+    echo -e "${color}$(printf '%*s' $width '')${NC}\n"
+}
+
 # Variable für den Gesamtstatus
 EXIT_CODE=0
 
+# Status-Speicher
+STATUS_PHPUNIT="SKIP"
+STATUS_LINT="SKIP"
+STATUS_RECTOR="SKIP"
+STATUS_PHPSTAN="SKIP"
+STATUS_JACK="SKIP"
+
 # 1) PHPUnit (delegate to the dedicated ddev command to avoid duplication)
 echo "*** PHPUnit ***"
-if ! phpunit "$@"; then
-  echo "❌  PHPUnit tests failed."
-  EXIT_CODE=1
+if phpunit "$@"; then
+  echo -e "${GREEN}✅  PHPUnit OK${NC}"
+  STATUS_PHPUNIT="OK"
 else
-  echo "✅  PHPUnit OK"
+  echo -e "${RED}❌  PHPUnit tests failed.${NC}"
+  STATUS_PHPUNIT="FAILED"
+  EXIT_CODE=1
 fi
 
 # 2) Linting
 echo "*** Linting ***"
-if ! phpcs; then
-  echo "❌  Linting found errors. Please run 'ddev fix' to fix errors automatically and 'ddev lint' to see what's still missing"
-  EXIT_CODE=1
+if phpcs; then
+  echo -e "${GREEN}✅  Linting OK${NC}"
+  STATUS_LINT="OK"
 else
-  echo "✅  Linting OK"
+  echo -e "${RED}❌  Linting found errors. Please run 'ddev fix' to fix errors automatically and 'ddev lint' to see what's still missing${NC}"
+  STATUS_LINT="FAILED"
+  EXIT_CODE=1
 fi
 
 # 3) Rector (dry-run)
 echo "*** Rector ***"
-if ! rector --dry-run; then
-  echo "❌  Rector found things to improve. Please run 'ddev rector' and commit the fixes"
-  EXIT_CODE=1
+if rector --dry-run --no-ansi; then
+  echo -e "${GREEN}✅  Rector OK${NC}"
+  STATUS_RECTOR="OK"
 else
-  echo "✅  Rector OK"
+  echo -e "${RED}❌  Rector found things to improve. Please run 'ddev rector' and commit the fixes${NC}"
+  STATUS_RECTOR="FAILED"
+  EXIT_CODE=1
 fi
 
 # 4) PHPStan Level 4
 echo "*** PHPStan Level 4 ***"
-if ! phpstan -l4; then
-  echo "❌  PHPStan found errors! Please fix"
-  EXIT_CODE=1
+if phpstan -l4 --no-ansi; then
+  echo -e "${GREEN}✅  PHPStan level 4 OK${NC}"
+  STATUS_PHPSTAN="OK"
 else
-  echo "✅  PHPStan level 4 OK"
+  echo -e "${RED}❌  PHPStan found errors! Please fix${NC}"
+  STATUS_PHPSTAN="FAILED"
+  EXIT_CODE=1
+fi
+
+# 5) Jack (Composer update check)
+echo "*** Jack (Composer update check) ***"
+if jack breakpoint; then
+  echo -e "${GREEN}✅  Jack OK${NC}"
+  STATUS_JACK="OK"
+else
+  echo -e "${RED}❌  Jack found too many outdated packages. Please run 'ddev composer update'.${NC}"
+  STATUS_JACK="FAILED"
+  EXIT_CODE=1
+fi
+
+# --- SUMMARY ---
+echo -e "\n================ SUMMARY ================"
+print_status() {
+    local name="$1"
+    local status="$2"
+    if [ "$status" == "OK" ]; then
+        echo -e "${name}: $(printf '%*s' $((20 - ${#name})) '') ${GREEN}✅ OK${NC}"
+    elif [ "$status" == "FAILED" ]; then
+        echo -e "${name}: $(printf '%*s' $((20 - ${#name})) '') ${RED}❌ FAILED${NC}"
+    else
+        echo -e "${name}: $(printf '%*s' $((20 - ${#name})) '') ⚪ SKIP"
+    fi
+}
+
+print_status "PHPUnit" "$STATUS_PHPUNIT"
+print_status "Linting" "$STATUS_LINT"
+print_status "Rector" "$STATUS_RECTOR"
+print_status "PHPStan" "$STATUS_PHPSTAN"
+print_status "Jack" "$STATUS_JACK"
+echo "========================================="
+
+if [ $EXIT_CODE -eq 0 ]; then
+    print_banner "[OK] ALL CHECKS PASSED" "$BLACK_ON_GREEN"
+else
+    print_banner "[ERROR] SOME CHECKS FAILED" "$BLACK_ON_RED"
 fi
 
 exit $EXIT_CODE

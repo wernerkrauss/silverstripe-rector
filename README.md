@@ -212,9 +212,22 @@ ddev rector --dry-run #dry-run
 ddev rector 
 ```
 
+### Jack
+Jack is a tool to check for outdated dependencies, especially major version updates that might require manual intervention.
+
+```bash
+ddev jack
+```
+
+or specifically to check if any major updates are available (which is used in CI):
+
+```bash
+ddev jack breakpoint
+```
+
 ### Everything in one command
 
-There is also a CI tool to run everything in one command
+There is also a CI tool to run everything in one command (PHPUnit, Linting, Rector, PHPStan and Jack)
 
 ```bash
 ddev ci
