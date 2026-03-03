@@ -58,7 +58,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('SilverStripe\ORM\DataList')) &&
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType(\SilverStripe\ORM\DataList::class)) &&
             !$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('SilverStripe\ORM\ArrayList'))
         ) {
             return null;

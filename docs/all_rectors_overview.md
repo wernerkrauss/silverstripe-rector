@@ -1,10 +1,10 @@
-# 11 Rules Overview
+# 13 Rules Overview
 
 <br>
 
 ## Categories
 
-- [Rector](#rector) (11)
+- [Rector](#rector) (13)
 
 <br>
 
@@ -56,6 +56,21 @@ Silverstripe 4.0: DataObject subclasses must have "$table_name" defined
 +
      private static $db = [];
  }
+```
+
+<br>
+
+### GetIDListToColumnIDRector
+
+Silverstripe 6.2: Replace `getIDList()` with sort(null)->column('ID') or column('ID')
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\ORM\GetIDListToColumnIDRector`](../src/Rector/ORM/GetIDListToColumnIDRector.php)
+
+```diff
+-$dataList->getIDList();
+-$eagerLoadedList->getIDList();
++$dataList->sort(null)->column('ID');
++$eagerLoadedList->column('ID');
 ```
 
 <br>
@@ -179,6 +194,28 @@ Silverstripe 6.0: Replace `Controller::has_curr()` with `Controller::curr()` !==
 -if (Controller::has_curr()) {
 +if (Controller::curr() !== null) {
      // ...
+ }
+```
+
+<br>
+
+### SilverstripeDeprecationCommentRector
+
+Silverstripe: Add deprecation comments to classes or methods
+
+:wrench: **configure it!**
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\SilverstripeDeprecationCommentRector`](../src/Rector/Misc/SilverstripeDeprecationCommentRector.php)
+
+```diff
+ class SomeClass
+ {
++    /**
++     * @deprecated This method is deprecated. See: https://docs.silverstripe.org/...
++     */
+     public function oldMethod()
+     {
+     }
  }
 ```
 

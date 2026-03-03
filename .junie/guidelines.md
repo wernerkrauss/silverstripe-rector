@@ -27,6 +27,9 @@ This project provides Rector rules for Silverstripe CMS. Development is carried 
     - Use exactly **one fixture file per test case**.
     - Give fixtures descriptive names (e.g., `simple_if_has_curr.php.inc`, `negated_if_has_curr.php.inc`).
     - Avoid large, monolithic fixture files containing multiple unrelated scenarios.
+- **Setlist Testing**:
+    - For every "Todo" or Silverstripe version added to a Setlist (e.g., `config/silverstripe-X-Y.php`), a corresponding Setlist test must be created in `tests/Set/SilverstripeXY/`.
+    - This ensures that all rules in the setlist work together as expected.
 - **Negative Testing**:
     - Always include **negative tests** (usually prefixed with `skip_`) to ensure the Rector does not produce false positives (e.g., `skip_other_classes.php.inc`).
     - Verify that the Rector only affects the intended classes and methods.

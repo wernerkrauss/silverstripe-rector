@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added rules for Silverstripe 6.2 deprecations:
+    - Added `GetIDListToColumnIDRector` to replace `getIDList()` with `sort(null)->column('ID')` or `column('ID')`.
+    - Added `FieldList::dataFields()` to `getDataFields()` rename to Silverstripe 6.2 setlist.
 - Added `StatToConfigGetRector` to replace `$this->stat()` with `static::config()->get()` for Silverstripe 4.
 - Updated documentation to include Silverstripe version or setlist in rule descriptions.
 - Added `ReplaceHasCurrWithCurrRector` to replace `Controller::has_curr()` with `Controller::curr() !== null` for Silverstripe 6.
