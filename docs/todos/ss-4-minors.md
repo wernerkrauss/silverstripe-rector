@@ -53,7 +53,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/4/c
 
 Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/4/changelogs/4.8.0/#api-changes)
 
-- [ ] [DEPRECATED] SilverStripe\Core\ClassInfo::subclassesFor() is deprecated, use getSubclassesFor() instead.
+- [x] [DEPRECATED] SilverStripe\Core\ClassInfo::subclassesFor() is deprecated, use getSubclassesFor() instead.
 - [ ] [DEPRECATED] SilverStripe\ORM\DataList::unique() is deprecated.
 
 # Silverstripe 4.9.0 Rector TODOs
@@ -68,7 +68,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/4/c
 Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/4/changelogs/4.10.0/#api-changes)
 
 - [ ] [DEPRECATED] SilverStripe\Control\Session::get_all() is deprecated.
-- [ ] [DEPRECATED] SilverStripe\ORM\DataObject::i18n_plural_name() is deprecated.
+- [x] [DEPRECATED] SilverStripe\ORM\DataObject::i18n_plural_name() is deprecated.
 
 # Silverstripe 4.11.0 Rector TODOs
 

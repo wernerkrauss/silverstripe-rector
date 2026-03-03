@@ -9,4 +9,16 @@ if (class_exists('SilverStripe\ORM\DataObject')) {
 class DataObject
 {
     use Configurable;
+
+    public function i18n_plural_name()
+    {
+    }
+
+    public function plural_name()
+    {
+    }
+
+    public static function get($class)
+    {
+    }
 }

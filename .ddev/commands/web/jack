@@ -1,0 +1,14 @@
+#!/bin/bash
+
+## Description: run rector/jack, a composer update checker
+## Usage: jack
+## Example: "ddev jack"
+
+if ! [ -x "$(command -v vendor/bin/jack)" ]; then
+  echo 'Error: .' >&2
+  echo 'Please add rector/jack as a composer requirement.' >&2
+  exit 1
+fi
+
+php vendor/bin/jack "$@"
+
