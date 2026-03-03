@@ -1,10 +1,10 @@
-# 13 Rules Overview
+# 14 Rules Overview
 
 <br>
 
 ## Categories
 
-- [Rector](#rector) (13)
+- [Rector](#rector) (14)
 
 <br>
 
@@ -39,6 +39,23 @@ Code Style: Changes DataObject::get_by_id('ClassName', `$id)` to `ClassName::get
 ```diff
 -DataObject::get_by_id('MyPage', $id);
 +MyPage::get()->byID($id);
+```
+
+<br>
+
+### DataObjectStaticMethodsToFluentRector
+
+Silverstripe 6.1: Replace DataObject static methods `get_by_id()`, `get_one()`, and `delete_by_id()` with fluent equivalents.
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\DataObject\DataObjectStaticMethodsToFluentRector`](../src/Rector/DataObject/DataObjectStaticMethodsToFluentRector.php)
+
+```diff
+-DataObject::get_by_id($className, $id);
+-DataObject::get_one($className, $filter);
+-DataObject::delete_by_id($className, $id);
++DataObject::get($className)->setUseCache(true)->byID($id);
++DataObject::get($className)->setUseCache(true)->filter($filter)->first();
++DataObject::get($className)->setUseCache(true)->byID($id)->delete();
 ```
 
 <br>

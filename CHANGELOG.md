@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added rules for Silverstripe 6.1 deprecations:
+    - Added `DataObjectStaticMethodsToFluentRector` to replace `DataObject::get_by_id()`, `get_one()`, and `delete_by_id()` with fluent equivalents (e.g. `DataObject::get($className)->setUseCache(true)->byID($id)`).
 - Added rules for Silverstripe 6.2 deprecations:
     - Added `GetIDListToColumnIDRector` to replace `getIDList()` with `sort(null)->column('ID')` or `column('ID')`.
     - Added `FieldList::dataFields()` to `getDataFields()` rename to Silverstripe 6.2 setlist.
