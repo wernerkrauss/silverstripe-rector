@@ -218,7 +218,7 @@ Silverstripe 6.0: Replace `Controller::has_curr()` with `Controller::curr()` !==
 
 ### SilverstripeDeprecationCommentRector
 
-Silverstripe: Add deprecation comments to classes or methods
+Silverstripe: Add deprecation comments to classes or methods without direct substitute.
 
 :wrench: **configure it!**
 
@@ -228,7 +228,8 @@ Silverstripe: Add deprecation comments to classes or methods
  class SomeClass
  {
 +    /**
-+     * @deprecated This method is deprecated. See: https://docs.silverstripe.org/...
++     * @deprecated This method is deprecated.
++     * See: https://docs.silverstripe.org/...
 +     */
      public function oldMethod()
      {

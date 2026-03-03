@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Silverstripe 6.0 Extension hook renames to the SS 6.0 setlist (thanks to [@lerni](https://github.com/lerni)).
 - Added Silverstripe 6.0 class renames for `ViewableDataContains` and `DatabaseAdminExtension`.
 - Added tests for Silverstripe 6.0 SetList
+- Added `SilverstripeDeprecationCommentRector`:
+  - Added tests and comprehensive documentation.
+  - Improved class and method detection using PHPStan Scope.
+  - Ensured PHP 7.4 compatibility
 - Add jack for testing outdated packages in CI
 - Improved CI script
 
