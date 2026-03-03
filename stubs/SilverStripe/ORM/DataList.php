@@ -18,4 +18,8 @@ class DataList
     {
         return [];
     }
+
+    public function getGenerator()
+    {
+    }
 }

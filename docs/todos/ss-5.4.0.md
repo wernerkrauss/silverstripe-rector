@@ -33,12 +33,12 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] DatabaseAdmin has been deprecated. It will be replaced with a new SilverStripe\Dev\Command\DbBuild class.
 - [ ] [DEPRECATED] DevelopmentAdmin::buildDefaults() has been deprecated. It will be replaced with a new SilverStripe\Dev\Command\DbDefaults class.
 - [ ] [DEPRECATED] DevelopmentAdmin::generatesecuretoken() has been deprecated. It will be replaced with a new SilverStripe\Dev\Command\GenerateSecureToken class.
-- [ ] [DEPRECATED] DevelopmentAdmin::getRegisteredController() has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] DevelopmentAdmin::getRegisteredController() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] DevelopmentAdmin.registered_controllers has been deprecated. It will be replaced with new controllers and commands configuration properties.
 - [ ] [DEPRECATED] CleanupTestDatabasesTask::canView() has been deprecated. It will be replaced with a new canRunInBrowser() method.
 - [ ] [DEPRECATED] HTTPOutputHandler has been deprecated. It will be renamed to SilverStripe\Logging\ErrorOutputHandler
 - [ ] [DEPRECATED] Build has been deprecated. It will be replaced with a new SilverStripe\GraphQL\Dev\SchemaBuild class.
-- [ ] [DEPRECATED] DevelopmentAdmin has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] DevelopmentAdmin has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] DevBuildExtension has been deprecated. It will be renamed to SilverStripe\GraphQL\Extensions\DbBuildExtension
 - [ ] [DEPRECATED] LDAPGroupSyncTask::log() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] LDAPMemberSyncTask::log() has been deprecated. It will be removed without equivalent functionality to replace it.
@@ -66,8 +66,8 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] DBFile::validate() has been deprecated. Use DBFile::validateFilename() instead.
 - [ ] [DEPRECATED] ContentController::Menu() has been deprecated. Use ContentController::getMenu() instead if calling the method in PHP. You can continue to use $Menu in templates, including passing arguments to it.
 - [ ] [DEPRECATED] GridFieldDataColumns::getValueFromRelation() has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] ViewableData::castingClass() has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] ViewableData::escapeTypeForField() has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] ViewableData::castingClass() has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] ViewableData::escapeTypeForField() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] ViewableData::objCacheName() has been deprecated. It will be made private. The corresponding ViewableData::objCacheSet() and ViewableData::objCacheGet() methods will change method signature to not require passing in the cache key.
 - [ ] [DEPRECATED] The $cacheName parameter for the ViewableData::obj() method has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] ViewableData::cachedCall() has been deprecated. Use ViewableData::obj() instead.

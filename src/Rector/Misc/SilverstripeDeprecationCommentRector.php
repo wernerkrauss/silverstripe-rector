@@ -4,10 +4,18 @@ namespace Netwerkstatt\SilverstripeRector\Rector\Misc;
 
 use PhpParser\Comment;
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\StaticPropertyFetch;
+use PhpParser\Node\Expr\Throw_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
+use Rector\PhpParser\Node\BetterNodeFinder;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -40,6 +48,13 @@ final class SilverstripeDeprecationCommentRector extends AbstractRector implemen
      * @var array<string, array{message: string, link: string}>
      */
     private array $configuration = [];
+
+    private BetterNodeFinder $betterNodeFinder;
+
+    public function __construct(BetterNodeFinder $betterNodeFinder)
+    {
+        $this->betterNodeFinder = $betterNodeFinder;
+    }
 
     public function getRuleDefinition(): RuleDefinition
     {
@@ -79,17 +94,35 @@ PHP,
     }
 
     /**
-     * @return array<class-string<Node>>
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {
-        return [Class_::class, ClassMethod::class];
+        return [
+            Class_::class,
+            ClassMethod::class,
+            Expression::class,
+            Return_::class,
+        ];
     }
 
     /**
-     * @param Class_|ClassMethod $node
+     * @param Class_|ClassMethod|Expression|Return_ $node
      */
     public function refactor(Node $node): ?Node
+    {
+        if ($node instanceof Class_ || $node instanceof ClassMethod) {
+            return $this->refactorDeclaration($node);
+        }
+
+        if ($node instanceof Expression || $node instanceof Return_) {
+            return $this->refactorStatement($node);
+        }
+
+        return null;
+    }
+
+    private function refactorDeclaration(Node $node): ?Node
     {
         foreach ($this->configuration as $target => $info) {
             if (strpos($target, '::') !== false) {
@@ -130,6 +163,50 @@ PHP,
         return null;
     }
 
+    private function refactorStatement(Node $node): ?Node
+    {
+        $hasChanged = false;
+        foreach ($this->configuration as $target => $info) {
+            if (strpos($target, '::') === false) {
+                continue;
+            }
+
+            [$className, $methodName] = explode('::', $target);
+
+            $isDeprecatedCallFound = (bool)$this->betterNodeFinder->findFirst(
+                $node,
+                function (Node $subNode) use ($className, $methodName): bool {
+                    if ($subNode instanceof Throw_) {
+                        $subNode = $subNode->expr;
+                    }
+
+                    if (!($subNode instanceof MethodCall || $subNode instanceof StaticCall
+                        || $subNode instanceof PropertyFetch || $subNode instanceof StaticPropertyFetch)) {
+                        return false;
+                    }
+
+                    if (!$this->isName($subNode->name, $methodName)) {
+                        return false;
+                    }
+
+                    $objectTypeNode = $subNode instanceof MethodCall
+                        ? $subNode->var
+                        : ($subNode instanceof StaticCall || $subNode instanceof StaticPropertyFetch
+                            ? $subNode->class
+                            : $subNode->var);
+
+                    return $this->isObjectType($objectTypeNode, new ObjectType($className));
+                }
+            );
+
+            if ($isDeprecatedCallFound && $this->addDeprecationComment($node, $info) instanceof \PhpParser\Node) {
+                $hasChanged = true;
+            }
+        }
+
+        return $hasChanged ? $node : null;
+    }
+
     /**
      * @param array{message: string, link: string} $info
      */
@@ -149,7 +226,17 @@ PHP,
             }
         }
 
-        $node->setDocComment(new Comment\Doc($commentText));
+        $docComment = $node->getDocComment();
+        if ($docComment instanceof \PhpParser\Comment\Doc) {
+            $newText = str_replace(
+                '*/',
+                " * @deprecated " . $info['message'] . "\n * See: " . $info['link'] . "\n */",
+                $docComment->getText()
+            );
+            $node->setDocComment(new Comment\Doc($newText));
+        } else {
+            $node->setDocComment(new Comment\Doc($commentText));
+        }
 
         return $node;
     }

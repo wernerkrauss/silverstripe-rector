@@ -22,4 +22,6 @@ class Controller
     public static function curr()
     {
     }
+
+    public static $alternate_public_dir;
 }
