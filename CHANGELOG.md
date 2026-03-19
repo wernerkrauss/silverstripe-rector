@@ -14,7 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Added `GetIDListToColumnIDRector` to replace `getIDList()` with `sort(null)->column('ID')` or `column('ID')`.
     - Added `FieldList::dataFields()` to `getDataFields()` rename to Silverstripe 6.2 setlist.
 - Added rules for Silverstripe 4.8 and 4.10 deprecations:
-    - Added `ClassInfo::subclassesFor()` to `getSubclassesFor()` rename to Silverstripe 4.8 setlist.
     - Added `DataObject::i18n_plural_name()` to `plural_name()` rename to Silverstripe 4.10 setlist.
 - Added `StatToConfigGetRector` to replace `$this->stat()` with `static::config()->get()` for Silverstripe 4.
 - Updated documentation to include Silverstripe version or setlist in rule descriptions.

@@ -2,8 +2,8 @@
 
 Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/4/changelogs/4.13.0/#api-changes)
 
-- [ ] [DEPRECATED] Deprecated class CWP\CWP\Extensions\CwpSiteSummaryExtension Will be removed without equivalent functionality to replace it
-- [ ] [DEPRECATED] Deprecated class DNADesign\Elemental\TopPage\TestState Will be removed without equivalent functionality to replace it
+- [FALSCH: Nicht im Changelog gefunden] [DEPRECATED] Deprecated class CWP\CWP\Extensions\CwpSiteSummaryExtension Will be removed without equivalent functionality to replace it
+- [FALSCH: Nicht im Changelog gefunden] [DEPRECATED] Deprecated class DNADesign\Elemental\TopPage\TestState Will be removed without equivalent functionality to replace it
 - [ ] [DEPRECATED] Deprecated method DNADesign\Elemental\TopPage\DataExtension::getTopPageUpdate() Will be removed without equivalent functionality to replace it
 - [ ] [DEPRECATED] Deprecated method DNADesign\Elemental\TopPage\DataExtension::enableTopPageUpdate() Will be removed without equivalent functionality to replace it
 - [ ] [DEPRECATED] Deprecated method DNADesign\Elemental\TopPage\DataExtension::disableTopPageUpdate() Will be removed without equivalent functionality to replace it
@@ -21,7 +21,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/4/c
 - [ ] [DEPRECATED] Deprecated class SilverStripe\ORM\Connect\PDOConnector Will be removed without equivalent functionality to replace it
 - [ ] [DEPRECATED] Deprecated class SilverStripe\ORM\Connect\PDOQuery Will be removed without equivalent functionality to replace it
 - [ ] [DEPRECATED] Deprecated class SilverStripe\ORM\Connect\PDOStatementHandle Will be removed without equivalent functionality to replace it
-- [ ] [DEPRECATED] Deprecated class SilverStripe\Dev\TestSession_STResponseWrapper Will be removed without equivalent functionality to replace it
+- [FALSCH: Nicht im Changelog gefunden] [DEPRECATED] Deprecated class SilverStripe\Dev\TestSession_STResponseWrapper Will be removed without equivalent functionality to replace it
 - [ ] [DEPRECATED] Deprecated class SilverStripe\Dev\CSVParser Use League\Csv\Reader instead
 - [ ] [DEPRECATED] Deprecated class SilverStripe\View\Parsers\Diff Will be replaced with SilverStripe\View\Parsers\HtmlDiff
 - [x] [DEPRECATED] Deprecated method SilverStripe\ORM\DataList::getGenerator() Will be removed without equivalent functionality to replace it
