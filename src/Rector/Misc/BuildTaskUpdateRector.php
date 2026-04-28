@@ -46,7 +46,7 @@ final class BuildTaskUpdateRector extends AbstractRector implements DocumentedRu
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Updates Silverstripe BuildTask from v5 to v6',
+            'Silverstripe 6.0: Updates Silverstripe BuildTask from v5 to v6',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

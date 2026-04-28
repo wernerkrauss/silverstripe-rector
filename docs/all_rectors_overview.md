@@ -32,7 +32,7 @@ Code Style: Adds `@config` property to predefined private statics, e.g. `$db` or
 
 ### BuildTaskUpdateRector
 
-Updates Silverstripe BuildTask from v5 to v6
+Silverstripe 6.0: Updates Silverstripe BuildTask from v5 to v6
 
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\BuildTaskUpdateRector`](../src/Rector/Misc/BuildTaskUpdateRector.php)
 
