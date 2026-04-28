@@ -1,10 +1,10 @@
-# 15 Rules Overview
+# 16 Rules Overview
 
 <br>
 
 ## Categories
 
-- [Rector](#rector) (15)
+- [Rector](#rector) (16)
 
 <br>
 
@@ -25,6 +25,34 @@ Code Style: Adds `@config` property to predefined private statics, e.g. `$db` or
 +    * @config
 +    */
      private static $db = [];
+ }
+```
+
+<br>
+
+### BuildTaskUpdateRector
+
+Updates Silverstripe BuildTask from v5 to v6
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\BuildTaskUpdateRector`](../src/Rector/Misc/BuildTaskUpdateRector.php)
+
+```diff
+ use SilverStripe\Dev\BuildTask;
++use Symfony\Component\Console\Input\InputInterface;
++use SilverStripe\PolyExecution\PolyOutput;
+
+ class MyTask extends BuildTask
+ {
+-    protected $title = 'My Task';
++    protected string $title = 'My Task';
+
+-    public function run($request)
++    protected function execute(InputInterface $input, PolyOutput $output): int
+     {
+-        echo "Running task";
++        $output->writeln('Running task');
++        return \Symfony\Component\Console\Command\Command::SUCCESS;
+     }
  }
 ```
 
