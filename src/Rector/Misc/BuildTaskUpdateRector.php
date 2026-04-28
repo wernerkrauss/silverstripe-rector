@@ -94,9 +94,11 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node, new ObjectType('SilverStripe\Dev\BuildTask')) &&
-            !$this->isName($node->extends, 'SilverStripe\Dev\BuildTask') &&
-            !$this->isName($node->extends, 'BuildTask')
+        if (!$this->isObjectType($node, new ObjectType(\SilverStripe\Dev\BuildTask::class)) &&
+            ($node->extends === null || (
+                !$this->isName($node->extends, \SilverStripe\Dev\BuildTask::class) &&
+                !$this->isName($node->extends, 'BuildTask')
+            ))
         ) {
             return null;
         }

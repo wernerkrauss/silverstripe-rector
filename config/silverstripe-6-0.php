@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
+use Netwerkstatt\SilverstripeRector\Rector\Control\ReplaceHasCurrWithCurrRector;
+use Netwerkstatt\SilverstripeRector\Rector\DataObject\DataObjectGetByIdToByIDRector;
 use Netwerkstatt\SilverstripeRector\Rector\Misc\BuildTaskUpdateRector;
+use Netwerkstatt\SilverstripeRector\Rector\Misc\RemoveSilverstripeDeprecationCommentRector;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
