@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Added generic `PropertyToConfigRector` to convert class properties to static config variables (e.g. `BuildTask::$enabled` to `private static $is_enabled`).
+- Added generic `StaticCallToConfigRector` to convert static method calls to class config variables (e.g. `DataObject::disable_subclass_access()` to `private static $subclass_access = false`).
+- Integrated new generic rules into Silverstripe 5.1 and 5.2 setlists.
+
 ## [1.3] - 2026-04-28
 
 ### Added

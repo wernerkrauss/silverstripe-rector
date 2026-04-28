@@ -9,6 +9,6 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] GridFieldFilterHeader
 - [ ] GridFieldPaginator
 - [ ] GridFieldSortableHeader
-- [ ] Configuration property DataObject.subclass_access
-- [ ] Public static method DataObject::disable_subclass_access()
-- [ ] Public static method DataObject::enable_subclass_access()
+- [x] Configuration property DataObject.subclass_access
+- [x] Public static method DataObject::disable_subclass_access()
+- [x] Public static method DataObject::enable_subclass_access()

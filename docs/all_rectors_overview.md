@@ -1,10 +1,10 @@
-# 16 Rules Overview
+# 18 Rules Overview
 
 <br>
 
 ## Categories
 
-- [Rector](#rector) (16)
+- [Rector](#rector) (18)
 
 <br>
 
@@ -209,6 +209,27 @@ Code Style: Replace specific property fetches with method calls
 
 <br>
 
+### PropertyToConfigRector
+
+Convert protected properties to private static config properties
+
+:wrench: **configure it!**
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\PropertyToConfigRector`](../src/Rector/Misc/PropertyToConfigRector.php)
+
+```diff
+ class MyTask extends BuildTask
+ {
+-    protected $enabled = true;
++    /**
++     * @config
++     */
++    private static $is_enabled = true;
+ }
+```
+
+<br>
+
 ### RemoveSilverstripeDeprecationCommentRector
 
 Silverstripe: Remove deprecation comments that are no longer applicable after upgrade.
@@ -302,6 +323,31 @@ Silverstripe 4.0: Replace `$this->stat('foo')` with `static::config()->get('foo'
      public function myMethod() {
 -        $this->stat('foo');
 +        static::config()->get('foo');
+     }
+ }
+```
+
+<br>
+
+### StaticCallToConfigRector
+
+Convert static method calls to config properties
+
+:wrench: **configure it!**
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\StaticCallToConfigRector`](../src/Rector/Misc/StaticCallToConfigRector.php)
+
+```diff
+ class MyObject extends DataObject
+ {
++    /**
++     * @config
++     */
++    private static $subclass_access = false;
+     public function onBeforeWrite()
+     {
+         parent::onBeforeWrite();
+-        self::disable_subclass_access();
      }
  }
 ```
