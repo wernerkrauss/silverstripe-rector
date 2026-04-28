@@ -21,4 +21,8 @@ class DataObject
     public static function get($class)
     {
     }
+
+    public static function get_by_id($class, $id)
+    {
+    }
 }

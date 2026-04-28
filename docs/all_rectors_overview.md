@@ -1,10 +1,10 @@
-# 14 Rules Overview
+# 15 Rules Overview
 
 <br>
 
 ## Categories
 
-- [Rector](#rector) (14)
+- [Rector](#rector) (15)
 
 <br>
 
@@ -175,6 +175,29 @@ Code Style: Replace specific property fetches with method calls
      {
 -        echo $this->name;
 +        echo $this->getName();
+     }
+ }
+```
+
+<br>
+
+### RemoveSilverstripeDeprecationCommentRector
+
+Silverstripe: Remove deprecation comments that are no longer applicable after upgrade.
+
+:wrench: **configure it!**
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\RemoveSilverstripeDeprecationCommentRector`](../src/Rector/Misc/RemoveSilverstripeDeprecationCommentRector.php)
+
+```diff
+ class SomeClass
+ {
+-    /**
+-     * @deprecated This method is deprecated. Use newMethod() instead.
+-     * See: https://docs.silverstripe.org/...
+-     */
+     public function newMethod()
+     {
      }
  }
 ```

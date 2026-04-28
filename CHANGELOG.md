@@ -25,7 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added tests and comprehensive documentation.
   - Improved class and method detection using PHPStan Scope.
   - Ensured PHP 7.4 compatibility.
+- Added `RemoveSilverstripeDeprecationCommentRector` to clean up deprecation comments during upgrades from Silverstripe 5.4 to 6.0.
 - Added new Silverstripe 5.4 set with deprecations without substitute using `SilverstripeDeprecationCommentRector`.
+- Updated Silverstripe 6.0 setlist with missing renames from 5.4 deprecations (e.g. `FormField::Value()` and `Director::get_session_environment_type()`).
+- Added tests for Silverstripe 5.4 to 6.0 upgrade path.
 - Add jack for testing outdated packages in CI
 - Improved CI script
 
