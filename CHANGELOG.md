@@ -8,11 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added `RenameFieldListMethodsWithoutArrayParamRector` to handle both `addFieldsToTab()` and `removeFieldsFromTab()` 
+  when a non-array argument is passed.
 - Added generic `PropertyToConfigRector` to convert class properties to static config variables (e.g. `BuildTask::$enabled` to `private static $is_enabled`).
 - Added generic `StaticCallToConfigRector` to convert static method calls to class config variables (e.g. `DataObject::disable_subclass_access()` to `private static $subclass_access = false`).
 - Integrated new generic rules into Silverstripe 5.1 and 5.2 setlists.
 
 ## [1.3] - 2026-04-28
+
+### Deprecated
+- Deprecated `RenameAddFieldsToTabWithoutArrayParamRector` in favor of `RenameFieldListMethodsWithoutArrayParamRector`.
 
 ### Added
 - Improved `BuildTaskUpdateRector` to handle comprehensive Silverstripe 6 BuildTask migration:

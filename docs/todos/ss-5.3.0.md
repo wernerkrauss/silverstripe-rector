@@ -2,7 +2,7 @@
 
 Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/changelogs/5.3.0/#api-changes)
 
-- [ ] [DEPRECATED] Passing a non-array $fields argument to both FieldList::addFieldsToTab() and FieldList::removeFieldsFromTab() has been deprecated.
+- [X] [DEPRECATED] Passing a non-array $fields argument to both FieldList::addFieldsToTab() and FieldList::removeFieldsFromTab() has been deprecated.
 - [ ] [DEPRECATED] The BaseElement::getDescription() method has been deprecated. To update or get the CMS description of elemental blocks, use the description configuration property and the localisation API.
 - [ ] [DEPRECATED] The RememberLoginHash::renew() method has been deprecated without replacement, since the associated behaviour will be removed in 6.0. The onAfterRenewToken extension point within this method will likely be replaced with a new extension point in 6.0.
 - [ ] [REMOVED] The RememberLoginHash.replace_token_during_session_renewal configuration property has been added to allow disabling token regeneration during session renewal. This property will be removed in 6.0.

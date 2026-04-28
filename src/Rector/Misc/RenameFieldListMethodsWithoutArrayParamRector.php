@@ -14,36 +14,26 @@ use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-/**
- * @deprecated Use RenameFieldListMethodsWithoutArrayParamRector instead. Will be removed in 2.0.0
- */
-final class RenameAddFieldsToTabWithoutArrayParamRector extends AbstractRector implements DocumentedRuleInterface
+final class RenameFieldListMethodsWithoutArrayParamRector extends AbstractRector implements DocumentedRuleInterface
 {
+    private const METHOD_MAP = [
+        'addFieldsToTab' => 'addFieldToTab',
+        'removeFieldsFromTab' => 'removeFieldFromTab',
+    ];
+
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Silverstripe 5.3: DEPRECATED: Use RenameFieldListMethodsWithoutArrayParamRector instead. ' .
-            'Will be removed in 2.0.0. Renames ->addFieldsToTab($name, $singleField) ' .
-            'to ->addFieldToTab($name, $singleField)',
+            'Silverstripe 5.3: Renames FieldList plural methods to singular if second argument is not an array',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
-class SomeClass extends \SilverStripe\ORM\DataObject
-{
-    public function getCMSFields() {
-        $myfield = FormField::create();
-        $fields->addFieldsToTab('Root.Main', $myfield);
-    }
-}
+$fields->addFieldsToTab('Root.Main', $myfield);
+$fields->removeFieldsFromTab('Root.Main', $myfield);
 CODE_SAMPLE,
                     <<<'CODE_SAMPLE'
-class SomeClass extends \SilverStripe\ORM\DataObject
-{
-    public function getCMSFields() {
-        $myfield = FormField::create();
-        $fields->addFieldToTab('Root.Main', $myfield);
-    }
-}
+$fields->addFieldToTab('Root.Main', $myfield);
+$fields->removeFieldFromTab('Root.Main', $myfield);
 CODE_SAMPLE
                 ),
             ]
@@ -63,8 +53,8 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        // Only handle addFieldsToTab(...)
-        if (! $this->isName($node->name, 'addFieldsToTab')) {
+        $methodName = $this->getName($node->name);
+        if ($methodName === null || ! isset(self::METHOD_MAP[$methodName])) {
             return null;
         }
 
@@ -73,14 +63,14 @@ CODE_SAMPLE
             return null;
         }
 
-        // If the second argument is an array, keep as addFieldsToTab
+        // If the second argument is an array, keep plural method name
         $secondArgValue = $node->args[1]->value;
         if ($secondArgValue instanceof Array_) {
             return null;
         }
 
-        // Change method name to addFieldToTab
-        $node->name = new Identifier('addFieldToTab');
+        // Change method name to singular version
+        $node->name = new Identifier(self::METHOD_MAP[$methodName]);
         return $node;
     }
 }

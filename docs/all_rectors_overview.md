@@ -253,21 +253,17 @@ Silverstripe: Remove deprecation comments that are no longer applicable after up
 
 <br>
 
-### RenameAddFieldsToTabWithoutArrayParamRector
+### RenameFieldListMethodsWithoutArrayParamRector
 
-Silverstripe 5.3: Renames ->addFieldsToTab($name, `$singleField)` to ->addFieldToTab($name, `$singleField)`
+Silverstripe 5.3: Renames FieldList plural methods to singular if second argument is not an array
 
-- class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\RenameAddFieldsToTabWithoutArrayParamRector`](../src/Rector/Misc/RenameAddFieldsToTabWithoutArrayParamRector.php)
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\RenameFieldListMethodsWithoutArrayParamRector`](../src/Rector/Misc/RenameFieldListMethodsWithoutArrayParamRector.php)
 
 ```diff
- class SomeClass extends \SilverStripe\ORM\DataObject
- {
-     public function getCMSFields() {
-         $myfield = FormField::create();
--        $fields->addFieldsToTab('Root.Main', $myfield);
-+        $fields->addFieldToTab('Root.Main', $myfield);
-     }
- }
+-$fields->addFieldsToTab('Root.Main', $myfield);
+-$fields->removeFieldsFromTab('Root.Main', $myfield);
++$fields->addFieldToTab('Root.Main', $myfield);
++$fields->removeFieldFromTab('Root.Main', $myfield);
 ```
 
 <br>
