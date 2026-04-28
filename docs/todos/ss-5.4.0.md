@@ -6,22 +6,22 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] The likelihood of someone subclassing the relevant classes is very low.
 - [ ] For installations of installer with earlier versions of Symfony this won't cause any problems, since PHP allows return types to be more specific in subclasses. This is known as covariance.
 - [ ] [DEPRECATED] The class names for the TopPage feature in dnadesign/silverstripe-elemental do not follow the correct naming convention for Silverstripe CMS. The existing classes have been deprecated and will be renamed to match the correct naming convention in a future major release.
-- [ ] [DEPRECATED] SilverStripe\ORM\ArrayLib has been deprecated. It will be renamed to SilverStripe\Core\ArrayLib
-- [ ] [DEPRECATED] SilverStripe\ORM\ArrayList has been deprecated. It will be renamed to SilverStripe\Model\List\ArrayList
-- [ ] [DEPRECATED] SilverStripe\ORM\Filterable has been deprecated. It will be merged into SS_List.
-- [ ] [DEPRECATED] SilverStripe\ORM\GroupedList has been deprecated. It will be renamed to SilverStripe\Model\List\GroupedList
-- [ ] [DEPRECATED] SilverStripe\ORM\Limitable has been deprecated. It will be merged into SS_List.
-- [ ] [DEPRECATED] SilverStripe\ORM\ListDecorator has been deprecated. It will be renamed to SilverStripe\Model\List\ListDecorator
-- [ ] [DEPRECATED] SilverStripe\ORM\Map has been deprecated. It will be renamed to SilverStripe\Model\List\Map
-- [ ] [DEPRECATED] SilverStripe\ORM\PaginatedList has been deprecated. It will be renamed to SilverStripe\Model\List\PaginatedList
-- [ ] [DEPRECATED] SilverStripe\ORM\Sortable has been deprecated. It will be merged into SS_List.
-- [ ] [DEPRECATED] SilverStripe\ORM\SS_List has been deprecated. It will be renamed to SilverStripe\Model\List\SS_List
-- [ ] [DEPRECATED] SilverStripe\ORM\ValidationException has been deprecated. It will be renamed to SilverStripe\Core\Validation\ValidationException
-- [ ] [DEPRECATED] SilverStripe\ORM\ValidationResult has been deprecated. It will be renamed to SilverStripe\Core\Validation\ValidationResult
-- [ ] [DEPRECATED] SilverStripe\View\ArrayData has been deprecated. It will be renamed to SilverStripe\Model\ArrayData
-- [ ] [DEPRECATED] SilverStripe\View\ViewableData has been deprecated. It will be renamed to SilverStripe\Model\ModelData
-- [ ] [DEPRECATED] SilverStripe\View\ViewableData_Customised has been deprecated. It will be renamed to SilverStripe\Model\ModelDataCustomised
-- [ ] [DEPRECATED] SilverStripe\View\ViewableData_Debugger has been deprecated. It will be renamed to SilverStripe\Model\ModelDataDebugger
+- [x] [DEPRECATED] SilverStripe\ORM\ArrayLib has been deprecated. It will be renamed to SilverStripe\Core\ArrayLib
+- [x] [DEPRECATED] SilverStripe\ORM\ArrayList has been deprecated. It will be renamed to SilverStripe\Model\List\ArrayList
+- [x] [DEPRECATED] SilverStripe\ORM\Filterable has been deprecated. It will be merged into SS_List.
+- [x] [DEPRECATED] SilverStripe\ORM\GroupedList has been deprecated. It will be renamed to SilverStripe\Model\List\GroupedList
+- [x] [DEPRECATED] SilverStripe\ORM\Limitable has been deprecated. It will be merged into SS_List.
+- [x] [DEPRECATED] SilverStripe\ORM\ListDecorator has been deprecated. It will be renamed to SilverStripe\Model\List\ListDecorator
+- [x] [DEPRECATED] SilverStripe\ORM\Map has been deprecated. It will be renamed to SilverStripe\Model\List\Map
+- [x] [DEPRECATED] SilverStripe\ORM\PaginatedList has been deprecated. It will be renamed to SilverStripe\Model\List\PaginatedList
+- [x] [DEPRECATED] SilverStripe\ORM\Sortable has been deprecated. It will be merged into SS_List.
+- [x] [DEPRECATED] SilverStripe\ORM\SS_List has been deprecated. It will be renamed to SilverStripe\Model\List\SS_List
+- [x] [DEPRECATED] SilverStripe\ORM\ValidationException has been deprecated. It will be renamed to SilverStripe\Core\Validation\ValidationException
+- [x] [DEPRECATED] SilverStripe\ORM\ValidationResult has been deprecated. It will be renamed to SilverStripe\Core\Validation\ValidationResult
+- [x] [DEPRECATED] SilverStripe\View\ArrayData has been deprecated. It will be renamed to SilverStripe\Model\ArrayData
+- [x] [DEPRECATED] SilverStripe\View\ViewableData has been deprecated. It will be renamed to SilverStripe\Model\ModelData
+- [x] [DEPRECATED] SilverStripe\View\ViewableData_Customised has been deprecated. It will be renamed to SilverStripe\Model\ModelDataCustomised
+- [x] [DEPRECATED] SilverStripe\View\ViewableData_Debugger has been deprecated. It will be renamed to SilverStripe\Model\ModelDataDebugger
 - [ ] [DEPRECATED] CliBypass has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] CliController has been deprecated. It will be replaced with symfony/console commands.
 - [ ] [DEPRECATED] DatabaselessKernel has been deprecated. Use CoreKernel::setBootDatabase() instead.
@@ -36,10 +36,10 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [x] [DEPRECATED] DevelopmentAdmin::getRegisteredController() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] DevelopmentAdmin.registered_controllers has been deprecated. It will be replaced with new controllers and commands configuration properties.
 - [ ] [DEPRECATED] CleanupTestDatabasesTask::canView() has been deprecated. It will be replaced with a new canRunInBrowser() method.
-- [ ] [DEPRECATED] HTTPOutputHandler has been deprecated. It will be renamed to SilverStripe\Logging\ErrorOutputHandler
+- [x] [DEPRECATED] HTTPOutputHandler has been deprecated. It will be renamed to SilverStripe\Logging\ErrorOutputHandler
 - [ ] [DEPRECATED] Build has been deprecated. It will be replaced with a new SilverStripe\GraphQL\Dev\SchemaBuild class.
 - [x] [DEPRECATED] DevelopmentAdmin has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] DevBuildExtension has been deprecated. It will be renamed to SilverStripe\GraphQL\Extensions\DbBuildExtension
+- [x] [DEPRECATED] DevBuildExtension has been deprecated. It will be renamed to SilverStripe\GraphQL\Extensions\DbBuildExtension
 - [ ] [DEPRECATED] LDAPGroupSyncTask::log() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] LDAPMemberSyncTask::log() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] LDAPMigrateExistingMembersTask::log() has been deprecated. It will be removed without equivalent functionality to replace it.
@@ -60,21 +60,21 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] ProcessJobQueueChildTask has been deprecated. It will be replaced with a new Symbiote\QueuedJobs\Cli\ProcessJobQueueChildCommand class.
 - [ ] [DEPRECATED] ProcessJobQueueTask::getQueue() has been deprecated. Use AbstractQueuedJob::getQueue() instead.
 - [ ] [DEPRECATED] HTTPOutputHandler::isCli() has been deprecated. Use Director::is_cli() instead instead.
-- [ ] [DEPRECATED] PasswordValidator has been deprecated. It will be renamed to SilverStripe\Security\Validation\RulesPasswordValidator.
+- [x] [DEPRECATED] PasswordValidator has been deprecated. It will be renamed to SilverStripe\Security\Validation\RulesPasswordValidator.
 - [ ] [DEPRECATED] ContentReviewEmails::isValidEmail() has been deprecated. Use Email::is_valid_address() instead.
 - [ ] [DEPRECATED] The DBField.defaultVal property has been deprecated. Use DBField::getDefaultValue() and DBField::setDefaultValue() instead.
-- [ ] [DEPRECATED] DBFile::validate() has been deprecated. Use DBFile::validateFilename() instead.
-- [ ] [DEPRECATED] ContentController::Menu() has been deprecated. Use ContentController::getMenu() instead if calling the method in PHP. You can continue to use $Menu in templates, including passing arguments to it.
-- [ ] [DEPRECATED] GridFieldDataColumns::getValueFromRelation() has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] DBFile::validate() has been deprecated. Use DBFile::validateFilename() instead.
+- [x] [DEPRECATED] ContentController::Menu() has been deprecated. Use ContentController::getMenu() instead if calling the method in PHP. You can continue to use $Menu in templates, including passing arguments to it.
+- [x] [DEPRECATED] GridFieldDataColumns::getValueFromRelation() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] ViewableData::castingClass() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] ViewableData::escapeTypeForField() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] ViewableData::objCacheName() has been deprecated. It will be made private. The corresponding ViewableData::objCacheSet() and ViewableData::objCacheGet() methods will change method signature to not require passing in the cache key.
 - [ ] [DEPRECATED] The $cacheName parameter for the ViewableData::obj() method has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] ViewableData::cachedCall() has been deprecated. Use ViewableData::obj() instead.
+- [x] [DEPRECATED] ViewableData::cachedCall() has been deprecated. Use ViewableData::obj() instead.
 - [ ] [DEPRECATED] ViewableData::XML_val() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] ViewableData::getXMLValues() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] The $parser parameter for the SSViewer::__construct() method has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] SSViewer::flush() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::flush().
+- [x] [DEPRECATED] SSViewer::flush() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::flush().
 - [ ] [DEPRECATED] SSViewer::fromString() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::renderString().
 - [ ] [DEPRECATED] SSViewer::topLevel() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] SSViewer::chooseTemplate() has been deprecated. It will be removed without equivalent functionality to replace it.
@@ -98,22 +98,22 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] SSViewer_DataPresenter has been deprecated. It will be merged into SSViewer_Scope.
 - [ ] [DEPRECATED] SSViewer_FromString has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::renderString().
 - [ ] [DEPRECATED] SSViewer_Scope::getItem() has been deprecated. Use SSViewer_Scope::getCurrentItem() instead.
-- [ ] [DEPRECATED] SSViewer_Scope::obj() has been deprecated. It will be renamed to scopeToIntermediateValue().
-- [ ] [DEPRECATED] SSViewer_Scope has been deprecated. It will be renamed to SilverStripe\TemplateEngine\ScopeManager.
+- [x] [DEPRECATED] SSViewer_Scope::obj() has been deprecated. It will be renamed to scopeToIntermediateValue().
+- [x] [DEPRECATED] SSViewer_Scope has been deprecated. It will be renamed to SilverStripe\TemplateEngine\ScopeManager.
 - [ ] [DEPRECATED] SSViewer::execute_template() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] SSViewer::execute_string() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] ThemeResourceLoader::findTemplate() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] FlushMiddleware has been deprecated. It will be replaced with flushing inside the Kernel directly.
 - [ ] [DEPRECATED] The LeftAndMain.tree_class configuration property has been deprecated. It will be renamed to model_class.
-- [ ] [DEPRECATED] SiteConfigLeftAndMain::save_siteconfig() has been deprecated. It will be replaced with save().
-- [ ] [DEPRECATED] SSViewer_BasicIteratorSupport has been deprecated. It will be renamed to SilverStripe\TemplateEngine\BasicIteratorSupport.
-- [ ] [DEPRECATED] SSTemplateParseException has been deprecated. It will be renamed to SilverStripe\TemplateEngine\Exception\SSTemplateParseException.
-- [ ] [DEPRECATED] SSTemplateParser has been deprecated. It will be renamed to SilverStripe\TemplateEngine\SSTemplateParser.
-- [ ] [DEPRECATED] TemplateIteratorProvider has been deprecated. It will be renamed to SilverStripe\TemplateEngine\TemplateIteratorProvider.
-- [ ] [DEPRECATED] TemplateParser has been deprecated. It will be renamed to SilverStripe\TemplateEngine\TemplateParser.
+- [x] [DEPRECATED] SiteConfigLeftAndMain::save_siteconfig() has been deprecated. It will be replaced with save().
+- [x] [DEPRECATED] SSViewer_BasicIteratorSupport has been deprecated. It will be renamed to SilverStripe\TemplateEngine\BasicIteratorSupport.
+- [x] [DEPRECATED] SSTemplateParseException has been deprecated. It will be renamed to SilverStripe\TemplateEngine\Exception\SSTemplateParseException.
+- [x] [DEPRECATED] SSTemplateParser has been deprecated. It will be renamed to SilverStripe\TemplateEngine\SSTemplateParser.
+- [x] [DEPRECATED] TemplateIteratorProvider has been deprecated. It will be renamed to SilverStripe\TemplateEngine\TemplateIteratorProvider.
+- [x] [DEPRECATED] TemplateParser has been deprecated. It will be renamed to SilverStripe\TemplateEngine\TemplateParser.
 - [ ] [DEPRECATED] ElementalAreaController::removeNamespacesFromFields() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] BaseElement::updateFromFormData() has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] DBEnum::flushCache() has been deprecated. Use DBEnum::reset() instead.
+- [x] [DEPRECATED] DBEnum::flushCache() has been deprecated. Use DBEnum::reset() instead.
 - [ ] [DEPRECATED] The BaseElement.description configuration property has been deprecated. Use DataObject.class_description instead.
 - [ ] [DEPRECATED] The SiteTree.description configuration property has been deprecated. Use DataObject.class_description instead.
 - [ ] [DEPRECATED] FormField::extendValidationResult() has been deprecated. Use extend() directly instead.
@@ -123,7 +123,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] LeftAndMain::Modals() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] ModalController::getController() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] ModalController::getName() has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] CampaignAdminExtension has been deprecated. It will be replaced with SilverStripe\CampaignAdmin\Extensions\FileFormFactoryExtension.
+- [x] [DEPRECATED] CampaignAdminExtension has been deprecated. It will be replaced with SilverStripe\CampaignAdmin\Extensions\FileFormFactoryExtension.
 - [ ] [DEPRECATED] CMSPageEditController::addtocampaign() has been deprecated. It will be moved to SilverStripe\CampaignAdmin\Extensions\AddToCampaignExtension.
 - [ ] [DEPRECATED] CMSPageEditController::AddToCampaignForm() has been deprecated. It will be moved to SilverStripe\CampaignAdmin\Extensions\AddToCampaignExtension.
 - [ ] [DEPRECATED] CMSPageEditController::getAddToCampaignForm() has been deprecated. It will be moved to SilverStripe\CampaignAdmin\Extensions\AddToCampaignExtension.
@@ -138,46 +138,46 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] InternalLinkModalExtension has been deprecated. It will be replaced with configuration on ModalController.
 - [ ] FormField::validate() will take zero arguments and return a ValidationResult object instead of a boolean in CMS 6.0.0.
 - [ ] [DEPRECATED] FieldsValidator has been deprecated. It will be replaced with functionality inside Form::validate().
-- [ ] [DEPRECATED] Validator has been deprecated. It will be renamed to SilverStripe\Forms\Validation\Validator.
-- [ ] [DEPRECATED] RequiredFields has been deprecated. It will be renamed to SilverStripe\Forms\Validation\RequiredFieldsValidator.
-- [ ] [DEPRECATED] CompositeValidator has been deprecated. It will be renamed to SilverStripe\Forms\Validation\CompositeValidator.
-- [ ] [DEPRECATED] UserFormsRequiredFields has been deprecated. It will be renamed to SilverStripe\UserForms\Form\UserFormsRequiredFieldsValidator.
-- [ ] [DEPRECATED] AWRequiredFields has been deprecated. It will be renamed to Symbiote\AdvancedWorkflow\Forms\AWRequiredFieldsValidator.
-- [ ] [DEPRECATED] CMSPreviewable::CMSEditLink() has been deprecated. It will be renamed to getCMSEditLink().
+- [x] [DEPRECATED] Validator has been deprecated. It will be renamed to SilverStripe\Forms\Validation\Validator.
+- [x] [DEPRECATED] RequiredFields has been deprecated. It will be renamed to SilverStripe\Forms\Validation\RequiredFieldsValidator.
+- [x] [DEPRECATED] CompositeValidator has been deprecated. It will be renamed to SilverStripe\Forms\Validation\CompositeValidator.
+- [x] [DEPRECATED] UserFormsRequiredFields has been deprecated. It will be renamed to SilverStripe\UserForms\Form\UserFormsRequiredFieldsValidator.
+- [x] [DEPRECATED] AWRequiredFields has been deprecated. It will be renamed to Symbiote\AdvancedWorkflow\Forms\AWRequiredFieldsValidator.
+- [x] [DEPRECATED] CMSPreviewable::CMSEditLink() has been deprecated. It will be renamed to getCMSEditLink().
 - [ ] [DEPRECATED] CMSEditLinkExtension::CMSEditLink() has been deprecated. It will be replaced with SilverStripe\ORM\DataObject::getCMSEditLink() and updateCMSEditLink().
-- [ ] [DEPRECATED] LeftAndMain::currentPageID() has been deprecated. Use LeftAndMain::currentRecordID() instead.
-- [ ] [DEPRECATED] LeftAndMain::setCurrentPageID() has been deprecated. Use LeftAndMain::setCurrentRecordID() instead.
-- [ ] [DEPRECATED] LeftAndMain::currentPage() has been deprecated. Use LeftAndMain::currentRecord() instead.
-- [ ] [DEPRECATED] LeftAndMain::isCurrentPage() has been deprecated. Use LeftAndMain::isCurrentRecord() instead.
+- [x] [DEPRECATED] LeftAndMain::currentPageID() has been deprecated. Use LeftAndMain::currentRecordID() instead.
+- [x] [DEPRECATED] LeftAndMain::setCurrentPageID() has been deprecated. Use LeftAndMain::setCurrentRecordID() instead.
+- [x] [DEPRECATED] LeftAndMain::currentPage() has been deprecated. Use LeftAndMain::currentRecord() instead.
+- [x] [DEPRECATED] LeftAndMain::isCurrentPage() has been deprecated. Use LeftAndMain::isCurrentRecord() instead.
 - [ ] [DEPRECATED] The SiteTree.need_permission configuration property has been deprecated. Use SiteTree::canCreate() instead.
 - [ ] [DEPRECATED] The SiteTree.icon configuration property has been deprecated. It will be renamed to cms_icon.
 - [ ] [DEPRECATED] The SiteTree.icon_class configuration property has been deprecated. It will be renamed to cms_icon_class. This applies to all subclasses of SiteTree as well.
-- [ ] [DEPRECATED] CMSMain::PageList() has been deprecated. It will be renamed to RecordList().
+- [x] [DEPRECATED] CMSMain::PageList() has been deprecated. It will be renamed to RecordList().
 - [ ] [DEPRECATED] CMSMain::PageListSidebar() has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] CMSMain::LinkPages() has been deprecated. Use CMSMain::LinkRecords() instead.
-- [ ] [DEPRECATED] CMSMain::LinkPagesWithSearch() has been deprecated. Use CMSMain::LinkRecordsWithSearch() instead.
-- [ ] [DEPRECATED] CMSMain::LinkPageEdit() has been deprecated. Use CMSMain::LinkRecordEdit() instead.
-- [ ] [DEPRECATED] CMSMain::LinkPageSettings() has been deprecated. Use CMSMain::LinkRecordSettings() instead.
-- [ ] [DEPRECATED] CMSMain::LinkPageHistory() has been deprecated. Use CMSMain::LinkRecordHistory() instead.
-- [ ] [DEPRECATED] CMSMain::LinkPageAdd() has been deprecated. Use CMSMain::LinkRecordAdd() instead.
+- [x] [DEPRECATED] CMSMain::LinkPages() has been deprecated. Use CMSMain::LinkRecords() instead.
+- [x] [DEPRECATED] CMSMain::LinkPagesWithSearch() has been deprecated. Use CMSMain::LinkRecordsWithSearch() instead.
+- [x] [DEPRECATED] CMSMain::LinkPageEdit() has been deprecated. Use CMSMain::LinkRecordEdit() instead.
+- [x] [DEPRECATED] CMSMain::LinkPageSettings() has been deprecated. Use CMSMain::LinkRecordSettings() instead.
+- [x] [DEPRECATED] CMSMain::LinkPageHistory() has been deprecated. Use CMSMain::LinkRecordHistory() instead.
+- [x] [DEPRECATED] CMSMain::LinkPageAdd() has been deprecated. Use CMSMain::LinkRecordAdd() instead.
 - [ ] [DEPRECATED] CMSMain::LinkPreview() has been deprecated. Use SiteTree::CMSEditLink() instead.
-- [ ] [DEPRECATED] CMSMain::SiteTreeAsUL() has been deprecated. Use CMSMain::TreeAsUL() instead.
-- [ ] [DEPRECATED] CMSMain::getSiteTreeFor() has been deprecated. Use CMSMain::getTreeFor() instead.
-- [ ] [DEPRECATED] CMSMain::CanOrganiseSitetree() has been deprecated. Use CMSMain::canOrganiseTree() instead.
+- [x] [DEPRECATED] CMSMain::SiteTreeAsUL() has been deprecated. Use CMSMain::TreeAsUL() instead.
+- [x] [DEPRECATED] CMSMain::getSiteTreeFor() has been deprecated. Use CMSMain::getTreeFor() instead.
+- [x] [DEPRECATED] CMSMain::CanOrganiseSitetree() has been deprecated. Use CMSMain::canOrganiseTree() instead.
 - [ ] [DEPRECATED] CMSMain::getSearchContext() has been deprecated. It will be replaced with SiteTree::getDefaultSearchContext().
-- [ ] [DEPRECATED] CMSMain::getPageTypes() has been deprecated. Use CMSMain::getRecordTypes() instead.
-- [ ] [DEPRECATED] CMSMain::PageTypes() has been deprecated. Use CMSMain::RecordTypes() instead.
-- [ ] [DEPRECATED] CMSMain::SiteTreeHints() has been deprecated. Use CMSMain::TreeHints() instead.
+- [x] [DEPRECATED] CMSMain::getPageTypes() has been deprecated. Use CMSMain::getRecordTypes() instead.
+- [x] [DEPRECATED] CMSMain::PageTypes() has been deprecated. Use CMSMain::RecordTypes() instead.
+- [x] [DEPRECATED] CMSMain::SiteTreeHints() has been deprecated. Use CMSMain::TreeHints() instead.
 - [ ] [DEPRECATED] CMSMain::performPublish() has been deprecated. Use RecursivePublishable::publishRecursive() instead.
 - [ ] [DEPRECATED] CMSPageAddController has been deprecated. It will be replaced with SilverStripe\CMS\Forms\CMSMainAddForm.
 - [ ] [DEPRECATED] CMSPagesController has been deprecated. It will be combined back into CMSMain.
 - [ ] [DEPRECATED] CMSSiteTreeFilter::getPageClasses() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] CMSSiteTreeFilter::isPageIncluded() has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] LeftAndMainPageIconsExtension has been deprecated. It will be renamed to SilverStripe\CMS\Controllers\LeftAndMainRecordIconsExtension.
-- [ ] [DEPRECATED] LeftAndMainPageIconsExtension::generatePageIconsCss() has been deprecated. Use LeftAndMainPageIconsExtension::generateRecordIconsCss() instead.
-- [ ] [DEPRECATED] CurrentPageIdentifier has been deprecated. It will be renamed to SilverStripe\CMS\Model\CurrentRecordIdentifier.
-- [ ] [DEPRECATED] CurrentPageIdentifier::currentPageID() has been deprecated. It will be renamed to currentRecordID().
-- [ ] [DEPRECATED] CurrentPageIdentifier::isCurrentPage() has been deprecated. It will be renamed to isCurrentRecord().
+- [x] [DEPRECATED] LeftAndMainPageIconsExtension has been deprecated. It will be renamed to SilverStripe\CMS\Controllers\LeftAndMainRecordIconsExtension.
+- [x] [DEPRECATED] LeftAndMainPageIconsExtension::generatePageIconsCss() has been deprecated. Use LeftAndMainPageIconsExtension::generateRecordIconsCss() instead.
+- [x] [DEPRECATED] CurrentPageIdentifier has been deprecated. It will be renamed to SilverStripe\CMS\Model\CurrentRecordIdentifier.
+- [x] [DEPRECATED] CurrentPageIdentifier::currentPageID() has been deprecated. It will be renamed to currentRecordID().
+- [x] [DEPRECATED] CurrentPageIdentifier::isCurrentPage() has been deprecated. It will be renamed to isCurrentRecord().
 - [ ] [DEPRECATED] SiteTree::page_type_classes() has been deprecated. Will be replaced with updateAllowedSubClasses().
 - [ ] [DEPRECATED] SiteTree::setCreatableChildrenCache() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::setCreatableChildrenCache().
 - [ ] [DEPRECATED] SiteTree::getCreatableChildrenCache() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getCreatableChildrenCache().
@@ -188,7 +188,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] SiteTree::getPageIconURL() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getRecordIconUrl().
 - [ ] [DEPRECATED] SiteTree::generateChildrenCacheKey() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::generateChildrenCacheKey().
 - [ ] [DEPRECATED] Form::validationResult() has been deprecated. Use Form::validate() instead.
-- [ ] [DEPRECATED] Director::get_session_environment_type() has been deprecated. Use Director::get_environment_type() instead.
+- [x] [DEPRECATED] Director::get_session_environment_type() has been deprecated. Use Director::get_environment_type() instead.
 - [ ] [DEPRECATED] Use of the CUSTOM_INCLUDE_PATH constant to change the PHP include path has been deprecated and will not work in a future major release.
 - [ ] [DEPRECATED] SessionEnvTypeSwitcher has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] VersionProvider::getComposerLockPath() has been deprecated. It will be removed without equivalent functionality to replace it.
@@ -197,7 +197,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] The $join parameter for the Subsite::get_from_all_subsites() method has been deprecated. Use leftJoin($table, $joinClause) instead.
 - [ ] [DEPRECATED] Passing a boolean value to the $mergeStrategy argument in Form::loadDataFrom() has been deprecated. Pass Form::MERGE_CLEAR_MISSING instead of true and 0 instead of false.
 - [ ] [DEPRECATED] The HTTP.ignoreDeprecatedCaching configuration property has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] FormField::Value() has been deprecated. It will be replaced by getFormattedValue() and getValue().
+- [x] [DEPRECATED] FormField::Value() has been deprecated. It will be replaced by getFormattedValue() and getValue().
 - [ ] [DEPRECATED] TextareaField::ValueEntities() has been deprecated. It will be replaced by getFormattedValueEntities().
 - [ ] [DEPRECATED] Passing null for the $code parameter in ValidationResult::addError() is deprecated. Pass a blank string instead.
 - [ ] [DEPRECATED] Passing null for the $cast parameter in ValidationResult::addError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
