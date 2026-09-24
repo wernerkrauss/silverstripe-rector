@@ -73,6 +73,26 @@ class MemberExtensionRename extends Extension
     public function validate()
     {
     }
+
+    public function updateLinkPageAdd()
+    {
+    }
+
+    public function updateSiteTreeAsUL()
+    {
+    }
+
+    public function updateSiteTreeHints()
+    {
+    }
+
+    public function updateCurrentPageID()
+    {
+    }
+
+    public function onAfterRenewToken()
+    {
+    }
 }
 ?>
 -----
@@ -149,6 +169,26 @@ class MemberExtensionRename extends Extension
     }
 
     public function updateValidate()
+    {
+    }
+
+    public function updateLinkRecordAdd()
+    {
+    }
+
+    public function updateTreeAsUL()
+    {
+    }
+
+    public function updateTreeHints()
+    {
+    }
+
+    public function updateCurrentRecordID()
+    {
+    }
+
+    public function onAfterRenewSession()
     {
     }
 }

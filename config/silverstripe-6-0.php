@@ -163,6 +163,13 @@ return static function (RectorConfig $rectorConfig): void {
         new MethodCallRename('SilverStripe\Core\Extension', 'MetaTags', 'updateMetaTags'),
         // DataObject validation hook
         new MethodCallRename('SilverStripe\Core\Extension', 'validate', 'updateValidate'),
+        // CMSMain hooks
+        new MethodCallRename('SilverStripe\Core\Extension', 'updateLinkPageAdd', 'updateLinkRecordAdd'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'updateSiteTreeAsUL', 'updateTreeAsUL'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'updateSiteTreeHints', 'updateTreeHints'),
+        new MethodCallRename('SilverStripe\Core\Extension', 'updateCurrentPageID', 'updateCurrentRecordID'),
+        // RememberLoginHash hooks
+        new MethodCallRename('SilverStripe\Core\Extension', 'onAfterRenewToken', 'onAfterRenewSession'),
     ]);
     $rectorConfig->rule(ReplaceHasCurrWithCurrRector::class);
     $rectorConfig->rule(DataObjectGetByIdToByIDRector::class);
