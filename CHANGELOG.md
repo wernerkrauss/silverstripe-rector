@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added Silverstripe 6.3 support with level set and configuration files.
 - Added `RenameFieldListMethodsWithoutArrayParamRector` to handle both `addFieldsToTab()` and `removeFieldsFromTab()` 
   when a non-array argument is passed.
 - Added deprecation notices for `SilverStripe\Control\Util\IPUtils` in Silverstripe 5.3 setlist.
