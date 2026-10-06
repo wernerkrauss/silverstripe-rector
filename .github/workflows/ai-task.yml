@@ -52,27 +52,17 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            printf '%s
-' "$PROMPT" > /tmp/task.md
+            printf '%s\n' "$PROMPT" > /tmp/task.md
             echo "number=" >> "$GITHUB_OUTPUT"
           elif [ "$EVENT_NAME" = "issues" ]; then
-            gh issue view "$ISSUE_NUMBER" --json title,body -q '.title + "
-
-" + .body' > /tmp/task.md
+            gh issue view "$ISSUE_NUMBER" --json title,body -q '.title + "\n\n" + .body' > /tmp/task.md
             echo "number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
+ 
           else
             cmd_text="$(printf '%s' "$COMMENT" | sed -e 's|^/ai[[:space:]]*||')"
-            gh issue view "$ISSUE_NUMBER" --json title,body -q '.title + "
-
-" + .body' > /tmp/issue.md
+            gh issue view "$ISSUE_NUMBER" --json title,body -q '.title + "\n\n" + .body' > /tmp/issue.md
             if [ -n "$cmd_text" ]; then
-              { printf '%s
-
----
-
-Issue context:
-
-'; cat /tmp/issue.md; } > /tmp/task.md
+              { printf '%s\n\n---\n\nIssue context:\n\n'; cat /tmp/issue.md; } > /tmp/task.md
             else
               cp /tmp/issue.md /tmp/task.md
             fi
@@ -122,6 +112,7 @@ Issue context:
         run: |
           set -euo pipefail
           if [ -z "$(git status --porcelain)" ]; then
+      
             echo "No changes produced by the agent."
             if [ -n "$ISSUE_NUMBER" ]; then
               gh issue comment "$ISSUE_NUMBER" --body "🤖 Mistral Code finished, but produced no changes. See [run logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
