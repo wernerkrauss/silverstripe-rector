@@ -11,7 +11,7 @@ This project provides Rector rules for Silverstripe CMS. Development is carried 
 ## Development Environment (DDEV)
 
 - All PHP commands must be executed via DDEV.
-- Use the commands defined in `.junie.json`:
+- Use the commands defined in `.ai.json`:
     - `ddev phpunit` for tests.
     - `ddev lint` for code checks.
     - `ddev fix` for automatic fixes.
@@ -37,7 +37,8 @@ This project provides Rector rules for Silverstripe CMS. Development is carried 
 ## Rector Rules
 
 - New Rector rules should be placed in `src/Rector` in appropriate subdirectories.
-- Tests are located in `tests/Rector` (or the corresponding structure in `tests`).
+- 
+Tests are located in `tests/Rector` (or the corresponding structure in `tests`).
 - Ensure the correct use of Silverstripe stubs in `stubs/`.
 - **Documentation**: 
     - Include the Silverstripe version or setlist in the rule definition's description (e.g., "Silverstripe 6.0: ...").
@@ -48,6 +49,12 @@ This project provides Rector rules for Silverstripe CMS. Development is carried 
 - Run at least `ddev ci` before every `submit` to ensure no regressions have been introduced and the code meets the standards.
 
 ## Troubleshooting
+
+When tests fail or behave unexpectedly, check these possible error sources first:
+
+- **Autoload out of sync:** run `ddev composer dump-autoload` (e.g. after adding stubs or new classes).
+- **Missing stubs:** verify all required stub classes exist in `stubs/` and are registered in `phpstan.neon` / the
+  autoload configuration. A rule referencing a symbol without a matching stub will silently misbehave.
 
 - If a new stub class in `stubs/` is not being found, run `ddev composer dump-autoload` and try again.
 
