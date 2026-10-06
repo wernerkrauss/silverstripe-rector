@@ -236,10 +236,10 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] HTMLEditorSanitiser::getRuleForAttribute() has been deprecated. It will be replaced with logic in SilverStripe\Forms\HTMLEditor\HTMLEditorElementRule.
 - [ ] [DEPRECATED] HTMLEditorSanitiser::elementMatchesRule() has been deprecated. It will be replaced with SilverStripe\Forms\HTMLEditor\HTMLEditorRuleSet::isElementAllowed().
 - [ ] [DEPRECATED] HTMLEditorSanitiser::attributeMatchesRule() has been deprecated. It will be replaced with SilverStripe\Forms\HTMLEditor\HTMLEditorElementRule::isAttributeAllowed().
-- [ ] [DEPRECATED] TinyMCECombinedGenerator has been deprecated. It will be replaced with SilverStripe\TinyMCE\TinyMCECombinedGenerator.
-- [ ] [DEPRECATED] TinyMCEConfig has been deprecated. It will be replaced with SilverStripe\TinyMCE\TinyMCEConfig.
-- [ ] [DEPRECATED] TinyMCEScriptGenerator has been deprecated. It will be replaced with SilverStripe\TinyMCE\TinyMCEScriptGenerator.
+- [X] [DEPRECATED] TinyMCECombinedGenerator has been deprecated. It will be replaced with SilverStripe\TinyMCE\TinyMCECombinedGenerator.
+- [X] [DEPRECATED] TinyMCEConfig has been deprecated. It will be replaced with SilverStripe\TinyMCE\TinyMCEConfig.
+- [X] [DEPRECATED] TinyMCEScriptGenerator has been deprecated. It will be replaced with SilverStripe\TinyMCE\TinyMCEScriptGenerator.
 - [ ] [DEPRECATED] FixtureContext::iSelectValueInAnchorDropdown() has been deprecated. It will be replaced with SilverStripe\CMS\Tests\Behaviour\AnchorContext::iSelectValueInAnchorDropdown().
-- [ ] [DEPRECATED] ListDecorator::TotalItems() has been deprecated. Use ListDecorator::getTotalItems() instead.
-- [ ] [DEPRECATED] PaginatedList::TotalItems() has been deprecated. Use PaginatedList::getTotalItems() instead.
+- [X] [DEPRECATED] ListDecorator::TotalItems() has been deprecated. Use ListDecorator::getTotalItems() instead.
+- [X] [DEPRECATED] PaginatedList::TotalItems() has been deprecated. Use PaginatedList::getTotalItems() instead.
 - [ ] [DEPRECATED] SolrIndexCheck has been deprecated. It will be removed without equivalent functionality to replace it.
