@@ -17,5 +17,9 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'This method is deprecated.',
             'link' => 'https://docs.silverstripe.org/deprecated-method',
         ],
+        'Netwerkstatt\SilverstripeRector\Tests\Misc\SilverstripeDeprecationCommentRector\Source\UserForms\Extension\UpgradePolymorphicExtension' => [
+            'message' => 'UpgradePolymorphicExtension has been deprecated and will be removed without equivalent functionality',
+            'link' => 'https://docs.silverstripe.org/en/6/changelogs/6.1.0/#api-changes',
+        ],
     ]);
 };

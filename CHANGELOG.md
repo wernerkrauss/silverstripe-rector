@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- SS6.1: Added deprecation notice for `SilverStripe\UserForms\Extension\UpgradePolymorphicExtension` via SilverstripeDeprecationCommentRector
 - Added Silverstripe 6.3 support with level set and configuration files.
 - Added missing CMSMain hook renames (`updateLinkPageAdd`, `updateSiteTreeAsUL`, `updateSiteTreeHints`, `updateCurrentPageID`) and RememberLoginHash hook rename (`onAfterRenewToken`) to Silverstripe 6.0 setlist (fixes #50, thanks to [@micschk](https://github.com/micschk)).
 - Added `RenameFieldListMethodsWithoutArrayParamRector` to handle both `addFieldsToTab()` and `removeFieldsFromTab()` 

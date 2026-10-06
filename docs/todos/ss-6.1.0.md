@@ -7,5 +7,5 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/6/c
 - [x] [DEPRECATED] The DataObject::get_by_id() method has been deprecated. Use DataObject::get($className)->setUseCache(true)->byID($id) instead.
 - [x] [DEPRECATED] The DataObject::get_one() method has been deprecated. Use DataObject::get($className)->setUseCache(true)->first() instead.
 - [x] [DEPRECATED] The DataObject::delete_by_id() method has been deprecated. Use DataObject::get($className)->setUseCache(true)->byID($id)->delete() instead.
-- [ ] [DEPRECATED] UpgradePolymorphicExtension has been deprecated and will be removed without equivalent functionality to replace it in a future major release.
+- [x] [DEPRECATED] UpgradePolymorphicExtension has been deprecated and will be removed without equivalent functionality to replace it in a future major release.
 - [ ] [DEPRECATED] The UserForm.upgrade_on_build configuration property has been deprecated and will be removed without equivalent functionality to replace it in a future major release.
