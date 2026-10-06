@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added `RenameFieldListMethodsWithoutArrayParamRector` to handle both `addFieldsToTab()` and `removeFieldsFromTab()` 
   when a non-array argument is passed.
+- Added deprecation notices for `SilverStripe\Control\Util\IPUtils` in Silverstripe 5.3 setlist.
+- Added `TotalItems()` to `getTotalItems()` rename for `ListDecorator` and `PaginatedList` in Silverstripe 5.4 setlist.
+- Added TinyMCE class renames to Silverstripe 5.4 setlist.
 - Added generic `PropertyToConfigRector` to convert class properties to static config variables (e.g. `BuildTask::$enabled` to `private static $is_enabled`).
 - Added generic `StaticCallToConfigRector` to convert static method calls to class config variables (e.g. `DataObject::disable_subclass_access()` to `private static $subclass_access = false`).
 - Integrated new generic rules into Silverstripe 5.1 and 5.2 setlists.
