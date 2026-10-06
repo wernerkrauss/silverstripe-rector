@@ -41,6 +41,8 @@ jobs:
     env:
       MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
       GH_TOKEN: ${{ github.token }}
+      # gh CLI needs no git checkout when the repo is given explicitly
+      GH_REPO: ${{ github.repository }}
     steps:
       - name: Determine task
         id: task
@@ -58,6 +60,7 @@ jobs:
             gh issue view "$ISSUE_NUMBER" --json title,body -q '.title + "\n\n" + .body' > /tmp/task.md
             echo "number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
  
+
           else
             cmd_text="$(printf '%s' "$COMMENT" | sed -e 's|^/ai[[:space:]]*||')"
             gh issue view "$ISSUE_NUMBER" --json title,body -q '.title + "\n\n" + .body' > /tmp/issue.md
@@ -112,7 +115,8 @@ jobs:
         run: |
           set -euo pipefail
           if [ -z "$(git status --porcelain)" ]; then
-      
+    
+  
             echo "No changes produced by the agent."
             if [ -n "$ISSUE_NUMBER" ]; then
               gh issue comment "$ISSUE_NUMBER" --body "🤖 Mistral Code finished, but produced no changes. See [run logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
