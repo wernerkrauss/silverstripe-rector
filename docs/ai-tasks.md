@@ -1,65 +1,65 @@
-# AI Tasks mit Mistral Code (remote & CLI)
+# AI tasks with Mistral Code (remote & CLI)
 
-Dieses Repo ist so eingerichtet, dass Coding-Tasks wahlweise **lokal über die CLI**
-oder **remote über GitHub Issues** von [Mistral Code](https://docs.mistral.ai/vibe/code/cli/work-with-cli)
-(dem `mistral-vibe` CLI) ausgeführt werden können.
+This repo is set up so that coding tasks can be run either **locally via the CLI**
+or **remotely via GitHub Issues** using [Mistral Code](https://docs.mistral.ai/vibe/code/cli/work-with-cli)
+(the `mistral-vibe` CLI).
 
-## Voraussetzungen (einmalig)
+## Prerequisites (one-time)
 
-1. **Repo-Secret anlegen:** Settings → Secrets and variables → Actions →
-   `MISTRAL_API_KEY` mit einem API-Key aus der Mistral Console (Code > Vibe CLI).
+1. **Add repo secret:** Settings → Secrets and variables → Actions →
+   `MISTRAL_API_KEY` with an API key from the Mistral Console (Code > Vibe CLI).
 
-## Konfiguration für AI-Agenten
+## AI agent configuration
 
-- `AGENTS.md` — Einstiegspunkt für alle AI-Coding-Agents (Mistral Code, Junie, …),
-  verweist auf die vollständigen Guidelines.
-- `.ai/guidelines.md` — Entwicklungsguidelines (TDD, Fixtures, Setlist-Tests, Changelog).
-- `.ai/guidelines/Environment.md` — Umgebung (WSL2/DDEV).
-- `.ai.json` — Trusted Commands (test, lint, fix, stan, ci via DDEV).
+- `AGENTS.md` — entry point for all AI coding agents (Mistral Code, Junie, …),
+  links to the full guidelines.
+- `.ai/guidelines.md` — development guidelines (TDD, fixtures, setlist tests, changelog).
+- `.ai/guidelines/Environment.md` — environment specifics (WSL2/DDEV).
+- `.ai.json` — trusted commands (test, lint, fix, stan, ci via DDEV).
 
-## Variante A: Remote per Issue
+## Option A: remotely via an issue
 
-Ein offenes Issue wird zum Task:
+Any open issue becomes a task:
 
-- **Label `ai-task`** hinzufügen → Workflow startet, Issue-Titel + -Body werden als Prompt verwendet.
-- Oder **Kommentar** mit `/ai` (optional gefolgt von Zusatzanweisungen, z. B.
-  `/ai only fix the Filterable rename, add a test`). Nur Owner/Collaboratoren/Mitglieder dürfen `/ai` nutzen.
+- Add the **`ai-task` label** → the workflow starts, using the issue title + body as the prompt.
+- Or **comment** `/ai` (optionally followed by extra instructions, e.g.
+  `/ai only fix the Filterable rename, add a test`). Only owners/collaborators/members may use `/ai`.
 
-Ablauf im Runner:
+What happens on the runner:
 
-1. Checkout auf frischen Branch `ai/task-<nummer>`
+1. Checkout onto a fresh branch `ai/task-<number>`
 2. `composer install` + PHP 8.3
-3. `vibe --prompt "<Issue-Inhalt>" --max-turns 40 --output json` (programmatic mode,
-   kein interaktiver UI, Auto-Approve)
-4. Bei Änderungen: Commit + Push + **Draft-PR**, Link wird als Kommentar am Issue gepostet
-5. Ohne Änderungen: Kommentar am Issue mit Verweis auf die Run-Logs
+3. `vibe --prompt "<issue content>" --max-turns 40 --output json` (programmatic mode,
+   no interactive UI, auto-approve)
+4. If there are changes: commit + push + **draft PR**; the link is posted as a comment on the issue
+5. If there are no changes: a comment on the issue links to the run logs
 
-Du reviewst dann nur noch den PR. Das Issue kannst du schließen, sobald der PR gemerged ist.
+You then only review the PR. Close the issue once the PR is merged.
 
-### Manueller Task ohne Issue
+### Manual task without an issue
 
-Actions-Tab → „AI Task (Mistral Code)" → **Run workflow** → Prompt eingeben.
+Actions tab → "AI Task (Mistral Code)" → **Run workflow** → enter a prompt.
 
-## Variante B: Lokal per CLI
+## Option B: locally via the CLI
 
 ```bash
-./scripts/ai-task.sh 49                                   # Issue #49 bearbeiten
+./scripts/ai-task.sh 49                                   # work on issue #49
 ./scripts/ai-task.sh "Add rename Foo::bar to Foo::baz in the SS 6.1 set"
 ./scripts/ai-task.sh 49 "Only fix the Filterable rename, add a test"
 ```
 
-Das Skript legt einen Branch `ai/task-…` an und startet `vibe` interaktiv,
-sodass du den Agenten beim Arbeiten siehst und steuern kannst. Für headless/
-skriptgesteuerte Läufe:
+The script creates an `ai/task-…` branch and starts `vibe` interactively,
+so you can watch and steer the agent while it works. For headless /
+scripted runs:
 
 ```bash
 vibe --prompt "Fix all failing tests" --max-turns 40 --output json
 ```
 
-## Sicherheitshinweise
+## Security notes
 
-- Der Agent läuft im CI-Runner nur mit dem `GITHUB_TOKEN` des Repos und kann
-  ausschließlich Branches/PRs in diesem Repo anlegen.
-- Remote-Läufe erzeugen immer **Draft-PRs** – nichts wird ohne dein Review gemerged.
-- Sollte `/ai` von Fremden missbraucht werden: die `author_association`-Prüfung im
-  Workflow einschränken (z. B. nur `OWNER`).
+- In the CI runner the agent only has the repo's `GITHUB_TOKEN` and can only
+  create branches/PRs in this repo.
+- Remote runs always produce **draft PRs** — nothing gets merged without your review.
+- If `/ai` gets abused by strangers: tighten the `author_association` check in the
+  workflow (e.g. `OWNER` only).
