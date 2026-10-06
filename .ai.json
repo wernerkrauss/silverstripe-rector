@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "commands": {
+    "test": {
+      "command": "ddev phpunit",
+      "description": "Runs PHPUnit tests in DDEV",
+      "trusted": true
+    },
+    "lint": {
+      "command": "ddev lint",
+      "description": "Runs linting (static analysis/style check) in DDEV",
+      "trusted": true
+    },
+    "fix": {
+      "command": "ddev fix",
+      "description": "Automatically fixes style errors in DDEV",
+      "trusted": true
+    },
+    "stan": {
+      "command": "ddev stan",
+      "description": "Runs PHPStan in DDEV",
+      "trusted": true
+    },
+    "ci": {
+      "command": "ddev ci",
+      "description": "Runs all CI-relevant checks in DDEV",
+      "trusted": true
+    }
+  }
+}
