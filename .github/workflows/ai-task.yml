@@ -3,7 +3,9 @@
 # Triggers:
 #   1. Label "ai-task" added to an issue
 #   2. Comment "/ai <optional instructions>" on an issue (OWNER/COLLABORATOR/MEMBER only)
-#   3. Manual dispatch (Actions tab -> Run workflow) with a free-text prompt
+#   3. Review comment "/ai <instructions>" on a pull request (OWNER/COLLABORATOR/MEMBER only)
+#      -> the agent works on the PR branch and pushes follow-up commits to the existing PR
+#   4. Manual dispatch (Actions tab -> Run workflow) with a free-text prompt
 #
 # Requires repo secret: MISTRAL_API_KEY (create at console.mistral.ai / Vibe CLI)
 name: AI Task (Mistral Code)
@@ -13,6 +15,8 @@ on:
     types: [labeled]
   issue_comment:
     types: [created]
+  pull_request_review:
+    types: [submitted]
   workflow_dispatch:
     inputs:
       prompt:
@@ -25,7 +29,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: ai-task-${{ github.event.issue.number || github.run_id }}
+  group: ai-task-${{ github.event.issue.number || github.event.pull_request.number || github.run_id }}
   cancel-in-progress: false
 
 jobs:
@@ -35,6 +39,9 @@ jobs:
       (github.event_name == 'issue_comment' &&
         startsWith(github.event.comment.body, '/ai') &&
         contains(fromJSON('["OWNER", "COLLABORATOR", "MEMBER"]'), github.event.comment.author_association)) ||
+      (github.event_name == 'pull_request_review' &&
+        startsWith(github.event.review.body, '/ai') &&
+        contains(fromJSON('["OWNER", "COLLABORATOR", "MEMBER"]'), github.event.review.author_association)) ||
       github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -49,33 +56,64 @@ jobs:
         env:
           EVENT_NAME: ${{ github.event_name }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
           PROMPT: ${{ github.event.inputs.prompt }}
           COMMENT: ${{ github.event.comment.body }}
+          REVIEW: ${{ github.event.review.body }}
         run: |
           set -euo pipefail
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            printf '%s\n' "$PROMPT" > /tmp/task.md
+            printf '%s
+' "$PROMPT" > /tmp/task.md
             echo "number=" >> "$GITHUB_OUTPUT"
+            echo "mode=dispatch" >> "$GITHUB_OUTPUT"
           elif [ "$EVENT_NAME" = "issues" ]; then
-            gh issue view "$ISSUE_NUMBER" --json title,body -q '.title + "\n\n" + .body' > /tmp/task.md
-            echo "number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
- 
+            gh issue view "$ISSUE_NUMBER" --json title,body -q '.title + "
 
+" + .body' > /tmp/task.md
+            echo "number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
+            echo "mode=issue" >> "$GITHUB_OUTPUT"
+          elif [ "$EVENT_NAME" = "pull_request_review" ]; then
+            review_text="$(printf '%s' "$REVIEW" | sed -e 's|^/ai[[:space:]]*||')"
+            gh pr view "$PR_NUMBER" --json title,body -q '.title + "
+
+" + .body' > /tmp/pr.md
+            { printf '%s
+
+---
+
+PR context:
+
+'; cat /tmp/pr.md; } > /tmp/task.md
+            echo "number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+            echo "mode=review" >> "$GITHUB_OUTPUT"
           else
             cmd_text="$(printf '%s' "$COMMENT" | sed -e 's|^/ai[[:space:]]*||')"
-            gh issue view "$ISSUE_NUMBER" --json title,body -q '.title + "\n\n" + .body' > /tmp/issue.md
+            gh issue view "$ISSUE_NUMBER" --json title,body -q '.title + "
+
+" + .body' > /tmp/issue.md
             if [ -n "$cmd_text" ]; then
-              { printf '%s\n\n---\n\nIssue context:\n\n'; cat /tmp/issue.md; } > /tmp/task.md
+              { printf '%s
+
+---
+
+Issue context:
+
+'; cat /tmp/issue.md; } > /tmp/task.md
             else
               cp /tmp/issue.md /tmp/task.md
             fi
             echo "number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
+            echo "mode=issue" >> "$GITHUB_OUTPUT"
           fi
           echo "### Task" >> "$GITHUB_STEP_SUMMARY"
           cat /tmp/task.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # In review mode, check out the PR head branch so changes land on the existing PR
+          ref: ${{ github.event_name == 'pull_request_review' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event.repository.default_branch }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -91,14 +129,25 @@ jobs:
           curl -LsSf https://mistral.ai/vibe/install.sh | bash
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
-      - name: Create working branch
+      - name: Create working branch (issues/dispatch only)
         id: branch
+        if: github.event_name != 'pull_request_review'
         run: |
           BRANCH="ai/task-${{ steps.task.outputs.number || github.run_id }}"
           git checkout -b "$BRANCH"
           git config user.name "mistral-code-bot"
           git config user.email "actions@users.noreply.github.com"
           echo "name=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Configure git (review mode)
+        if: github.event_name == 'pull_request_review'
+        run: |
+          # Detached head from refs/pull/N/head: attach to the PR branch for pushing
+          PR_BRANCH="$(gh pr view ${{ steps.task.outputs.number }} --json headRefName -q .headRefName)"
+          git config user.name "mistral-code-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout "$PR_BRANCH"
+          echo "PR_BRANCH=$PR_BRANCH" >> "$GITHUB_ENV"
 
       - name: Run Mistral Code (programmatic mode)
         run: |
@@ -109,14 +158,13 @@ jobs:
                --output json 2>&1 | tee /tmp/vibe-output.json
 
       - name: Commit changes and create pull request
+        if: github.event_name != 'pull_request_review'
         env:
           BRANCH: ${{ steps.branch.outputs.name }}
           ISSUE_NUMBER: ${{ steps.task.outputs.number }}
         run: |
           set -euo pipefail
           if [ -z "$(git status --porcelain)" ]; then
-    
-  
             echo "No changes produced by the agent."
             if [ -n "$ISSUE_NUMBER" ]; then
               gh issue comment "$ISSUE_NUMBER" --body "🤖 Mistral Code finished, but produced no changes. See [run logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
@@ -138,3 +186,17 @@ jobs:
           if [ -n "$ISSUE_NUMBER" ]; then
             gh issue comment "$ISSUE_NUMBER" --body "🤖 Mistral Code opened a draft PR: $PR_URL"
           fi
+
+      - name: Commit follow-up changes to the PR (review mode)
+        if: github.event_name == 'pull_request_review'
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes produced by the agent."
+            gh pr comment ${{ steps.task.outputs.number }} --body "🤖 Mistral Code finished the review task, but produced no changes. See [run logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
+            exit 0
+          fi
+          git add -A
+          git commit -m "AI review task: $(head -n1 /tmp/task.md | cut -c1-72)"
+          git push origin "$PR_BRANCH"
+          gh pr comment ${{ steps.task.outputs.number }} --body "🤖 Mistral Code pushed follow-up commits addressing the review. See [run logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
