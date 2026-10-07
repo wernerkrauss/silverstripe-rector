@@ -69,6 +69,11 @@ CODE_SAMPLE
             return null;
         }
 
+        // Also skip variables or expressions that resolve to an array
+        if ($this->getType($secondArgValue)->isArray()->yes()) {
+            return null;
+        }
+
         // Change method name to singular version
         $node->name = new Identifier(self::METHOD_MAP[$methodName]);
         return $node;
