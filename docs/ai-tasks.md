@@ -36,6 +36,19 @@ What happens on the runner:
 
 You then only review the PR. Close the issue once the PR is merged.
 
+### Follow-up on a pull request via review
+
+Submit a review whose **body starts with `/ai`** (optionally followed by
+instructions, e.g. `/ai please fix the naming as discussed in the inline comments`).
+The agent then:
+
+1. Checks out the PR head branch
+2. Works on the review instructions (with PR title/body as context)
+3. Pushes follow-up commits **to the existing PR** — no new PR is created
+
+Only owners/collaborators/members may use `/ai` in reviews. Inline code review
+comments alone do not trigger the agent — only the review summary body counts.
+
 ### Manual task without an issue
 
 Actions tab → "AI Task (Mistral Code)" → **Run workflow** → enter a prompt.
@@ -45,7 +58,8 @@ Actions tab → "AI Task (Mistral Code)" → **Run workflow** → enter a prompt
 ```bash
 ./scripts/ai-task.sh 49                                   # work on issue #49
 ./scripts/ai-task.sh "Add rename Foo::bar to Foo::baz in the SS 6.1 set"
-./scripts/ai-task.sh 49 "Only fix the Filterable rename, add a test"
+./scripts/ai-task.sh 49 "Only fix the Filterable rename, add a tes
+t"
 ```
 
 The script creates an `ai/task-…` branch and starts `vibe` interactively,
