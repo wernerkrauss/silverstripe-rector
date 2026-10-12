@@ -195,7 +195,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] FlushInvalidatedResource::getResource() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] Subsite::getMembersByPermission() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] The $join parameter for the Subsite::get_from_all_subsites() method has been deprecated. Use leftJoin($table, $joinClause) instead.
-- [ ] [DEPRECATED] Passing a boolean value to the $mergeStrategy argument in Form::loadDataFrom() has been deprecated. Pass Form::MERGE_CLEAR_MISSING instead of true and 0 instead of false.
+- [x] [DEPRECATED] Passing a boolean value to the $mergeStrategy argument in Form::loadDataFrom() has been deprecated. Pass Form::MERGE_CLEAR_MISSING instead of true and 0 instead of false.
 - [ ] [DEPRECATED] The HTTP.ignoreDeprecatedCaching configuration property has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] FormField::Value() has been deprecated. It will be replaced by getFormattedValue() and getValue().
 - [x] [DEPRECATED] TextareaField::ValueEntities() has been deprecated. It will be replaced by getFormattedValueEntities().

@@ -46,7 +46,12 @@ final class SilverstripeDeprecationCommentRector extends AbstractRector implemen
     DocumentedRuleInterface
 {
     /**
-     * @var array<string, array{message: string, link: string, onlyNullArguments?: list<int>}>
+     * @var array<string, array{
+     *     message: string,
+     *     link: string,
+     *     onlyNullArguments?: list<int>,
+     *     onlyBooleanArguments?: list<int>
+     * }>
      */
     private array $configuration = [];
 
@@ -197,6 +202,13 @@ PHP,
                         return false;
                     }
 
+                    if (isset($info['onlyBooleanArguments']) && ! $this->hasBooleanArgument(
+                        $subNode,
+                        $info['onlyBooleanArguments']
+                    )) {
+                        return false;
+                    }
+
                     $objectTypeNode = $subNode instanceof MethodCall
                         ? $subNode->var
                         : ($subNode instanceof StaticCall || $subNode instanceof StaticPropertyFetch
@@ -224,6 +236,22 @@ PHP,
         foreach ($argumentPositions as $position) {
             $argument = $call->args[$position]->value ?? null;
             if ($argument instanceof ConstFetch && $this->isName($argument->name, 'null')) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param MethodCall|StaticCall $call
+     * @param list<int> $argumentPositions
+     */
+    private function hasBooleanArgument(Node $call, array $argumentPositions): bool
+    {
+        foreach ($argumentPositions as $position) {
+            $argument = $call->args[$position]->value ?? null;
+            if ($argument instanceof ConstFetch && in_array($this->getName($argument->name), ['true', 'false'], true)) {
                 return true;
             }
         }

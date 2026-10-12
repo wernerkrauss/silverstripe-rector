@@ -11,6 +11,8 @@ use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
+use Rector\Arguments\Rector\ClassMethod\ReplaceArgumentDefaultValueRector;
+use Rector\Arguments\ValueObject\ReplaceArgumentDefaultValue;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
@@ -66,6 +68,16 @@ return static function (RectorConfig $rectorConfig): void {
         new MethodCallRename('SilverStripe\Forms\Form', 'validationResult', 'validate'),
         new MethodCallRename('SilverStripe\Forms\FormField', 'extendValidationResult', 'extend'),
         new MethodCallRename('SilverStripe\Forms\TextareaField', 'ValueEntities', 'getFormattedValueEntities'),
+    ]);
+    $rectorConfig->ruleWithConfiguration(ReplaceArgumentDefaultValueRector::class, [
+        new ReplaceArgumentDefaultValue(
+            'SilverStripe\\Forms\\Form',
+            'loadDataFrom',
+            1,
+            true,
+            'SilverStripe\\Forms\\Form::MERGE_CLEAR_MISSING'
+        ),
+        new ReplaceArgumentDefaultValue('SilverStripe\\Forms\\Form', 'loadDataFrom', 1, false, 0),
     ]);
 
     $rectorConfig->ruleWithConfiguration(MethodCallToStaticCallRector::class, [

@@ -43,6 +43,7 @@ This project provides Rector rules for Silverstripe CMS. Development is carried 
 ## Rector Rules
 
 - New Rector rules should be placed in `src/Rector` in appropriate subdirectories.
+- Before creating a custom Rector, check whether an existing configurable Rector can provide the required transformation.
 - 
 Tests are located in `tests/Rector` (or the corresponding structure in `tests`).
 - Ensure the correct use of Silverstripe stubs in `stubs/`.
