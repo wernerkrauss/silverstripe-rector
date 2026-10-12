@@ -260,6 +260,10 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'CMSMain::performPublish() has been deprecated. Use RecursivePublishable::publishRecursive() instead.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\CMS\Model\SiteTree::need_permission' => [
+            'message' => 'The SiteTree.need_permission configuration property has been deprecated. Use SiteTree::canCreate() instead.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
     ]);
     $rectorConfig->importNames();
     $rectorConfig->removeUnusedImports();

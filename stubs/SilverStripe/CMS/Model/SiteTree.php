@@ -4,6 +4,8 @@ namespace SilverStripe\CMS\Model;
 
 class SiteTree
 {
+    public static bool $need_permission = true;
+
     public function getPermissionChecker(): object {}
     public static function flushMemberCache(): void {}
     public function creatableChildPages(): array {}
