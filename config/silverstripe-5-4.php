@@ -135,6 +135,30 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'Director::get_session_environment_type() has been deprecated. Use Director::get_environment_type() instead.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\ORM\FieldType\DBInt::Times' => [
+            'message' => 'DBInt::Times() has been deprecated. It will be removed without equivalent functionality to replace it.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\Control\Controller::has_curr' => [
+            'message' => 'Controller::has_curr() has been deprecated. It will be removed without equivalent functionality to replace it.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\View\ViewableData::XML_val' => [
+            'message' => 'ViewableData::XML_val() has been deprecated. It will be removed without equivalent functionality to replace it.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\Model\ModelData::XML_val' => [
+            'message' => 'ViewableData::XML_val() has been deprecated. It will be removed without equivalent functionality to replace it.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\View\ViewableData::getXMLValues' => [
+            'message' => 'ViewableData::getXMLValues() has been deprecated. It will be removed without equivalent functionality to replace it.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\Model\ModelData::getXMLValues' => [
+            'message' => 'ViewableData::getXMLValues() has been deprecated. It will be removed without equivalent functionality to replace it.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
     ]);
     $rectorConfig->importNames();
     $rectorConfig->removeUnusedImports();

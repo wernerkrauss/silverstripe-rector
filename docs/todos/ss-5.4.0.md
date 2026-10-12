@@ -71,8 +71,8 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] ViewableData::objCacheName() has been deprecated. It will be made private. The corresponding ViewableData::objCacheSet() and ViewableData::objCacheGet() methods will change method signature to not require passing in the cache key.
 - [ ] [DEPRECATED] The $cacheName parameter for the ViewableData::obj() method has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] ViewableData::cachedCall() has been deprecated. Use ViewableData::obj() instead.
-- [ ] [DEPRECATED] ViewableData::XML_val() has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] ViewableData::getXMLValues() has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] ViewableData::XML_val() has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] ViewableData::getXMLValues() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] The $parser parameter for the SSViewer::__construct() method has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] SSViewer::flush() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::flush().
 - [x] [DEPRECATED] SSViewer::fromString() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::renderString().
@@ -210,8 +210,8 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] Passing null for the $cast parameter in Form::sessionMessage() is deprecated. Pass a ValidationResult::CAST_* constant instead.
 - [ ] [DEPRECATED] Passing null for the $cast parameter in Form::sessionError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
 - [ ] [DEPRECATED] Passing null for the $cast parameter in Form::sessionFieldError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
-- [ ] [DEPRECATED] DBInt::Times() has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] Controller::has_curr() has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] DBInt::Times() has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] Controller::has_curr() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] UserFormsColumnCleanTask has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] The LeftAndMain_SearchFilter interface has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] The LeftAndMain::getSearchFilter() has been deprecated. It will be removed without equivalent functionality to replace it.
