@@ -181,12 +181,12 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [x] [DEPRECATED] SiteTree::page_type_classes() has been deprecated. Will be replaced with updateAllowedSubClasses().
 - [x] [DEPRECATED] SiteTree::setCreatableChildrenCache() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::setCreatableChildrenCache().
 - [x] [DEPRECATED] SiteTree::getCreatableChildrenCache() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getCreatableChildrenCache().
-- [ ] [DEPRECATED] SiteTree::getPermissionChecker() has been deprecated. It will be replaced with a non-static method of the same name.
-- [ ] [DEPRECATED] SiteTree::flushMemberCache() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::clearCache().
-- [ ] [DEPRECATED] SiteTree::creatableChildPages() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getCreatableSubClasses().
-- [ ] [DEPRECATED] SiteTree::getIconClass() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getRecordIconCssClass().
-- [ ] [DEPRECATED] SiteTree::getPageIconURL() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getRecordIconUrl().
-- [ ] [DEPRECATED] SiteTree::generateChildrenCacheKey() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::generateChildrenCacheKey().
+- [x] [DEPRECATED] SiteTree::getPermissionChecker() has been deprecated. It will be replaced with a non-static method of the same name.
+- [x] [DEPRECATED] SiteTree::flushMemberCache() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::clearCache().
+- [x] [DEPRECATED] SiteTree::creatableChildPages() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getCreatableSubClasses().
+- [x] [DEPRECATED] SiteTree::getIconClass() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getRecordIconCssClass().
+- [x] [DEPRECATED] SiteTree::getPageIconURL() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getRecordIconUrl().
+- [x] [DEPRECATED] SiteTree::generateChildrenCacheKey() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::generateChildrenCacheKey().
 - [x] [DEPRECATED] Form::validationResult() has been deprecated. Use Form::validate() instead.
 - [x] [DEPRECATED] Director::get_session_environment_type() has been deprecated. Use Director::get_environment_type() instead.
 - [ ] [DEPRECATED] Use of the CUSTOM_INCLUDE_PATH constant to change the PHP include path has been deprecated and will not work in a future major release.
