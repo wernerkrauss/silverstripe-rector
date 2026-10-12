@@ -27,7 +27,7 @@ class ValueEntitiesTest
          * @deprecated TextareaField::ValueEntities() has been deprecated. Use getFormattedValueEntities() instead.
          * See: https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api
          */
-        $field->ValueEntities();
+        $field->getFormattedValueEntities();
     }
 }
 ?>

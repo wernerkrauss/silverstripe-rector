@@ -116,7 +116,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [x] [DEPRECATED] DBEnum::flushCache() has been deprecated. Use DBEnum::reset() instead.
 - [ ] [DEPRECATED] The BaseElement.description configuration property has been deprecated. Use DataObject.class_description instead.
 - [ ] [DEPRECATED] The SiteTree.description configuration property has been deprecated. Use DataObject.class_description instead.
-- [ ] [DEPRECATED] FormField::extendValidationResult() has been deprecated. Use extend() directly instead.
+- [x] [DEPRECATED] FormField::extendValidationResult() has been deprecated. Use extend() directly instead.
 - [ ] [DEPRECATED] SubsiteXHRController::canAccess() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] LeftAndMainSubsites::ListSubsites() has been deprecated. Use SubsiteSwitchList() instead.
 - [ ] [DEPRECATED] LeftAndMain::methodSchema() has been deprecated. It will be replaced with SilverStripe\Admin\FormSchemaController::schema().
@@ -187,7 +187,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] SiteTree::getIconClass() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getRecordIconCssClass().
 - [ ] [DEPRECATED] SiteTree::getPageIconURL() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getRecordIconUrl().
 - [ ] [DEPRECATED] SiteTree::generateChildrenCacheKey() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::generateChildrenCacheKey().
-- [ ] [DEPRECATED] Form::validationResult() has been deprecated. Use Form::validate() instead.
+- [x] [DEPRECATED] Form::validationResult() has been deprecated. Use Form::validate() instead.
 - [x] [DEPRECATED] Director::get_session_environment_type() has been deprecated. Use Director::get_environment_type() instead.
 - [ ] [DEPRECATED] Use of the CUSTOM_INCLUDE_PATH constant to change the PHP include path has been deprecated and will not work in a future major release.
 - [x] [DEPRECATED] SessionEnvTypeSwitcher has been deprecated. It will be removed without equivalent functionality to replace it.
@@ -198,7 +198,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] Passing a boolean value to the $mergeStrategy argument in Form::loadDataFrom() has been deprecated. Pass Form::MERGE_CLEAR_MISSING instead of true and 0 instead of false.
 - [ ] [DEPRECATED] The HTTP.ignoreDeprecatedCaching configuration property has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] FormField::Value() has been deprecated. It will be replaced by getFormattedValue() and getValue().
-- [ ] [DEPRECATED] TextareaField::ValueEntities() has been deprecated. It will be replaced by getFormattedValueEntities().
+- [x] [DEPRECATED] TextareaField::ValueEntities() has been deprecated. It will be replaced by getFormattedValueEntities().
 - [ ] [DEPRECATED] Passing null for the $code parameter in ValidationResult::addError() is deprecated. Pass a blank string instead.
 - [ ] [DEPRECATED] Passing null for the $cast parameter in ValidationResult::addError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
 - [ ] [DEPRECATED] Passing null for the $code parameter in ValidationResult::addFieldError() is deprecated. Pass a blank string instead.

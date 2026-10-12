@@ -63,6 +63,9 @@ return static function (RectorConfig $rectorConfig): void {
         new MethodCallRename('SilverStripe\ORM\PaginatedList', 'TotalItems', 'getTotalItems'),
         new MethodCallRename('SilverStripe\View\SSViewer_Scope', 'getItem', 'getCurrentItem'),
         new MethodCallRename('SilverStripe\View\SSViewer', 'get_base_tag', 'getBaseTag'),
+        new MethodCallRename('SilverStripe\Forms\Form', 'validationResult', 'validate'),
+        new MethodCallRename('SilverStripe\Forms\FormField', 'extendValidationResult', 'extend'),
+        new MethodCallRename('SilverStripe\Forms\TextareaField', 'ValueEntities', 'getFormattedValueEntities'),
     ]);
 
     $rectorConfig->ruleWithConfiguration(MethodCallToStaticCallRector::class, [
@@ -119,8 +122,16 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'ViewableData::escapeTypeForField() has been deprecated. It will be removed without equivalent functionality to replace it.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
-        'SilverStripe\Forms\TextareaField::ValueEntities' => [
+        'SilverStripe\Forms\TextareaField::getFormattedValueEntities' => [
             'message' => 'TextareaField::ValueEntities() has been deprecated. Use getFormattedValueEntities() instead.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\Forms\Form::validate' => [
+            'message' => 'Form::validationResult() has been deprecated. Use Form::validate() instead.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\Forms\FormField::extend' => [
+            'message' => 'FormField::extendValidationResult() has been deprecated. Use extend() directly instead.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
         'SilverStripe\Forms\GridField\GridFieldDataColumns::getValueFromRelation' => [

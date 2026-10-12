@@ -81,9 +81,7 @@ return static function (RectorConfig $rectorConfig): void {
         new MethodCallRename('SilverStripe\CMS\Controllers\CMSMain', 'SiteTreeHints', 'TreeHints'),
         new MethodCallRename('SilverStripe\CMS\Controllers\LeftAndMainRecordIconsExtension', 'generatePageIconsCss',
             'generateRecordIconsCss'),
-        new MethodCallRename('SilverStripe\Forms\Form', 'validationResult', 'validate'),
         new MethodCallRename('SilverStripe\Forms\FormField', 'Value', 'getFormattedValue'),
-        new MethodCallRename('SilverStripe\Forms\TextareaField', 'ValueEntities', 'getFormattedValueEntities'),
         new MethodCallRename('SilverStripe\Model\List\ListDecorator', 'TotalItems', 'getTotalItems'),
         new MethodCallRename('SilverStripe\Model\List\PaginatedList', 'TotalItems', 'getTotalItems'),
         new MethodCallRename('SilverStripe\Control\Director', 'get_session_environment_type', 'get_environment_type'),
@@ -130,10 +128,6 @@ return static function (RectorConfig $rectorConfig): void {
         ],
         'SilverStripe\Model\List\PaginatedList::getTotalItems' => [
             'message' => 'PaginatedList::TotalItems() has been deprecated. Use getTotalItems() instead.',
-            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
-        ],
-        'SilverStripe\Forms\TextareaField::getFormattedValueEntities' => [
-            'message' => 'TextareaField::ValueEntities() has been deprecated. Use getFormattedValueEntities() instead.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
         'SilverStripe\Forms\FormField::getFormattedValue' => [
