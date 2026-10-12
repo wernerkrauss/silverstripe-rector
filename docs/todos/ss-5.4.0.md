@@ -149,7 +149,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [x] [DEPRECATED] LeftAndMain::setCurrentPageID() has been deprecated. Use LeftAndMain::setCurrentRecordID() instead.
 - [x] [DEPRECATED] LeftAndMain::currentPage() has been deprecated. Use LeftAndMain::currentRecord() instead.
 - [x] [DEPRECATED] LeftAndMain::isCurrentPage() has been deprecated. Use LeftAndMain::isCurrentRecord() instead.
-- [ ] [DEPRECATED] The SiteTree.need_permission configuration property has been deprecated. Use SiteTree::canCreate() instead.
+- [x] [DEPRECATED] The SiteTree.need_permission configuration property has been deprecated. Use SiteTree::canCreate() instead.
 - [x] [DEPRECATED] The SiteTree.icon configuration property has been deprecated. It will be renamed to cms_icon.
 - [x] [DEPRECATED] The SiteTree.icon_class configuration property has been deprecated. It will be renamed to cms_icon_class. This applies to all subclasses of SiteTree as well.
 - [x] [DEPRECATED] CMSMain::PageList() has been deprecated. It will be renamed to RecordList().
