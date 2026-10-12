@@ -59,6 +59,8 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [
         new MethodCallRename('SilverStripe\ORM\ListDecorator', 'TotalItems', 'getTotalItems'),
         new MethodCallRename('SilverStripe\ORM\PaginatedList', 'TotalItems', 'getTotalItems'),
+        new MethodCallRename('SilverStripe\View\SSViewer_Scope', 'getItem', 'getCurrentItem'),
+        new MethodCallRename('SilverStripe\View\SSViewer', 'get_base_tag', 'getBaseTag'),
     ]);
 
     $rectorConfig->ruleWithConfiguration(RenameStaticMethodRector::class, [
