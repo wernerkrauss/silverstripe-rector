@@ -160,6 +160,10 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'FormField::extendValidationResult() has been deprecated. Use extend() directly instead.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\Forms\Validation\FieldsValidator' => [
+            'message' => 'FieldsValidator has been deprecated. It will be replaced with functionality inside Form::validate().',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
         'SilverStripe\Forms\GridField\GridFieldDataColumns::getValueFromRelation' => [
             'message' => 'GridFieldDataColumns::getValueFromRelation() has been deprecated. It will be removed without equivalent functionality to replace it.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
