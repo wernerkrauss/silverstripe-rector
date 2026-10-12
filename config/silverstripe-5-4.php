@@ -294,6 +294,14 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'LeftAndMain::Modals() has been deprecated. It will be removed without equivalent functionality to replace it.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\CMS\Controllers\CMSPageAddController' => [
+            'message' => 'CMSPageAddController has been deprecated. It will be replaced with SilverStripe\\CMS\\Forms\\CMSMainAddForm.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\CMS\Controllers\CMSPagesController' => [
+            'message' => 'CMSPagesController has been deprecated. It will be combined back into CMSMain.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
     ]);
     $rectorConfig->importNames();
     $rectorConfig->removeUnusedImports();

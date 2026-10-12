@@ -169,8 +169,8 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [x] [DEPRECATED] CMSMain::PageTypes() has been deprecated. Use CMSMain::RecordTypes() instead.
 - [x] [DEPRECATED] CMSMain::SiteTreeHints() has been deprecated. Use CMSMain::TreeHints() instead.
 - [x] [DEPRECATED] CMSMain::performPublish() has been deprecated. Use RecursivePublishable::publishRecursive() instead.
-- [ ] [DEPRECATED] CMSPageAddController has been deprecated. It will be replaced with SilverStripe\CMS\Forms\CMSMainAddForm.
-- [ ] [DEPRECATED] CMSPagesController has been deprecated. It will be combined back into CMSMain.
+- [x] [DEPRECATED] CMSPageAddController has been deprecated. It will be replaced with SilverStripe\CMS\Forms\CMSMainAddForm.
+- [x] [DEPRECATED] CMSPagesController has been deprecated. It will be combined back into CMSMain.
 - [ ] [DEPRECATED] CMSSiteTreeFilter::getPageClasses() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] CMSSiteTreeFilter::isPageIncluded() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] LeftAndMainPageIconsExtension has been deprecated. It will be renamed to SilverStripe\CMS\Controllers\LeftAndMainRecordIconsExtension.
