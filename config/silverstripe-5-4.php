@@ -160,6 +160,10 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'FormField::extendValidationResult() has been deprecated. Use extend() directly instead.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\Forms\FormField::validate' => [
+            'message' => 'FormField::validate() will take zero arguments and return a ValidationResult object instead of a boolean in CMS 6.0.0.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
         'SilverStripe\Forms\Validation\FieldsValidator' => [
             'message' => 'FieldsValidator has been deprecated. It will be replaced with functionality inside Form::validate().',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',

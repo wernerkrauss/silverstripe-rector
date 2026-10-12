@@ -136,7 +136,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] RemoteFileModalExtension::getFormSchema() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] RemoteFileModalExtension::getSchemaResponse() has been deprecated. It will be replaced with RemoteFileModalExtension::getOwner()->getSchemaResponse().
 - [ ] [DEPRECATED] InternalLinkModalExtension has been deprecated. It will be replaced with configuration on ModalController.
-- [ ] FormField::validate() will take zero arguments and return a ValidationResult object instead of a boolean in CMS 6.0.0.
+- [x] FormField::validate() will take zero arguments and return a ValidationResult object instead of a boolean in CMS 6.0.0.
 - [x] [DEPRECATED] FieldsValidator has been deprecated. It will be replaced with functionality inside Form::validate().
 - [x] [DEPRECATED] Validator has been deprecated. It will be renamed to SilverStripe\Forms\Validation\Validator.
 - [x] [DEPRECATED] RequiredFields has been deprecated. It will be renamed to SilverStripe\Forms\Validation\RequiredFieldsValidator.
