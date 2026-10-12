@@ -8,6 +8,12 @@ This project provides Rector rules for Silverstripe CMS. Development is carried 
 - Documentation and commit messages should also be in English.
 - Line length should not exceed 120 characters.
 
+## Commit Messages
+
+- Prefix every implementation commit with the affected Silverstripe version and change category.
+- Use the format `Silverstripe X.Y/Category: concise change description`.
+- For API migrations, include the old and new symbol where practical, for example: `Silverstripe 5.4/Deprecation: ContentReviewEmails::isValidEmail() => Email::is_valid_address()`.
+
 ## Development Environment (DDEV)
 
 - All PHP commands must be executed via DDEV.

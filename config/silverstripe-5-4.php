@@ -7,6 +7,8 @@ use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
+use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
+use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 
@@ -61,6 +63,11 @@ return static function (RectorConfig $rectorConfig): void {
         new MethodCallRename('SilverStripe\ORM\PaginatedList', 'TotalItems', 'getTotalItems'),
         new MethodCallRename('SilverStripe\View\SSViewer_Scope', 'getItem', 'getCurrentItem'),
         new MethodCallRename('SilverStripe\View\SSViewer', 'get_base_tag', 'getBaseTag'),
+    ]);
+
+    $rectorConfig->ruleWithConfiguration(MethodCallToStaticCallRector::class, [
+        new MethodCallToStaticCall('SilverStripe\\ContentReview\\Tasks\\ContentReviewEmails', 'isValidEmail',
+            'SilverStripe\\Control\\Email\\Email', 'is_valid_address'),
     ]);
 
     $rectorConfig->ruleWithConfiguration(RenameStaticMethodRector::class, [

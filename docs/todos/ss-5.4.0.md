@@ -61,7 +61,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] ProcessJobQueueTask::getQueue() has been deprecated. Use AbstractQueuedJob::getQueue() instead.
 - [ ] [DEPRECATED] HTTPOutputHandler::isCli() has been deprecated. Use Director::is_cli() instead instead.
 - [x] [DEPRECATED] PasswordValidator has been deprecated. It will be renamed to SilverStripe\Security\Validation\RulesPasswordValidator.
-- [ ] [DEPRECATED] ContentReviewEmails::isValidEmail() has been deprecated. Use Email::is_valid_address() instead.
+- [x] [DEPRECATED] ContentReviewEmails::isValidEmail() has been deprecated. Use Email::is_valid_address() instead.
 - [ ] [DEPRECATED] The DBField.defaultVal property has been deprecated. Use DBField::getDefaultValue() and DBField::setDefaultValue() instead.
 - [x] [DEPRECATED] DBFile::validate() has been deprecated. Use DBFile::validateFilename() instead.
 - [x] [DEPRECATED] ContentController::Menu() has been deprecated. Use ContentController::getMenu() instead if calling the method in PHP. You can continue to use $Menu in templates, including passing arguments to it.
