@@ -6,6 +6,7 @@ use Netwerkstatt\SilverstripeRector\Rector\Misc\SilverstripeDeprecationCommentRe
 use Netwerkstatt\SilverstripeRector\Tests\Misc\SilverstripeDeprecationCommentRector\Source\ClassWithDeprecatedMethod;
 use Netwerkstatt\SilverstripeRector\Tests\Misc\SilverstripeDeprecationCommentRector\Source\DeprecatedClass;
 use Rector\Config\RectorConfig;
+use SilverStripe\UserForms\Extension\UpgradePolymorphicExtension;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(SilverstripeDeprecationCommentRector::class, [
@@ -17,8 +18,9 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'This method is deprecated.',
             'link' => 'https://docs.silverstripe.org/deprecated-method',
         ],
-        'Netwerkstatt\SilverstripeRector\Tests\Misc\SilverstripeDeprecationCommentRector\Source\UserForms\Extension\UpgradePolymorphicExtension' => [
-            'message' => 'UpgradePolymorphicExtension has been deprecated and will be removed without equivalent functionality',
+        UpgradePolymorphicExtension::class => [
+            'message' => 'UpgradePolymorphicExtension has been deprecated and'
+                . ' will be removed without equivalent functionality',
             'link' => 'https://docs.silverstripe.org/en/6/changelogs/6.1.0/#api-changes',
         ],
     ]);

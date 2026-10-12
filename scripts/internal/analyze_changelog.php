@@ -113,7 +113,7 @@ if ($sectionMatch) {
 
             $seenTasks[$taskText] = true;
 
-            if (in_array($taskText, $existingCompleted)) {
+            if (in_array($taskText, $existingCompleted, true)) {
                 $finalTodos[] = str_replace('- [ ]', '- [x]', $todoLine);
                 continue;
             }

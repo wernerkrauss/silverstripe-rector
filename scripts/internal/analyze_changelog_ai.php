@@ -21,7 +21,7 @@ if (!file_exists($inputFile)) {
 
 $version = basename($inputFile);
 $version = str_replace(['ss-', '.html', '.md'], '', $version);
-$isMarkdown = str_ends_with($inputFile, '.md');
+$isMarkdown = substr_compare($inputFile, '.md', -strlen('.md')) === 0;
 $content = file_get_contents($inputFile) ?: '';
 
 $relevantContent = '';

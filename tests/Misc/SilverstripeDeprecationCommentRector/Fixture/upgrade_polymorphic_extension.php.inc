@@ -2,7 +2,7 @@
 
 namespace Netwerkstatt\SilverstripeRector\Tests\Misc\SilverstripeDeprecationCommentRector\Fixture;
 
-use Netwerkstatt\SilverstripeRector\Tests\Misc\SilverstripeDeprecationCommentRector\Source\UserForms\Extension\UpgradePolymorphicExtension;
+use SilverStripe\UserForms\Extension\UpgradePolymorphicExtension;
 
 class MyUserFormsExtension extends UpgradePolymorphicExtension
 {
@@ -13,7 +13,7 @@ class MyUserFormsExtension extends UpgradePolymorphicExtension
 
 namespace Netwerkstatt\SilverstripeRector\Tests\Misc\SilverstripeDeprecationCommentRector\Fixture;
 
-use Netwerkstatt\SilverstripeRector\Tests\Misc\SilverstripeDeprecationCommentRector\Source\UserForms\Extension\UpgradePolymorphicExtension;
+use SilverStripe\UserForms\Extension\UpgradePolymorphicExtension;
 
 /**
  * @deprecated UpgradePolymorphicExtension has been deprecated and will be removed without equivalent functionality

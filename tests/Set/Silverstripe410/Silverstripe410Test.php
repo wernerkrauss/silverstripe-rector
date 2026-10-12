@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netwerkstatt\SilverstripeRector\Tests\Set\Silverstripe410;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

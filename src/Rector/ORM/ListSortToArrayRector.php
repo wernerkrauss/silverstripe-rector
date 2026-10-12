@@ -110,7 +110,7 @@ CODE_SAMPLE
             $direction = 'ASC';
             if (isset($subParts[1])) {
                 $dir = strtoupper($subParts[1]);
-                if (in_array($dir, ['ASC', 'DESC'])) {
+                if (in_array($dir, ['ASC', 'DESC'], true)) {
                     $direction = $dir;
                 }
             }

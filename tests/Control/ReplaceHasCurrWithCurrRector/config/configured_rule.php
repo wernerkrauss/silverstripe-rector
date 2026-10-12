@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Netwerkstatt\SilverstripeRector\Rector\Control\ReplaceHasCurrWithCurrRector;
 use Rector\Config\RectorConfig;
 

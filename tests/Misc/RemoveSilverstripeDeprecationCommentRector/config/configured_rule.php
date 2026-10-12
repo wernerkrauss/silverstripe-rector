@@ -20,7 +20,7 @@ return static function (RectorConfig $rectorConfig): void {
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
         // Test with another one just in case
-        'SilverStripe\ORM\FieldType\DBEnum::reset' => [
+        \SilverStripe\ORM\FieldType\DBEnum::class . '::reset' => [
             'message' => 'DBEnum::flushCache() has been deprecated. Use reset() instead.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],

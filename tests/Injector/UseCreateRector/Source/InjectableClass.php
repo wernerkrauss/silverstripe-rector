@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 // phpcs:ignoreFile
 namespace Netwerkstatt\SilverstripeRector\Tests\Injector\UseCreateRector\Source;
 

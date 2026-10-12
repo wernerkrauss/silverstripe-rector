@@ -18,9 +18,9 @@ class CodeStyleTest extends AbstractRectorTestCase
     {
         if (class_exists(\SilverStripe\ORM\DataExtension::class)) {
             return self::yieldFilesFromDirectory(__DIR__ . '/Fixture');
-        } else {
-            return self::yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.current.php.inc');
         }
+
+        return self::yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.current.php.inc');
     }
 
     public function provideConfigFilePath(): string

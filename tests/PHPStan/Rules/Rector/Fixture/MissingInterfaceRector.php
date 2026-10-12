@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netwerkstatt\SilverstripeRector\Tests\PHPStan\Rules\Rector\Fixture;
 
 use Rector\Rector\AbstractRector;

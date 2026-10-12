@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netwerkstatt\SilverstripeRector\Tests\Injector\UseCreateRector\config;
 
 use Netwerkstatt\SilverstripeRector\Rector\Injector\UseCreateRector;

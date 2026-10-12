@@ -97,7 +97,7 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
             'defaults',
             'required_fields'
         ],
-        'SilverStripe\Dev\BuildTask' => [
+        \SilverStripe\Dev\BuildTask::class => [
             'segment',
             'title',
             'description',
@@ -107,7 +107,7 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
             'icon'
         ],
         //Elemental
-        'DNADesign\Elemental\Models\BaseElement' => [
+        \DNADesign\Elemental\Models\BaseElement::class => [
             'icon',
             'inline_editable',
             'description'
