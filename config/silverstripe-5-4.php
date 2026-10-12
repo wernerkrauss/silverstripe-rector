@@ -224,6 +224,30 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'SessionEnvTypeSwitcher has been deprecated. It will be removed without equivalent functionality to replace it.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\CMS\Model\SiteTree::getPermissionChecker' => [
+            'message' => 'SiteTree::getPermissionChecker() has been deprecated. It will be replaced with a non-static method of the same name.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\CMS\Model\SiteTree::flushMemberCache' => [
+            'message' => 'SiteTree::flushMemberCache() has been deprecated. It will be replaced with CMSMain::clearCache().',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\CMS\Model\SiteTree::creatableChildPages' => [
+            'message' => 'SiteTree::creatableChildPages() has been deprecated. It will be replaced with CMSMain::getCreatableSubClasses().',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\CMS\Model\SiteTree::getIconClass' => [
+            'message' => 'SiteTree::getIconClass() has been deprecated. It will be replaced with CMSMain::getRecordIconCssClass().',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\CMS\Model\SiteTree::getPageIconURL' => [
+            'message' => 'SiteTree::getPageIconURL() has been deprecated. It will be replaced with CMSMain::getRecordIconUrl().',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\CMS\Model\SiteTree::generateChildrenCacheKey' => [
+            'message' => 'SiteTree::generateChildrenCacheKey() has been deprecated. It will be replaced with CMSMain::generateChildrenCacheKey().',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
     ]);
     $rectorConfig->importNames();
     $rectorConfig->removeUnusedImports();
