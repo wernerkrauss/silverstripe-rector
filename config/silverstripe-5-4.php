@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Netwerkstatt\SilverstripeRector\Rector\Misc\SilverstripeDeprecationCommentRector;
+use Netwerkstatt\SilverstripeRector\Rector\Misc\ReplaceSilverstripeNullArgumentRector;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
@@ -79,6 +80,19 @@ return static function (RectorConfig $rectorConfig): void {
         ),
         new ReplaceArgumentDefaultValue('SilverStripe\\Forms\\Form', 'loadDataFrom', 1, false, 0),
     ]);
+    $rectorConfig->ruleWithConfiguration(ReplaceSilverstripeNullArgumentRector::class, [
+        ['class' => 'SilverStripe\\Core\\Validation\\ValidationResult', 'method' => 'addError', 'position' => 2, 'replacement' => ''],
+        ['class' => 'SilverStripe\\Core\\Validation\\ValidationResult', 'method' => 'addError', 'position' => 3, 'replacement' => 'SilverStripe\\Core\\Validation\\ValidationResult::CAST_TEXT'],
+        ['class' => 'SilverStripe\\Core\\Validation\\ValidationResult', 'method' => 'addFieldError', 'position' => 3, 'replacement' => ''],
+        ['class' => 'SilverStripe\\Core\\Validation\\ValidationResult', 'method' => 'addFieldError', 'position' => 4, 'replacement' => 'SilverStripe\\Core\\Validation\\ValidationResult::CAST_TEXT'],
+        ['class' => 'SilverStripe\\Core\\Validation\\ValidationResult', 'method' => 'addMessage', 'position' => 2, 'replacement' => ''],
+        ['class' => 'SilverStripe\\Core\\Validation\\ValidationResult', 'method' => 'addMessage', 'position' => 3, 'replacement' => 'SilverStripe\\Core\\Validation\\ValidationResult::CAST_TEXT'],
+        ['class' => 'SilverStripe\\Core\\Validation\\ValidationResult', 'method' => 'addFieldMessage', 'position' => 3, 'replacement' => ''],
+        ['class' => 'SilverStripe\\Core\\Validation\\ValidationResult', 'method' => 'addFieldMessage', 'position' => 4, 'replacement' => 'SilverStripe\\Core\\Validation\\ValidationResult::CAST_TEXT'],
+        ['class' => 'SilverStripe\\Forms\\Form', 'method' => 'sessionMessage', 'position' => 2, 'replacement' => 'SilverStripe\\Core\\Validation\\ValidationResult::CAST_TEXT'],
+        ['class' => 'SilverStripe\\Forms\\Form', 'method' => 'sessionError', 'position' => 2, 'replacement' => 'SilverStripe\\Core\\Validation\\ValidationResult::CAST_TEXT'],
+        ['class' => 'SilverStripe\\Forms\\Form', 'method' => 'sessionFieldError', 'position' => 3, 'replacement' => 'SilverStripe\\Core\\Validation\\ValidationResult::CAST_TEXT'],
+    ]);
 
     $rectorConfig->ruleWithConfiguration(MethodCallToStaticCallRector::class, [
         new MethodCallToStaticCall('SilverStripe\\ContentReview\\Tasks\\ContentReviewEmails', 'isValidEmail',
@@ -145,41 +159,6 @@ return static function (RectorConfig $rectorConfig): void {
         'SilverStripe\Forms\FormField::extend' => [
             'message' => 'FormField::extendValidationResult() has been deprecated. Use extend() directly instead.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
-        ],
-        'SilverStripe\Core\Validation\ValidationResult::addError' => [
-            'message' => 'Passing null for the $code or $cast parameter in ValidationResult::addError() is deprecated.',
-            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
-            'onlyNullArguments' => [2, 3],
-        ],
-        'SilverStripe\Core\Validation\ValidationResult::addFieldError' => [
-            'message' => 'Passing null for the $code or $cast parameter in ValidationResult::addFieldError() is deprecated.',
-            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
-            'onlyNullArguments' => [3, 4],
-        ],
-        'SilverStripe\Core\Validation\ValidationResult::addMessage' => [
-            'message' => 'Passing null for the $code or $cast parameter in ValidationResult::addMessage() is deprecated.',
-            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
-            'onlyNullArguments' => [2, 3],
-        ],
-        'SilverStripe\Core\Validation\ValidationResult::addFieldMessage' => [
-            'message' => 'Passing null for the $code or $cast parameter in ValidationResult::addFieldMessage() is deprecated.',
-            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
-            'onlyNullArguments' => [3, 4],
-        ],
-        'SilverStripe\Forms\Form::sessionMessage' => [
-            'message' => 'Passing null for the $cast parameter in Form::sessionMessage() is deprecated.',
-            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
-            'onlyNullArguments' => [2],
-        ],
-        'SilverStripe\Forms\Form::sessionError' => [
-            'message' => 'Passing null for the $cast parameter in Form::sessionError() is deprecated.',
-            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
-            'onlyNullArguments' => [2],
-        ],
-        'SilverStripe\Forms\Form::sessionFieldError' => [
-            'message' => 'Passing null for the $cast parameter in Form::sessionFieldError() is deprecated.',
-            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
-            'onlyNullArguments' => [3],
         ],
         'SilverStripe\Forms\GridField\GridFieldDataColumns::getValueFromRelation' => [
             'message' => 'GridFieldDataColumns::getValueFromRelation() has been deprecated. It will be removed without equivalent functionality to replace it.',
