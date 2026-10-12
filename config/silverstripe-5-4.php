@@ -282,6 +282,10 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'SiteTree::getCreatableChildrenCache() has been deprecated. It will be replaced with CMSMain::getCreatableChildrenCache().',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\Admin\LeftAndMain::methodSchema' => [
+            'message' => 'LeftAndMain::methodSchema() has been deprecated. It will be replaced with FormSchemaController::schema().',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
     ]);
     $rectorConfig->importNames();
     $rectorConfig->removeUnusedImports();

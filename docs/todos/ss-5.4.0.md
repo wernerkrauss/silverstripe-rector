@@ -119,7 +119,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [x] [DEPRECATED] FormField::extendValidationResult() has been deprecated. Use extend() directly instead.
 - [ ] [DEPRECATED] SubsiteXHRController::canAccess() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] LeftAndMainSubsites::ListSubsites() has been deprecated. Use SubsiteSwitchList() instead.
-- [ ] [DEPRECATED] LeftAndMain::methodSchema() has been deprecated. It will be replaced with SilverStripe\Admin\FormSchemaController::schema().
+- [x] [DEPRECATED] LeftAndMain::methodSchema() has been deprecated. It will be replaced with SilverStripe\Admin\FormSchemaController::schema().
 - [ ] [DEPRECATED] LeftAndMain::Modals() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] ModalController::getController() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] ModalController::getName() has been deprecated. It will be removed without equivalent functionality to replace it.
