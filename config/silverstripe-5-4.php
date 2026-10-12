@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Netwerkstatt\SilverstripeRector\Rector\Misc\SilverstripeDeprecationCommentRector;
 use Netwerkstatt\SilverstripeRector\Rector\Misc\ReplaceSilverstripeNullArgumentRector;
+use Netwerkstatt\SilverstripeRector\Rector\Forms\FormValidateToIsValidRector;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
@@ -70,6 +71,7 @@ return static function (RectorConfig $rectorConfig): void {
         new MethodCallRename('SilverStripe\Forms\FormField', 'extendValidationResult', 'extend'),
         new MethodCallRename('SilverStripe\Forms\TextareaField', 'ValueEntities', 'getFormattedValueEntities'),
     ]);
+    $rectorConfig->rule(FormValidateToIsValidRector::class);
     $rectorConfig->ruleWithConfiguration(ReplaceArgumentDefaultValueRector::class, [
         new ReplaceArgumentDefaultValue(
             'SilverStripe\\Forms\\Form',
