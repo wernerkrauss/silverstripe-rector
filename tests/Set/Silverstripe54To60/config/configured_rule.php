@@ -3,11 +3,10 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Netwerkstatt\SilverstripeRector\Set\SilverstripeSetList;
+use Netwerkstatt\SilverstripeRector\Set\SilverstripeLevelSetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
-        SilverstripeSetList::SS_5_4,
-        SilverstripeSetList::SS_6_0,
+        SilverstripeLevelSetList::UP_TO_SS_6_0,
     ]);
 };
