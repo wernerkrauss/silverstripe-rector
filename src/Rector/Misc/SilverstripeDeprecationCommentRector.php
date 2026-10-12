@@ -5,6 +5,7 @@ namespace Netwerkstatt\SilverstripeRector\Rector\Misc;
 use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
@@ -45,7 +46,7 @@ final class SilverstripeDeprecationCommentRector extends AbstractRector implemen
     DocumentedRuleInterface
 {
     /**
-     * @var array<string, array{message: string, link: string}>
+     * @var array<string, array{message: string, link: string, onlyNullArguments?: list<int>}>
      */
     private array $configuration = [];
 
@@ -175,7 +176,7 @@ PHP,
 
             $isDeprecatedCallFound = (bool)$this->betterNodeFinder->findFirst(
                 $node,
-                function (Node $subNode) use ($className, $methodName): bool {
+                function (Node $subNode) use ($className, $methodName, $info): bool {
                     if ($subNode instanceof Throw_) {
                         $subNode = $subNode->expr;
                     }
@@ -186,6 +187,13 @@ PHP,
                     }
 
                     if (!$this->isName($subNode->name, $methodName)) {
+                        return false;
+                    }
+
+                    if (isset($info['onlyNullArguments']) && ! $this->hasNullArgument(
+                        $subNode,
+                        $info['onlyNullArguments']
+                    )) {
                         return false;
                     }
 
@@ -205,6 +213,22 @@ PHP,
         }
 
         return $hasChanged ? $node : null;
+    }
+
+    /**
+     * @param MethodCall|StaticCall $call
+     * @param list<int> $argumentPositions
+     */
+    private function hasNullArgument(Node $call, array $argumentPositions): bool
+    {
+        foreach ($argumentPositions as $position) {
+            $argument = $call->args[$position]->value ?? null;
+            if ($argument instanceof ConstFetch && $this->isName($argument->name, 'null')) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

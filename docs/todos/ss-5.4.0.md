@@ -199,17 +199,17 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] The HTTP.ignoreDeprecatedCaching configuration property has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] FormField::Value() has been deprecated. It will be replaced by getFormattedValue() and getValue().
 - [x] [DEPRECATED] TextareaField::ValueEntities() has been deprecated. It will be replaced by getFormattedValueEntities().
-- [ ] [DEPRECATED] Passing null for the $code parameter in ValidationResult::addError() is deprecated. Pass a blank string instead.
-- [ ] [DEPRECATED] Passing null for the $cast parameter in ValidationResult::addError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
-- [ ] [DEPRECATED] Passing null for the $code parameter in ValidationResult::addFieldError() is deprecated. Pass a blank string instead.
-- [ ] [DEPRECATED] Passing null for the $cast parameter in ValidationResult::addFieldError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
-- [ ] [DEPRECATED] Passing null for the $code parameter in ValidationResult::addMessage() is deprecated. Pass a blank string instead.
-- [ ] [DEPRECATED] Passing null for the $cast parameter in ValidationResult::addMessage() is deprecated. Pass a ValidationResult::CAST_* constant instead.
-- [ ] [DEPRECATED] Passing null for the $code parameter in ValidationResult::addFieldMessage() is deprecated. Pass a blank string instead.
-- [ ] [DEPRECATED] Passing null for the $cast parameter in ValidationResult::addFieldMessage() is deprecated. Pass a ValidationResult::CAST_* constant instead.
-- [ ] [DEPRECATED] Passing null for the $cast parameter in Form::sessionMessage() is deprecated. Pass a ValidationResult::CAST_* constant instead.
-- [ ] [DEPRECATED] Passing null for the $cast parameter in Form::sessionError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
-- [ ] [DEPRECATED] Passing null for the $cast parameter in Form::sessionFieldError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
+- [x] [DEPRECATED] Passing null for the $code parameter in ValidationResult::addError() is deprecated. Pass a blank string instead.
+- [x] [DEPRECATED] Passing null for the $cast parameter in ValidationResult::addError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
+- [x] [DEPRECATED] Passing null for the $code parameter in ValidationResult::addFieldError() is deprecated. Pass a blank string instead.
+- [x] [DEPRECATED] Passing null for the $cast parameter in ValidationResult::addFieldError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
+- [x] [DEPRECATED] Passing null for the $code parameter in ValidationResult::addMessage() is deprecated. Pass a blank string instead.
+- [x] [DEPRECATED] Passing null for the $cast parameter in ValidationResult::addMessage() is deprecated. Pass a ValidationResult::CAST_* constant instead.
+- [x] [DEPRECATED] Passing null for the $code parameter in ValidationResult::addFieldMessage() is deprecated. Pass a blank string instead.
+- [x] [DEPRECATED] Passing null for the $cast parameter in ValidationResult::addFieldMessage() is deprecated. Pass a ValidationResult::CAST_* constant instead.
+- [x] [DEPRECATED] Passing null for the $cast parameter in Form::sessionMessage() is deprecated. Pass a ValidationResult::CAST_* constant instead.
+- [x] [DEPRECATED] Passing null for the $cast parameter in Form::sessionError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
+- [x] [DEPRECATED] Passing null for the $cast parameter in Form::sessionFieldError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
 - [x] [DEPRECATED] DBInt::Times() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] Controller::has_curr() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] UserFormsColumnCleanTask has been deprecated. It will be removed without equivalent functionality to replace it.

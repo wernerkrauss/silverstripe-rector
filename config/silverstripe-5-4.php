@@ -134,6 +134,41 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'FormField::extendValidationResult() has been deprecated. Use extend() directly instead.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\Core\Validation\ValidationResult::addError' => [
+            'message' => 'Passing null for the $code or $cast parameter in ValidationResult::addError() is deprecated.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+            'onlyNullArguments' => [2, 3],
+        ],
+        'SilverStripe\Core\Validation\ValidationResult::addFieldError' => [
+            'message' => 'Passing null for the $code or $cast parameter in ValidationResult::addFieldError() is deprecated.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+            'onlyNullArguments' => [3, 4],
+        ],
+        'SilverStripe\Core\Validation\ValidationResult::addMessage' => [
+            'message' => 'Passing null for the $code or $cast parameter in ValidationResult::addMessage() is deprecated.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+            'onlyNullArguments' => [2, 3],
+        ],
+        'SilverStripe\Core\Validation\ValidationResult::addFieldMessage' => [
+            'message' => 'Passing null for the $code or $cast parameter in ValidationResult::addFieldMessage() is deprecated.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+            'onlyNullArguments' => [3, 4],
+        ],
+        'SilverStripe\Forms\Form::sessionMessage' => [
+            'message' => 'Passing null for the $cast parameter in Form::sessionMessage() is deprecated.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+            'onlyNullArguments' => [2],
+        ],
+        'SilverStripe\Forms\Form::sessionError' => [
+            'message' => 'Passing null for the $cast parameter in Form::sessionError() is deprecated.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+            'onlyNullArguments' => [2],
+        ],
+        'SilverStripe\Forms\Form::sessionFieldError' => [
+            'message' => 'Passing null for the $cast parameter in Form::sessionFieldError() is deprecated.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+            'onlyNullArguments' => [3],
+        ],
         'SilverStripe\Forms\GridField\GridFieldDataColumns::getValueFromRelation' => [
             'message' => 'GridFieldDataColumns::getValueFromRelation() has been deprecated. It will be removed without equivalent functionality to replace it.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
