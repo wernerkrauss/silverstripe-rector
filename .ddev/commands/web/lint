@@ -1,13 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#ddev-generated
+## Description: Run PHP and frontend lint checks
+## Usage: lint [phpcs-args]
+set -euo pipefail
 
-## Description: run PHPCodeSniffer
-## Usage: lint
-## Example: "ddev lint"
-
-if ! [ -x "$(command -v vendor/bin/phpcs)" ]; then
-  echo 'Error: squizlabs/php_codesniffer is not installed.' >&2
-  echo 'Please add it as a composer requirement.' >&2
-  exit 1
+if [[ ! -x vendor/bin/phpcs ]]; then
+  echo 'Error: phpcs is not installed.' >&2
+  echo 'Install via: composer require --dev squizlabs/php_codesniffer (https://packagist.org/packages/squizlabs/php_codesniffer)' >&2
+  exit 127
 fi
-
-php vendor/bin/phpcs
+php vendor/bin/phpcs "$@"
+if [[ -n "${DDEV_SILVERSTRIPE_THEME_PATH:-}" ]]; then
+  /mnt/ddev_config/commands/web/prettier check
+fi

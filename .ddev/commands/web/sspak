@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#ddev-generated
+## Description: Run Silverstripe sspak
+## Usage: sspak [sspak-args]
+set -euo pipefail
+
+SSP_BIN="$HOME/.composer/vendor/bin/sspak"
+if [[ ! -x "$SSP_BIN" ]]; then
+  composer global require silverstripe/sspak:dev-master
+fi
+exec "$SSP_BIN" "$@"

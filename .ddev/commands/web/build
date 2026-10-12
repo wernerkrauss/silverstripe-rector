@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#ddev-generated
+## Description: Build Silverstripe's database
+## Usage: build
+set -euo pipefail
+
+SS_VERSION=$(composer show silverstripe/framework --format=json 2>/dev/null | jq -r '.versions[0] // empty')
+if [[ "$SS_VERSION" == 6* ]]; then
+  vendor/bin/sake db:build --flush
+elif [[ -x vendor/bin/sake ]]; then
+  vendor/bin/sake dev/build flush
+elif command -v sake >/dev/null 2>&1; then
+  sake dev/build flush
+else
+  echo 'Error: sake not found' >&2
+  echo 'Install via: composer require silverstripe/framework (https://packagist.org/packages/silverstripe/framework)' >&2
+  exit 127
+fi

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#ddev-generated
+## Description: Run the Silverstripe shell
+## Usage: tinker
+set -euo pipefail
+if [[ ! -x vendor/bin/ssshell ]]; then
+  echo 'Error: pstaender/ssshell is not installed.' >&2
+  echo 'Install via: composer require --dev pstaender/ssshell (https://packagist.org/packages/pstaender/ssshell)' >&2
+  exit 127
+fi
+php vendor/bin/ssshell

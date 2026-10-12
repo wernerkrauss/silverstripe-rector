@@ -1,13 +1,13 @@
-#!/bin/bash
-
-## Description: run PHPCodeSniffer's fix tool
+#!/usr/bin/env bash
+#ddev-generated
+## Description: Fix PHP and frontend formatting
 ## Usage: fix
-## Example: "ddev fix"
+set -euo pipefail
 
-if ! [ -x "$(command -v vendor/bin/phpcbf)" ]; then
-  echo 'Error: squizlabs/php_codesniffer is not installed.' >&2
-  echo 'Please add it as a composer requirement.' >&2
-  exit 1
+if [[ ! -x vendor/bin/phpcbf ]]; then
+  echo 'Error: phpcbf is not installed.' >&2
+  echo 'Install via: composer require --dev squizlabs/php_codesniffer (https://packagist.org/packages/squizlabs/php_codesniffer)' >&2
+  exit 127
 fi
-
 php vendor/bin/phpcbf
+/mnt/ddev_config/commands/web/prettier write

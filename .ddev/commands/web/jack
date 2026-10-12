@@ -1,14 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#ddev-generated
+## Description: Run rector/jack or rector/swiss-knife (Deprecated: Use check-outdated-dependencies instead)
+## Usage: jack [jack-args]
+set -euo pipefail
 
-## Description: run rector/jack, a composer update checker
-## Usage: jack
-## Example: "ddev jack"
+echo "[DEPRECATED] 'ddev jack' is deprecated and will be removed in a future release." >&2
+echo "Please use 'ddev check-outdated-dependencies' or 'rector/swiss-knife' instead." >&2
 
-if ! [ -x "$(command -v vendor/bin/jack)" ]; then
-  echo 'Error: .' >&2
-  echo 'Please add rector/jack as a composer requirement.' >&2
-  exit 1
+if [[ -x vendor/bin/jack ]]; then
+  php vendor/bin/jack "$@"
+elif [[ -x vendor/bin/swiss-knife ]]; then
+  php vendor/bin/swiss-knife "$@"
+else
+  echo 'Error: rector/swiss-knife (or rector/jack) is not installed.' >&2
+  echo 'Install via: composer require --dev rector/swiss-knife (https://packagist.org/packages/rector/swiss-knife)' >&2
+  exit 127
 fi
-
-php vendor/bin/jack "$@"
-

@@ -1,0 +1,20 @@
+name: ddev-silverstripe-tools
+repository: wernerkrauss/ddev-silverstripe-tools
+version: v0.2.2
+install_date: "2026-10-12T10:39:47+02:00"
+project_files:
+    - commands/web/build
+    - commands/web/check-outdated-dependencies
+    - commands/web/ci
+    - commands/web/fix
+    - commands/web/jack
+    - commands/web/lint
+    - commands/web/phpunit
+    - commands/web/prettier
+    - commands/web/rector
+    - commands/web/sspak
+    - commands/web/stan
+    - commands/web/tinker
+    - config.netwerkstatt-tools.yaml
+global_files: []
+removal_actions: []

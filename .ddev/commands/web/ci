@@ -1,6 +1,6 @@
-#!/bin/bash
-
-## Description: runs CI tooling locally
+#!/usr/bin/env bash
+#ddev-generated
+## Description: Run the standard Silverstripe quality checks
 ## Usage: ci [phpunit-args]
 
 set -uo pipefail
@@ -30,13 +30,18 @@ STATUS_PHPUNIT="SKIP"
 STATUS_LINT="SKIP"
 STATUS_RECTOR="SKIP"
 STATUS_PHPSTAN="SKIP"
-STATUS_JACK="SKIP"
+STATUS_OUTDATED_DEPS="SKIP"
 
 # 1) PHPUnit (delegate to the dedicated ddev command to avoid duplication)
 echo "*** PHPUnit ***"
-if phpunit "$@"; then
-  echo -e "${GREEN}✅  PHPUnit OK${NC}"
+/mnt/ddev_config/commands/web/phpunit "$@"
+PHPUNIT_EXIT=$?
+if [ $PHPUNIT_EXIT -eq 0 ]; then
+  echo -e "${GREEN}✔  PHPUnit OK${NC}"
   STATUS_PHPUNIT="OK"
+elif [ $PHPUNIT_EXIT -eq 127 ]; then
+  echo -e "⚪  PHPUnit is not installed, skipping."
+  STATUS_PHPUNIT="SKIP"
 else
   echo -e "${RED}❌  PHPUnit tests failed.${NC}"
   STATUS_PHPUNIT="FAILED"
@@ -45,9 +50,14 @@ fi
 
 # 2) Linting
 echo "*** Linting ***"
-if phpcs; then
-  echo -e "${GREEN}✅  Linting OK${NC}"
+/mnt/ddev_config/commands/web/lint
+LINT_EXIT=$?
+if [ $LINT_EXIT -eq 0 ]; then
+  echo -e "${GREEN}✔  Linting OK${NC}"
   STATUS_LINT="OK"
+elif [ $LINT_EXIT -eq 127 ]; then
+  echo -e "⚪  PHPCS is not installed, skipping."
+  STATUS_LINT="SKIP"
 else
   echo -e "${RED}❌  Linting found errors. Please run 'ddev fix' to fix errors automatically and 'ddev lint' to see what's still missing${NC}"
   STATUS_LINT="FAILED"
@@ -56,34 +66,49 @@ fi
 
 # 3) Rector (dry-run)
 echo "*** Rector ***"
-if rector --dry-run --no-ansi; then
-  echo -e "${GREEN}✅  Rector OK${NC}"
+/mnt/ddev_config/commands/web/rector --dry-run --no-ansi
+RECTOR_EXIT=$?
+if [ $RECTOR_EXIT -eq 0 ]; then
+  echo -e "${GREEN}✔  Rector OK${NC}"
   STATUS_RECTOR="OK"
+elif [ $RECTOR_EXIT -eq 127 ]; then
+  echo -e "⚪  Rector is not installed, skipping."
+  STATUS_RECTOR="SKIP"
 else
   echo -e "${RED}❌  Rector found things to improve. Please run 'ddev rector' and commit the fixes${NC}"
   STATUS_RECTOR="FAILED"
   EXIT_CODE=1
 fi
 
-# 4) PHPStan Level 4
-echo "*** PHPStan Level 4 ***"
-if phpstan -l4 --no-ansi; then
-  echo -e "${GREEN}✅  PHPStan level 4 OK${NC}"
+# 4) PHPStan (using project configuration)
+echo "*** PHPStan ***"
+/mnt/ddev_config/commands/web/stan --no-ansi
+STAN_EXIT=$?
+if [ $STAN_EXIT -eq 0 ]; then
+  echo -e "${GREEN}✔  PHPStan OK${NC}"
   STATUS_PHPSTAN="OK"
+elif [ $STAN_EXIT -eq 127 ]; then
+  echo -e "⚪  PHPStan is not installed, skipping."
+  STATUS_PHPSTAN="SKIP"
 else
   echo -e "${RED}❌  PHPStan found errors! Please fix${NC}"
   STATUS_PHPSTAN="FAILED"
   EXIT_CODE=1
 fi
 
-# 5) Jack (Composer update check)
-echo "*** Jack (Composer update check) ***"
-if jack breakpoint; then
-  echo -e "${GREEN}✅  Jack OK${NC}"
-  STATUS_JACK="OK"
+# 5) Outdated dependencies (Composer update check)
+echo "*** Outdated dependencies ***"
+/mnt/ddev_config/commands/web/check-outdated-dependencies
+OUTDATED_DEPS_EXIT=$?
+if [ $OUTDATED_DEPS_EXIT -eq 0 ]; then
+  echo -e "${GREEN}✔  Outdated dependencies OK${NC}"
+  STATUS_OUTDATED_DEPS="OK"
+elif [ $OUTDATED_DEPS_EXIT -eq 127 ]; then
+  echo -e "⚪  rector/swiss-knife is not installed, skipping."
+  STATUS_OUTDATED_DEPS="SKIP"
 else
-  echo -e "${RED}❌  Jack found too many outdated packages. Please run 'ddev composer update'.${NC}"
-  STATUS_JACK="FAILED"
+  echo -e "${RED}❌  Found outdated dependencies. Please run 'ddev composer update'.${NC}"
+  STATUS_OUTDATED_DEPS="FAILED"
   EXIT_CODE=1
 fi
 
@@ -93,11 +118,11 @@ print_status() {
     local name="$1"
     local status="$2"
     if [ "$status" == "OK" ]; then
-        echo -e "${name}: $(printf '%*s' $((20 - ${#name})) '') ${GREEN}✅ OK${NC}"
+        echo -e "${name}: $(printf '%*s' $((22 - ${#name})) '') ${GREEN}✔ OK${NC}"
     elif [ "$status" == "FAILED" ]; then
-        echo -e "${name}: $(printf '%*s' $((20 - ${#name})) '') ${RED}❌ FAILED${NC}"
+        echo -e "${name}: $(printf '%*s' $((22 - ${#name})) '') ${RED}❌ FAILED${NC}"
     else
-        echo -e "${name}: $(printf '%*s' $((20 - ${#name})) '') ⚪ SKIP"
+        echo -e "${name}: $(printf '%*s' $((22 - ${#name})) '') ⚪ SKIP"
     fi
 }
 
@@ -105,7 +130,7 @@ print_status "PHPUnit" "$STATUS_PHPUNIT"
 print_status "Linting" "$STATUS_LINT"
 print_status "Rector" "$STATUS_RECTOR"
 print_status "PHPStan" "$STATUS_PHPSTAN"
-print_status "Jack" "$STATUS_JACK"
+print_status "Outdated dependencies" "$STATUS_OUTDATED_DEPS"
 echo "========================================="
 
 if [ $EXIT_CODE -eq 0 ]; then

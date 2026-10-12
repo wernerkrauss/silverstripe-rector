@@ -1,0 +1,20 @@
+#ddev-generated
+# Enable the post-start workflow per project by setting this to true in the
+# project's config.local.yaml or another project-specific config file. The
+# hook is disabled when the variable is unset or set to false.
+
+hooks:
+  post-start:
+    - exec: |
+        if [ "${DDEV_SILVERSTRIPE_AUTO_START:-false}" != "true" ]; then
+          exit 0
+        fi
+        composer install
+        /mnt/ddev_config/commands/web/build
+        if [ "${DDEV_SILVERSTRIPE_AUTO_FRONTEND:-false}" = "true" ]; then
+          if [ -n "${DDEV_SILVERSTRIPE_THEME_PATH:-}" ] && [ "${DDEV_SILVERSTRIPE_THEME_PATH}" != "/" ]; then
+            yarn --cwd "$DDEV_SILVERSTRIPE_THEME_PATH" build
+          else
+            yarn build
+          fi
+        fi

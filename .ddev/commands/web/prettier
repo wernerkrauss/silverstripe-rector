@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#ddev-generated
+## Description: Check or format the configured Silverstripe theme
+## Usage: prettier [check|write]
+set -euo pipefail
+
+COMMAND="${1:-check}"
+THEME_PATH="${DDEV_SILVERSTRIPE_THEME_PATH:-}"
+if [[ -z "$THEME_PATH" ]]; then
+  echo 'Set DDEV_SILVERSTRIPE_THEME_PATH to use the prettier command.' >&2
+  exit 1
+fi
+[[ -d "$THEME_PATH" ]] || { echo "Theme directory not found: $THEME_PATH" >&2; exit 1; }
+if [[ "$COMMAND" == "write" || "$COMMAND" == "--write" ]]; then
+  yarn --cwd "$THEME_PATH" prettier --write 'src/**/*.{js,css,scss}'
+else
+  yarn --cwd "$THEME_PATH" prettier --check 'src/**/*.{js,css,scss}'
+fi
