@@ -20,31 +20,15 @@ use Rector\Renaming\ValueObject\RenameStaticMethod;
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(BuildTaskUpdateRector::class);
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
-        'SilverStripe\GraphQL\Extensions\DevBuildExtension' => 'SilverStripe\GraphQL\Extensions\DbBuildExtension',
-        'SilverStripe\Security\PasswordValidator' => 'SilverStripe\Security\Validation\RulesPasswordValidator',
         'SilverStripe\View\SSViewer_Scope' => 'SilverStripe\TemplateEngine\ScopeManager',
         'SilverStripe\View\SSViewer_DataPresenter' => 'SilverStripe\TemplateEngine\ScopeManager',
-        'SilverStripe\Forms\Validator' => 'SilverStripe\Forms\Validation\Validator',
-        'SilverStripe\Forms\RequiredFields' => 'SilverStripe\Forms\Validation\RequiredFieldsValidator',
-        'SilverStripe\Forms\CompositeValidator' => 'SilverStripe\Forms\Validation\CompositeValidator',
-        'SilverStripe\UserForms\Form\UserFormsRequiredFields' => 'SilverStripe\UserForms\Form\UserFormsRequiredFieldsValidator',
-        'Symbiote\AdvancedWorkflow\Forms\AWRequiredFields' => 'Symbiote\AdvancedWorkflow\Forms\AWRequiredFieldsValidator',
         'SilverStripe\CMS\Model\CurrentPageIdentifier' => 'SilverStripe\CMS\Model\CurrentRecordIdentifier',
-        'DNADesign\Elemental\TopPage\DataExtension' => 'DNADesign\Elemental\Extensions\TopPageElementExtension',
-        'DNADesign\Elemental\TopPage\FluentExtension' => 'DNADesign\Elemental\Extensions\TopPageFluentElementExtension',
-        'DNADesign\Elemental\TopPage\SiteTreeExtension' => 'DNADesign\Elemental\Extensions\TopPageSiteTreeExtension',
         'SilverStripe\View\SSViewer_BasicIteratorSupport' => 'SilverStripe\TemplateEngine\BasicIteratorSupport',
         'SilverStripe\View\SSTemplateParseException' => 'SilverStripe\TemplateEngine\Exception\SSTemplateParseException',
         'SilverStripe\View\SSTemplateParser' => 'SilverStripe\TemplateEngine\SSTemplateParser',
         'SilverStripe\View\TemplateIteratorProvider' => 'SilverStripe\TemplateEngine\TemplateIteratorProvider',
         'SilverStripe\View\TemplateParser' => 'SilverStripe\TemplateEngine\TemplateParser',
-        'SilverStripe\AssetAdmin\Extensions\CampaignAdminExtension' => 'SilverStripe\CampaignAdmin\Extensions\FileFormFactoryExtension',
         'SilverStripe\CMS\Controllers\LeftAndMainPageIconsExtension' => 'SilverStripe\CMS\Controllers\LeftAndMainRecordIconsExtension',
-        'SilverStripe\Forms\HTMLEditor\TinyMCECombinedGenerator' => 'SilverStripe\TinyMCE\TinyMCECombinedGenerator',
-        'SilverStripe\Forms\HTMLEditor\TinyMCEConfig' => 'SilverStripe\TinyMCE\TinyMCEConfig',
-        'SilverStripe\Forms\HTMLEditor\TinyMCEScriptGenerator' => 'SilverStripe\TinyMCE\TinyMCEScriptGenerator',
-        'SilverStripe\Dev\Constraint\ViewableDataContains' => 'SilverStripe\Dev\Constraint\ModelDataContains',
-        'SilverStripe\Dev\Validation\DatabaseAdminExtension' => 'SilverStripe\Dev\Validation\DbBuildExtension',
 
 
         'SilverStripe\SecurityReport\Forms\GridFieldExportReportButton' => 'SilverStripe\Reports\SecurityReport\Forms\GridFieldExportReportButton',

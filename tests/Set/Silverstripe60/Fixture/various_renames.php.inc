@@ -32,10 +32,10 @@ class VariousRenames
 namespace Netwerkstatt\SilverstripeRector\Tests\Set\Silverstripe60\Fixture;
 
 use SilverStripe\TemplateEngine\ScopeManager;
-use SilverStripe\Security\Validation\RulesPasswordValidator;
 use SilverStripe\ORM\ValidationException;
 use SilverStripe\ORM\ValidationResult;
 use SilverStripe\Logging\HTTPOutputHandler;
+use SilverStripe\Security\PasswordValidator;
 use SilverStripe\CMS\Model\SiteTree;
 
 
@@ -48,7 +48,7 @@ class VariousRenames
         $exception = new ValidationException();
         $result = new ValidationResult();
         $handler = new HTTPOutputHandler();
-        $validator = new RulesPasswordValidator();
+        $validator = new PasswordValidator();
         $obj = SiteTree::get()->byID(123);
     }
 }

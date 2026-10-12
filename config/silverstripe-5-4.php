@@ -27,6 +27,22 @@ return static function (RectorConfig $rectorConfig): void {
         'SilverStripe\\ORM\\Filterable' => 'SilverStripe\\Model\\List\\Filterable',
         'SilverStripe\\ORM\\Limitable' => 'SilverStripe\\Model\\List\\Limitable',
         'SilverStripe\\ORM\\Sortable' => 'SilverStripe\\Model\\List\\Sortable',
+        'SilverStripe\\GraphQL\\Extensions\\DevBuildExtension' => 'SilverStripe\\GraphQL\\Extensions\\DbBuildExtension',
+        'SilverStripe\\Security\\PasswordValidator' => 'SilverStripe\\Security\\Validation\\RulesPasswordValidator',
+        'SilverStripe\\Forms\\Validator' => 'SilverStripe\\Forms\\Validation\\Validator',
+        'SilverStripe\\Forms\\RequiredFields' => 'SilverStripe\\Forms\\Validation\\RequiredFieldsValidator',
+        'SilverStripe\\Forms\\CompositeValidator' => 'SilverStripe\\Forms\\Validation\\CompositeValidator',
+        'SilverStripe\\UserForms\\Form\\UserFormsRequiredFields' => 'SilverStripe\\UserForms\\Form\\UserFormsRequiredFieldsValidator',
+        'Symbiote\\AdvancedWorkflow\\Forms\\AWRequiredFields' => 'Symbiote\\AdvancedWorkflow\\Forms\\AWRequiredFieldsValidator',
+        'SilverStripe\\AssetAdmin\\Extensions\\CampaignAdminExtension' => 'SilverStripe\\CampaignAdmin\\Extensions\\FileFormFactoryExtension',
+        'SilverStripe\\Forms\\HTMLEditor\\TinyMCECombinedGenerator' => 'SilverStripe\\TinyMCE\\TinyMCECombinedGenerator',
+        'SilverStripe\\Forms\\HTMLEditor\\TinyMCEConfig' => 'SilverStripe\\TinyMCE\\TinyMCEConfig',
+        'SilverStripe\\Forms\\HTMLEditor\\TinyMCEScriptGenerator' => 'SilverStripe\\TinyMCE\\TinyMCEScriptGenerator',
+        'SilverStripe\\Dev\\Constraint\\ViewableDataContains' => 'SilverStripe\\Dev\\Constraint\\ModelDataContains',
+        'SilverStripe\\Dev\\Validation\\DatabaseAdminExtension' => 'SilverStripe\\Dev\\Validation\\DbBuildExtension',
+        'DNADesign\\Elemental\\TopPage\\DataExtension' => 'DNADesign\\Elemental\\Extensions\\TopPageElementExtension',
+        'DNADesign\\Elemental\\TopPage\\FluentExtension' => 'DNADesign\\Elemental\\Extensions\\TopPageFluentElementExtension',
+        'DNADesign\\Elemental\\TopPage\\SiteTreeExtension' => 'DNADesign\\Elemental\\Extensions\\TopPageSiteTreeExtension',
     ]);
 
     $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [
@@ -35,9 +51,6 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
-        'SilverStripe\Admin\Forms\TinyMCECombinedGenerator' => 'SilverStripe\TinyMCE\TinyMCECombinedGenerator',
-        'SilverStripe\Admin\Forms\TinyMCEConfig' => 'SilverStripe\TinyMCE\TinyMCEConfig',
-        'SilverStripe\Admin\Forms\TinyMCEScriptGenerator' => 'SilverStripe\TinyMCE\TinyMCEScriptGenerator',
     ]);
 
     $rectorConfig->ruleWithConfiguration(SilverstripeDeprecationCommentRector::class, [

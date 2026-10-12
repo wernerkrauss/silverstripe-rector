@@ -5,7 +5,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] This change ensures CMS 5 can continue to be installed in scenarios where Composer is installed with Symfony 7. This can be done manually, and is also likely to be a future default.
 - [ ] The likelihood of someone subclassing the relevant classes is very low.
 - [ ] For installations of installer with earlier versions of Symfony this won't cause any problems, since PHP allows return types to be more specific in subclasses. This is known as covariance.
-- [ ] [DEPRECATED] The class names for the TopPage feature in dnadesign/silverstripe-elemental do not follow the correct naming convention for Silverstripe CMS. The existing classes have been deprecated and will be renamed to match the correct naming convention in a future major release.
+- [x] [DEPRECATED] The class names for the TopPage feature in dnadesign/silverstripe-elemental do not follow the correct naming convention for Silverstripe CMS. The existing classes have been deprecated and will be renamed to match the correct naming convention in a future major release.
 - [x] [DEPRECATED] SilverStripe\ORM\ArrayLib has been deprecated. It will be renamed to SilverStripe\Core\ArrayLib
 - [x] [DEPRECATED] SilverStripe\ORM\ArrayList has been deprecated. It will be renamed to SilverStripe\Model\List\ArrayList
 - [x] [DEPRECATED] SilverStripe\ORM\Filterable has been deprecated. It will be merged into SS_List.
@@ -236,9 +236,9 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] HTMLEditorSanitiser::getRuleForAttribute() has been deprecated. It will be replaced with logic in SilverStripe\Forms\HTMLEditor\HTMLEditorElementRule.
 - [ ] [DEPRECATED] HTMLEditorSanitiser::elementMatchesRule() has been deprecated. It will be replaced with SilverStripe\Forms\HTMLEditor\HTMLEditorRuleSet::isElementAllowed().
 - [ ] [DEPRECATED] HTMLEditorSanitiser::attributeMatchesRule() has been deprecated. It will be replaced with SilverStripe\Forms\HTMLEditor\HTMLEditorElementRule::isAttributeAllowed().
-- [X] [DEPRECATED] TinyMCECombinedGenerator has been deprecated. It will be replaced with SilverStripe\TinyMCE\TinyMCECombinedGenerator.
-- [X] [DEPRECATED] TinyMCEConfig has been deprecated. It will be replaced with SilverStripe\TinyMCE\TinyMCEConfig.
-- [X] [DEPRECATED] TinyMCEScriptGenerator has been deprecated. It will be replaced with SilverStripe\TinyMCE\TinyMCEScriptGenerator.
+- [x] [DEPRECATED] TinyMCECombinedGenerator has been deprecated. It will be replaced with SilverStripe\TinyMCE\TinyMCECombinedGenerator.
+- [x] [DEPRECATED] TinyMCEConfig has been deprecated. It will be replaced with SilverStripe\TinyMCE\TinyMCEConfig.
+- [x] [DEPRECATED] TinyMCEScriptGenerator has been deprecated. It will be replaced with SilverStripe\TinyMCE\TinyMCEScriptGenerator.
 - [ ] [DEPRECATED] FixtureContext::iSelectValueInAnchorDropdown() has been deprecated. It will be replaced with SilverStripe\CMS\Tests\Behaviour\AnchorContext::iSelectValueInAnchorDropdown().
 - [X] [DEPRECATED] ListDecorator::TotalItems() has been deprecated. Use ListDecorator::getTotalItems() instead.
 - [X] [DEPRECATED] PaginatedList::TotalItems() has been deprecated. Use PaginatedList::getTotalItems() instead.

@@ -2,9 +2,9 @@
 
 namespace Netwerkstatt\SilverstripeRector\Tests\Set\Silverstripe54\Fixture;
 
-use SilverStripe\Admin\Forms\TinyMCEConfig;
-use SilverStripe\Admin\Forms\TinyMCECombinedGenerator;
-use SilverStripe\Admin\Forms\TinyMCEScriptGenerator;
+use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
+use SilverStripe\Forms\HTMLEditor\TinyMCECombinedGenerator;
+use SilverStripe\Forms\HTMLEditor\TinyMCEScriptGenerator;
 
 class TinyMCETest
 {
