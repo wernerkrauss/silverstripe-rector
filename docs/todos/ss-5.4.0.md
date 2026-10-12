@@ -160,15 +160,15 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [x] [DEPRECATED] CMSMain::LinkPageSettings() has been deprecated. Use CMSMain::LinkRecordSettings() instead.
 - [x] [DEPRECATED] CMSMain::LinkPageHistory() has been deprecated. Use CMSMain::LinkRecordHistory() instead.
 - [x] [DEPRECATED] CMSMain::LinkPageAdd() has been deprecated. Use CMSMain::LinkRecordAdd() instead.
-- [ ] [DEPRECATED] CMSMain::LinkPreview() has been deprecated. Use SiteTree::CMSEditLink() instead.
+- [x] [DEPRECATED] CMSMain::LinkPreview() has been deprecated. Use SiteTree::CMSEditLink() instead.
 - [x] [DEPRECATED] CMSMain::SiteTreeAsUL() has been deprecated. Use CMSMain::TreeAsUL() instead.
 - [x] [DEPRECATED] CMSMain::getSiteTreeFor() has been deprecated. Use CMSMain::getTreeFor() instead.
 - [x] [DEPRECATED] CMSMain::CanOrganiseSitetree() has been deprecated. Use CMSMain::canOrganiseTree() instead.
-- [ ] [DEPRECATED] CMSMain::getSearchContext() has been deprecated. It will be replaced with SiteTree::getDefaultSearchContext().
+- [x] [DEPRECATED] CMSMain::getSearchContext() has been deprecated. It will be replaced with SiteTree::getDefaultSearchContext().
 - [x] [DEPRECATED] CMSMain::getPageTypes() has been deprecated. Use CMSMain::getRecordTypes() instead.
 - [x] [DEPRECATED] CMSMain::PageTypes() has been deprecated. Use CMSMain::RecordTypes() instead.
 - [x] [DEPRECATED] CMSMain::SiteTreeHints() has been deprecated. Use CMSMain::TreeHints() instead.
-- [ ] [DEPRECATED] CMSMain::performPublish() has been deprecated. Use RecursivePublishable::publishRecursive() instead.
+- [x] [DEPRECATED] CMSMain::performPublish() has been deprecated. Use RecursivePublishable::publishRecursive() instead.
 - [ ] [DEPRECATED] CMSPageAddController has been deprecated. It will be replaced with SilverStripe\CMS\Forms\CMSMainAddForm.
 - [ ] [DEPRECATED] CMSPagesController has been deprecated. It will be combined back into CMSMain.
 - [ ] [DEPRECATED] CMSSiteTreeFilter::getPageClasses() has been deprecated. It will be removed without equivalent functionality to replace it.

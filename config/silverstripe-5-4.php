@@ -248,6 +248,18 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'SiteTree::generateChildrenCacheKey() has been deprecated. It will be replaced with CMSMain::generateChildrenCacheKey().',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\CMS\Controllers\CMSMain::LinkPreview' => [
+            'message' => 'CMSMain::LinkPreview() has been deprecated. Use SiteTree::CMSEditLink() instead.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\CMS\Controllers\CMSMain::getSearchContext' => [
+            'message' => 'CMSMain::getSearchContext() has been deprecated. It will be replaced with SiteTree::getDefaultSearchContext().',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\CMS\Controllers\CMSMain::performPublish' => [
+            'message' => 'CMSMain::performPublish() has been deprecated. Use RecursivePublishable::publishRecursive() instead.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
     ]);
     $rectorConfig->importNames();
     $rectorConfig->removeUnusedImports();
