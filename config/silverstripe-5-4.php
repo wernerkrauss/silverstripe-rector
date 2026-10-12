@@ -290,6 +290,10 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'CMSMain::PageListSidebar() has been deprecated. It will be removed without equivalent functionality to replace it.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\Admin\LeftAndMain::Modals' => [
+            'message' => 'LeftAndMain::Modals() has been deprecated. It will be removed without equivalent functionality to replace it.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
     ]);
     $rectorConfig->importNames();
     $rectorConfig->removeUnusedImports();
