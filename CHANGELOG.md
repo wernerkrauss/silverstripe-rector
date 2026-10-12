@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `RenameFieldListMethodsWithoutArrayParamRector` to handle both `addFieldsToTab()` and `removeFieldsFromTab()` 
   when a non-array argument is passed.
 - Added deprecation notices for `SilverStripe\Control\Util\IPUtils` in Silverstripe 5.3 setlist.
+- Added Silverstripe 5.4 deprecation coverage for central SiteTree, CMSMain, LeftAndMain, and legacy CMS controller APIs.
+- Added `FormValidateToIsValidRector` to convert boolean usage of `Form::validate()` and `FormField::validate()` to `isValid()`.
+- Added direct positive and negative tests for `FormValidateToIsValidRector`, including retained validation result usage.
 - Added `TotalItems()` to `getTotalItems()` rename for `ListDecorator` and `PaginatedList` in Silverstripe 5.4 setlist.
 - Added TinyMCE class renames to Silverstripe 5.4 setlist.
 - Added generic `PropertyToConfigRector` to convert class properties to static config variables (e.g. `BuildTask::$enabled` to `private static $is_enabled`).
