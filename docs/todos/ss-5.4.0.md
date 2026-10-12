@@ -22,7 +22,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [x] [DEPRECATED] SilverStripe\View\ViewableData has been deprecated. It will be renamed to SilverStripe\Model\ModelData
 - [x] [DEPRECATED] SilverStripe\View\ViewableData_Customised has been deprecated. It will be renamed to SilverStripe\Model\ModelDataCustomised
 - [x] [DEPRECATED] SilverStripe\View\ViewableData_Debugger has been deprecated. It will be renamed to SilverStripe\Model\ModelDataDebugger
-- [ ] [DEPRECATED] CliBypass has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] CliBypass has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] CliController has been deprecated. It will be replaced with symfony/console commands.
 - [ ] [DEPRECATED] DatabaselessKernel has been deprecated. Use CoreKernel::setBootDatabase() instead.
 - [ ] [DEPRECATED] BuildTask.segment has been deprecated. It will be replaced with a new $commandName property.
@@ -49,10 +49,10 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] CheckExternalLinksTask->silent has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] RealMeSetupTask::message() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] StaticCacheFullBuildTask::log() has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] ContentReviewOwnerMigrationTask has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] ContentReviewOwnerMigrationTask has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] CronTaskController has been deprecated. It will be replaced with a new SilverStripe\CronTask\Cli\CronTaskCommand class.
 - [ ] [DEPRECATED] Clear has been deprecated. It will be replaced with a new SilverStripe\GraphQLDevTools\SchemaClear class.
-- [ ] [DEPRECATED] ConvertTranslatableTask has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] ConvertTranslatableTask has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] Exception has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] UpdatePackageInfoTask->supportedAddonsLoader has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] UpdatePackageInfoTask::getSupportedAddonsLoader() has been deprecated. It will be removed without equivalent functionality to replace it.
@@ -190,7 +190,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] Form::validationResult() has been deprecated. Use Form::validate() instead.
 - [x] [DEPRECATED] Director::get_session_environment_type() has been deprecated. Use Director::get_environment_type() instead.
 - [ ] [DEPRECATED] Use of the CUSTOM_INCLUDE_PATH constant to change the PHP include path has been deprecated and will not work in a future major release.
-- [ ] [DEPRECATED] SessionEnvTypeSwitcher has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] SessionEnvTypeSwitcher has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] VersionProvider::getComposerLockPath() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] FlushInvalidatedResource::getResource() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] Subsite::getMembersByPermission() has been deprecated. It will be removed without equivalent functionality to replace it.
@@ -212,7 +212,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] Passing null for the $cast parameter in Form::sessionFieldError() is deprecated. Pass a ValidationResult::CAST_* constant instead.
 - [x] [DEPRECATED] DBInt::Times() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] Controller::has_curr() has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] UserFormsColumnCleanTask has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] UserFormsColumnCleanTask has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] The LeftAndMain_SearchFilter interface has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] The LeftAndMain::getSearchFilter() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] LeftAndMain::SCHEMA_HEADER constant has been deprecated. Use FormSchema::SCHEMA_HEADER instead.
@@ -242,4 +242,4 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] FixtureContext::iSelectValueInAnchorDropdown() has been deprecated. It will be replaced with SilverStripe\CMS\Tests\Behaviour\AnchorContext::iSelectValueInAnchorDropdown().
 - [X] [DEPRECATED] ListDecorator::TotalItems() has been deprecated. Use ListDecorator::getTotalItems() instead.
 - [X] [DEPRECATED] PaginatedList::TotalItems() has been deprecated. Use PaginatedList::getTotalItems() instead.
-- [ ] [DEPRECATED] SolrIndexCheck has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] SolrIndexCheck has been deprecated. It will be removed without equivalent functionality to replace it.
