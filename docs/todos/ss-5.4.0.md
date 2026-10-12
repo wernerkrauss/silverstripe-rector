@@ -104,7 +104,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] SSViewer::execute_string() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] ThemeResourceLoader::findTemplate() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] FlushMiddleware has been deprecated. It will be replaced with flushing inside the Kernel directly.
-- [ ] [DEPRECATED] The LeftAndMain.tree_class configuration property has been deprecated. It will be renamed to model_class.
+- [x] [DEPRECATED] The LeftAndMain.tree_class configuration property has been deprecated. It will be renamed to model_class.
 - [x] [DEPRECATED] SiteConfigLeftAndMain::save_siteconfig() has been deprecated. It will be replaced with save().
 - [x] [DEPRECATED] SSViewer_BasicIteratorSupport has been deprecated. It will be renamed to SilverStripe\TemplateEngine\BasicIteratorSupport.
 - [x] [DEPRECATED] SSTemplateParseException has been deprecated. It will be renamed to SilverStripe\TemplateEngine\Exception\SSTemplateParseException.
@@ -115,7 +115,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] BaseElement::updateFromFormData() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] DBEnum::flushCache() has been deprecated. Use DBEnum::reset() instead.
 - [ ] [DEPRECATED] The BaseElement.description configuration property has been deprecated. Use DataObject.class_description instead.
-- [ ] [DEPRECATED] The SiteTree.description configuration property has been deprecated. Use DataObject.class_description instead.
+- [x] [DEPRECATED] The SiteTree.description configuration property has been deprecated. Use DataObject.class_description instead.
 - [x] [DEPRECATED] FormField::extendValidationResult() has been deprecated. Use extend() directly instead.
 - [ ] [DEPRECATED] SubsiteXHRController::canAccess() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] LeftAndMainSubsites::ListSubsites() has been deprecated. Use SubsiteSwitchList() instead.
@@ -150,8 +150,8 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [x] [DEPRECATED] LeftAndMain::currentPage() has been deprecated. Use LeftAndMain::currentRecord() instead.
 - [x] [DEPRECATED] LeftAndMain::isCurrentPage() has been deprecated. Use LeftAndMain::isCurrentRecord() instead.
 - [ ] [DEPRECATED] The SiteTree.need_permission configuration property has been deprecated. Use SiteTree::canCreate() instead.
-- [ ] [DEPRECATED] The SiteTree.icon configuration property has been deprecated. It will be renamed to cms_icon.
-- [ ] [DEPRECATED] The SiteTree.icon_class configuration property has been deprecated. It will be renamed to cms_icon_class. This applies to all subclasses of SiteTree as well.
+- [x] [DEPRECATED] The SiteTree.icon configuration property has been deprecated. It will be renamed to cms_icon.
+- [x] [DEPRECATED] The SiteTree.icon_class configuration property has been deprecated. It will be renamed to cms_icon_class. This applies to all subclasses of SiteTree as well.
 - [x] [DEPRECATED] CMSMain::PageList() has been deprecated. It will be renamed to RecordList().
 - [ ] [DEPRECATED] CMSMain::PageListSidebar() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] CMSMain::LinkPages() has been deprecated. Use CMSMain::LinkRecords() instead.
