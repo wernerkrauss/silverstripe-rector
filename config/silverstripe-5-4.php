@@ -43,6 +43,15 @@ return static function (RectorConfig $rectorConfig): void {
         'DNADesign\\Elemental\\TopPage\\DataExtension' => 'DNADesign\\Elemental\\Extensions\\TopPageElementExtension',
         'DNADesign\\Elemental\\TopPage\\FluentExtension' => 'DNADesign\\Elemental\\Extensions\\TopPageFluentElementExtension',
         'DNADesign\\Elemental\\TopPage\\SiteTreeExtension' => 'DNADesign\\Elemental\\Extensions\\TopPageSiteTreeExtension',
+        'SilverStripe\\View\\SSViewer_Scope' => 'SilverStripe\\TemplateEngine\\ScopeManager',
+        'SilverStripe\\View\\SSViewer_DataPresenter' => 'SilverStripe\\TemplateEngine\\ScopeManager',
+        'SilverStripe\\View\\SSViewer_BasicIteratorSupport' => 'SilverStripe\\TemplateEngine\\BasicIteratorSupport',
+        'SilverStripe\\View\\SSTemplateParseException' => 'SilverStripe\\TemplateEngine\\Exception\\SSTemplateParseException',
+        'SilverStripe\\View\\SSTemplateParser' => 'SilverStripe\\TemplateEngine\\SSTemplateParser',
+        'SilverStripe\\View\\TemplateIteratorProvider' => 'SilverStripe\\TemplateEngine\\TemplateIteratorProvider',
+        'SilverStripe\\View\\TemplateParser' => 'SilverStripe\\TemplateEngine\\TemplateParser',
+        'SilverStripe\\CMS\\Model\\CurrentPageIdentifier' => 'SilverStripe\\CMS\\Model\\CurrentRecordIdentifier',
+        'SilverStripe\\CMS\\Controllers\\LeftAndMainPageIconsExtension' => 'SilverStripe\\CMS\\Controllers\\LeftAndMainRecordIconsExtension',
     ]);
 
     $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [

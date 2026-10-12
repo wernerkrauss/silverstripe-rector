@@ -20,15 +20,6 @@ use Rector\Renaming\ValueObject\RenameStaticMethod;
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(BuildTaskUpdateRector::class);
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
-        'SilverStripe\View\SSViewer_Scope' => 'SilverStripe\TemplateEngine\ScopeManager',
-        'SilverStripe\View\SSViewer_DataPresenter' => 'SilverStripe\TemplateEngine\ScopeManager',
-        'SilverStripe\CMS\Model\CurrentPageIdentifier' => 'SilverStripe\CMS\Model\CurrentRecordIdentifier',
-        'SilverStripe\View\SSViewer_BasicIteratorSupport' => 'SilverStripe\TemplateEngine\BasicIteratorSupport',
-        'SilverStripe\View\SSTemplateParseException' => 'SilverStripe\TemplateEngine\Exception\SSTemplateParseException',
-        'SilverStripe\View\SSTemplateParser' => 'SilverStripe\TemplateEngine\SSTemplateParser',
-        'SilverStripe\View\TemplateIteratorProvider' => 'SilverStripe\TemplateEngine\TemplateIteratorProvider',
-        'SilverStripe\View\TemplateParser' => 'SilverStripe\TemplateEngine\TemplateParser',
-        'SilverStripe\CMS\Controllers\LeftAndMainPageIconsExtension' => 'SilverStripe\CMS\Controllers\LeftAndMainRecordIconsExtension',
 
 
         'SilverStripe\SecurityReport\Forms\GridFieldExportReportButton' => 'SilverStripe\Reports\SecurityReport\Forms\GridFieldExportReportButton',

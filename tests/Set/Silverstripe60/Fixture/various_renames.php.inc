@@ -31,7 +31,8 @@ class VariousRenames
 
 namespace Netwerkstatt\SilverstripeRector\Tests\Set\Silverstripe60\Fixture;
 
-use SilverStripe\TemplateEngine\ScopeManager;
+use SilverStripe\View\SSViewer_Scope;
+use SilverStripe\View\SSViewer_DataPresenter;
 use SilverStripe\ORM\ValidationException;
 use SilverStripe\ORM\ValidationResult;
 use SilverStripe\Logging\HTTPOutputHandler;
@@ -43,8 +44,8 @@ class VariousRenames
 {
     public function run()
     {
-        $scope = new ScopeManager();
-        $presenter = new ScopeManager();
+        $scope = new SSViewer_Scope();
+        $presenter = new SSViewer_DataPresenter();
         $exception = new ValidationException();
         $result = new ValidationResult();
         $handler = new HTTPOutputHandler();

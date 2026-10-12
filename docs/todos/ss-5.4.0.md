@@ -95,7 +95,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] SSViewer::templates() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] SSViewer::setTemplateFile() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] SSViewer::get_base_tag() has been deprecated. Use SSViewer::getBaseTag() instead.
-- [ ] [DEPRECATED] SSViewer_DataPresenter has been deprecated. It will be merged into SSViewer_Scope.
+- [x] [DEPRECATED] SSViewer_DataPresenter has been deprecated. It will be merged into SSViewer_Scope.
 - [ ] [DEPRECATED] SSViewer_FromString has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::renderString().
 - [ ] [DEPRECATED] SSViewer_Scope::getItem() has been deprecated. Use SSViewer_Scope::getCurrentItem() instead.
 - [x] [DEPRECATED] SSViewer_Scope::obj() has been deprecated. It will be renamed to scopeToIntermediateValue().
