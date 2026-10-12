@@ -6,7 +6,9 @@ use Netwerkstatt\SilverstripeRector\Rector\Misc\SilverstripeDeprecationCommentRe
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
+use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
+use Rector\Renaming\ValueObject\RenameStaticMethod;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
@@ -57,6 +59,23 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [
         new MethodCallRename('SilverStripe\ORM\ListDecorator', 'TotalItems', 'getTotalItems'),
         new MethodCallRename('SilverStripe\ORM\PaginatedList', 'TotalItems', 'getTotalItems'),
+    ]);
+
+    $rectorConfig->ruleWithConfiguration(RenameStaticMethodRector::class, [
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'flush', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'flush'),
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'fromString', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'renderString'),
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'setTemplate', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'setTemplate'),
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'setParser', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'setParser'),
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'getParser', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'getParser'),
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'hasTemplate', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'hasTemplate'),
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'flush_template_cache', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'flushTemplateCache'),
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'flush_cacheblock_cache', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'flushCacheBlockCache'),
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'setPartialCacheStore', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'setPartialCacheStore'),
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'getPartialCacheStore', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'getPartialCacheStore'),
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'includeGeneratedTemplate', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'includeGeneratedTemplate'),
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'getSubtemplateFor', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'getSubtemplateFor'),
+        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'parseTemplateContent', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'parseTemplateContent'),
+        new RenameStaticMethod('SilverStripe\\ORM\\FieldType\\DBEnum', 'flushCache', 'SilverStripe\\ORM\\FieldType\\DBEnum', 'reset'),
     ]);
 
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [

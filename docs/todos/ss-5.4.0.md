@@ -75,23 +75,23 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] ViewableData::getXMLValues() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] The $parser parameter for the SSViewer::__construct() method has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] SSViewer::flush() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::flush().
-- [ ] [DEPRECATED] SSViewer::fromString() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::renderString().
+- [x] [DEPRECATED] SSViewer::fromString() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::renderString().
 - [ ] [DEPRECATED] SSViewer::topLevel() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] SSViewer::chooseTemplate() has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] SSViewer::setTemplate() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::setTemplate().
-- [ ] [DEPRECATED] SSViewer::setParser() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::setParser().
-- [ ] [DEPRECATED] SSViewer::getParser() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::getParser().
-- [ ] [DEPRECATED] SSViewer::hasTemplate() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::hasTemplate().
+- [x] [DEPRECATED] SSViewer::setTemplate() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::setTemplate().
+- [x] [DEPRECATED] SSViewer::setParser() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::setParser().
+- [x] [DEPRECATED] SSViewer::getParser() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::getParser().
+- [x] [DEPRECATED] SSViewer::hasTemplate() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::hasTemplate().
 - [ ] [DEPRECATED] SSViewer::exists() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] SSViewer::getTemplateFileByType() has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] SSViewer::flush_template_cache() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::flushTemplateCache().
-- [ ] [DEPRECATED] SSViewer::flush_cacheblock_cache() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::flushCacheBlockCache().
-- [ ] [DEPRECATED] SSViewer::setPartialCacheStore() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::setPartialCacheStore().
-- [ ] [DEPRECATED] SSViewer::getPartialCacheStore() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::getPartialCacheStore().
-- [ ] [DEPRECATED] SSViewer::includeGeneratedTemplate() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::includeGeneratedTemplate().
+- [x] [DEPRECATED] SSViewer::flush_template_cache() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::flushTemplateCache().
+- [x] [DEPRECATED] SSViewer::flush_cacheblock_cache() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::flushCacheBlockCache().
+- [x] [DEPRECATED] SSViewer::setPartialCacheStore() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::setPartialCacheStore().
+- [x] [DEPRECATED] SSViewer::getPartialCacheStore() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::getPartialCacheStore().
+- [x] [DEPRECATED] SSViewer::includeGeneratedTemplate() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::includeGeneratedTemplate().
 - [ ] [DEPRECATED] The $inheritedScope parameter for the SSViewer::process() method has been deprecated. It will be removed without equivalent functionality to replace it.
-- [ ] [DEPRECATED] SSViewer::getSubtemplateFor() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::getSubtemplateFor().
-- [ ] [DEPRECATED] SSViewer::parseTemplateContent() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::parseTemplateContent().
+- [x] [DEPRECATED] SSViewer::getSubtemplateFor() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::getSubtemplateFor().
+- [x] [DEPRECATED] SSViewer::parseTemplateContent() has been deprecated. It will be replaced with SilverStripe\TemplateEngine\SSTemplateEngine::parseTemplateContent().
 - [ ] [DEPRECATED] SSViewer::templates() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] SSViewer::setTemplateFile() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] SSViewer::get_base_tag() has been deprecated. Use SSViewer::getBaseTag() instead.

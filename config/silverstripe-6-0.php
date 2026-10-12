@@ -11,11 +11,9 @@ use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector;
-use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\Renaming\ValueObject\RenameProperty;
-use Rector\Renaming\ValueObject\RenameStaticMethod;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(BuildTaskUpdateRector::class);
@@ -48,12 +46,6 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
     $rectorConfig->importNames();
     $rectorConfig->removeUnusedImports();
-    $rectorConfig->ruleWithConfiguration(RenameStaticMethodRector::class, [
-        new RenameStaticMethod('SilverStripe\View\SSViewer', 'flush', 'SilverStripe\TemplateEngine\SSTemplateEngine',
-            'flush'),
-        new RenameStaticMethod('SilverStripe\ORM\FieldType\DBEnum', 'flushCache', 'SilverStripe\ORM\FieldType\DBEnum',
-            'reset'),
-    ]);
     $rectorConfig->ruleWithConfiguration(RenamePropertyRector::class, [
         new RenameProperty('SilverStripe\Admin\LeftAndMain', 'tree_class', 'model_class'),
         new RenameProperty('SilverStripe\CMS\Model\SiteTree', 'description', 'class_description'),
