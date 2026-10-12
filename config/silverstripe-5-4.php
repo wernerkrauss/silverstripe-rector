@@ -286,6 +286,10 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'LeftAndMain::methodSchema() has been deprecated. It will be replaced with FormSchemaController::schema().',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\CMS\Controllers\CMSMain::PageListSidebar' => [
+            'message' => 'CMSMain::PageListSidebar() has been deprecated. It will be removed without equivalent functionality to replace it.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
     ]);
     $rectorConfig->importNames();
     $rectorConfig->removeUnusedImports();

@@ -153,7 +153,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [x] [DEPRECATED] The SiteTree.icon configuration property has been deprecated. It will be renamed to cms_icon.
 - [x] [DEPRECATED] The SiteTree.icon_class configuration property has been deprecated. It will be renamed to cms_icon_class. This applies to all subclasses of SiteTree as well.
 - [x] [DEPRECATED] CMSMain::PageList() has been deprecated. It will be renamed to RecordList().
-- [ ] [DEPRECATED] CMSMain::PageListSidebar() has been deprecated. It will be removed without equivalent functionality to replace it.
+- [x] [DEPRECATED] CMSMain::PageListSidebar() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [x] [DEPRECATED] CMSMain::LinkPages() has been deprecated. Use CMSMain::LinkRecords() instead.
 - [x] [DEPRECATED] CMSMain::LinkPagesWithSearch() has been deprecated. Use CMSMain::LinkRecordsWithSearch() instead.
 - [x] [DEPRECATED] CMSMain::LinkPageEdit() has been deprecated. Use CMSMain::LinkRecordEdit() instead.
