@@ -6,6 +6,9 @@ class SiteTree
 {
     public static bool $need_permission = true;
 
+    public static function page_type_classes(): array {}
+    public static function setCreatableChildrenCache(object $cache): void {}
+    public static function getCreatableChildrenCache(): ?object {}
     public function getPermissionChecker(): object {}
     public static function flushMemberCache(): void {}
     public function creatableChildPages(): array {}

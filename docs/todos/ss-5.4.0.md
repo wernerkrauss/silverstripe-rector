@@ -178,9 +178,9 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [x] [DEPRECATED] CurrentPageIdentifier has been deprecated. It will be renamed to SilverStripe\CMS\Model\CurrentRecordIdentifier.
 - [x] [DEPRECATED] CurrentPageIdentifier::currentPageID() has been deprecated. It will be renamed to currentRecordID().
 - [x] [DEPRECATED] CurrentPageIdentifier::isCurrentPage() has been deprecated. It will be renamed to isCurrentRecord().
-- [ ] [DEPRECATED] SiteTree::page_type_classes() has been deprecated. Will be replaced with updateAllowedSubClasses().
-- [ ] [DEPRECATED] SiteTree::setCreatableChildrenCache() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::setCreatableChildrenCache().
-- [ ] [DEPRECATED] SiteTree::getCreatableChildrenCache() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getCreatableChildrenCache().
+- [x] [DEPRECATED] SiteTree::page_type_classes() has been deprecated. Will be replaced with updateAllowedSubClasses().
+- [x] [DEPRECATED] SiteTree::setCreatableChildrenCache() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::setCreatableChildrenCache().
+- [x] [DEPRECATED] SiteTree::getCreatableChildrenCache() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getCreatableChildrenCache().
 - [ ] [DEPRECATED] SiteTree::getPermissionChecker() has been deprecated. It will be replaced with a non-static method of the same name.
 - [ ] [DEPRECATED] SiteTree::flushMemberCache() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::clearCache().
 - [ ] [DEPRECATED] SiteTree::creatableChildPages() has been deprecated. It will be replaced with SilverStripe\CMS\Controllers\CMSMain::getCreatableSubClasses().

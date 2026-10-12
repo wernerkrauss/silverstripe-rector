@@ -264,6 +264,18 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'The SiteTree.need_permission configuration property has been deprecated. Use SiteTree::canCreate() instead.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\CMS\Model\SiteTree::page_type_classes' => [
+            'message' => 'SiteTree::page_type_classes() has been deprecated. It will be replaced with updateAllowedSubClasses().',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\CMS\Model\SiteTree::setCreatableChildrenCache' => [
+            'message' => 'SiteTree::setCreatableChildrenCache() has been deprecated. It will be replaced with CMSMain::setCreatableChildrenCache().',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\CMS\Model\SiteTree::getCreatableChildrenCache' => [
+            'message' => 'SiteTree::getCreatableChildrenCache() has been deprecated. It will be replaced with CMSMain::getCreatableChildrenCache().',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
     ]);
     $rectorConfig->importNames();
     $rectorConfig->removeUnusedImports();
