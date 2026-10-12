@@ -9,6 +9,26 @@ use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 
 return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
+        'SilverStripe\\ORM\\ArrayLib' => 'SilverStripe\\Core\\ArrayLib',
+        'SilverStripe\\ORM\\ArrayList' => 'SilverStripe\\Model\\List\\ArrayList',
+        'SilverStripe\\ORM\\GroupedList' => 'SilverStripe\\Model\\List\\GroupedList',
+        'SilverStripe\\ORM\\ListDecorator' => 'SilverStripe\\Model\\List\\ListDecorator',
+        'SilverStripe\\ORM\\Map' => 'SilverStripe\\Model\\List\\Map',
+        'SilverStripe\\ORM\\PaginatedList' => 'SilverStripe\\Model\\List\\PaginatedList',
+        'SilverStripe\\ORM\\SS_List' => 'SilverStripe\\Model\\List\\SS_List',
+        'SilverStripe\\ORM\\ValidationException' => 'SilverStripe\\Core\\Validation\\ValidationException',
+        'SilverStripe\\ORM\\ValidationResult' => 'SilverStripe\\Core\\Validation\\ValidationResult',
+        'SilverStripe\\View\\ArrayData' => 'SilverStripe\\Model\\ArrayData',
+        'SilverStripe\\View\\ViewableData' => 'SilverStripe\\Model\\ModelData',
+        'SilverStripe\\View\\ViewableData_Customised' => 'SilverStripe\\Model\\ModelDataCustomised',
+        'SilverStripe\\View\\ViewableData_Debugger' => 'SilverStripe\\Model\\ModelDataDebugger',
+        'SilverStripe\\Logging\\HTTPOutputHandler' => 'SilverStripe\\Logging\\ErrorOutputHandler',
+        'SilverStripe\\ORM\\Filterable' => 'SilverStripe\\Model\\List\\Filterable',
+        'SilverStripe\\ORM\\Limitable' => 'SilverStripe\\Model\\List\\Limitable',
+        'SilverStripe\\ORM\\Sortable' => 'SilverStripe\\Model\\List\\Sortable',
+    ]);
+
     $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [
         new MethodCallRename('SilverStripe\ORM\ListDecorator', 'TotalItems', 'getTotalItems'),
         new MethodCallRename('SilverStripe\ORM\PaginatedList', 'TotalItems', 'getTotalItems'),
@@ -37,7 +57,15 @@ return static function (RectorConfig $rectorConfig): void {
             'message' => 'ViewableData::castingClass() has been deprecated. It will be removed without equivalent functionality to replace it.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
+        'SilverStripe\Model\ModelData::castingClass' => [
+            'message' => 'ViewableData::castingClass() has been deprecated. It will be removed without equivalent functionality to replace it.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
         'SilverStripe\View\ViewableData::escapeTypeForField' => [
+            'message' => 'ViewableData::escapeTypeForField() has been deprecated. It will be removed without equivalent functionality to replace it.',
+            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
+        ],
+        'SilverStripe\Model\ModelData::escapeTypeForField' => [
             'message' => 'ViewableData::escapeTypeForField() has been deprecated. It will be removed without equivalent functionality to replace it.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],

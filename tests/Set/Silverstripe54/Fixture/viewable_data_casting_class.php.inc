@@ -8,6 +8,10 @@ class MyViewable extends ViewableData
 {
     public function useCasting()
     {
+        /**
+         * @deprecated ViewableData::castingClass() has been deprecated. It will be removed without equivalent functionality to replace it.
+         * See: https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api
+         */
         return $this->castingClass('MyField');
     }
 }
@@ -17,9 +21,9 @@ class MyViewable extends ViewableData
 
 namespace Netwerkstatt\SilverstripeRector\Tests\Set\Silverstripe54\Fixture;
 
-use SilverStripe\View\ViewableData;
+use SilverStripe\Model\ModelData;
 
-class MyViewable extends ViewableData
+class MyViewable extends ModelData
 {
     public function useCasting()
     {

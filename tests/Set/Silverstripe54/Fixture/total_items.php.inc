@@ -19,8 +19,8 @@ class TotalItemsTest
 
 namespace Netwerkstatt\SilverstripeRector\Tests\Set\Silverstripe54\Fixture;
 
-use SilverStripe\ORM\ListDecorator;
-use SilverStripe\ORM\PaginatedList;
+use SilverStripe\Model\List\ListDecorator;
+use SilverStripe\Model\List\PaginatedList;
 
 class TotalItemsTest
 {
