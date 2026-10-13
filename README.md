@@ -241,39 +241,10 @@ The DDEV command additionally runs the DDEV-configured frontend and outdated dep
 ddev ci
 ```
 
-## TODO
+## Current migration work
 
-### SS3 to SS4 upgrades (before running official upgrader tool)
-- [ ] rename `Foo_Controller` to `FooController`
-  - how can this be made dynamically? via config script that scans the current project?
-- [ ] configure PSR4 Class To File
-- [ ] maybe add namespace to `src` dir
-- [ ] various deprecations.
-  -  Is it possible to automate stuff that was once configured in PHP and is now configured in YML?
-  -  easy fix would be to switch to new config layer in PHP and add an annotation to fix this manually
-- [ ] fix old `Image` functions in templates that got deprecated in SS3.2
-  - this needs another file parser for Silverstripe templates
-- [X] class `Object` to trait, see [ParentClassToTraitsRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#parentclasstotraitsrector)
-
-### SS4 upgrades
-- [X] add `$table_name` if missing - use short classname instead
-  - see similar [UnifyModelDatesWithCastsRector](https://github.com/rectorphp/rector-laravel/blob/main/src/Rector/Class_/UnifyModelDatesWithCastsRector.php)
-- [ ] various deprecations
-  - to be configured manually in set lists
-- [ ] fix missing `$owns` for Image and File relations
-  - [ ] configurable exclude list if it's not wanted
-  - [ ] configurable which relations should be automatically owned (e.g. other versioned DataObjects)
-
-### General
-#### Misc
-- [X] create SetLists for easier configuration
-
-#### Code Quality
-- [X] convert `new Foo()` to `Foo::create()` if it's a Silverstripe / Injectable class
-  - see [NewToStaticCallRector](https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#newtomethodcallrector)
-- [X] add `@config` param to `$db`, `$has_one`, etc.
-- [X] use array notation for `->filter`, `->extend` and `->sort()`
-- [ ] use Request handler instead of superglobal `$_GET` and `$_POST`
+The current migration work is tracked in GitHub Issues. Version-specific Silverstripe analysis and
+remaining upgrade candidates are documented in [`docs/todos/`](./docs/todos/).
 
 ## Thanks to
 [xini](https://github.com/xini) for updating this module to Rector V2 and adding a lot of Silverstripe 6 rules.
