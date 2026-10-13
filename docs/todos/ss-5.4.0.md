@@ -59,7 +59,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] [DEPRECATED] UpdatePackageInfoTask::setSupportedAddonsLoader() has been deprecated. It will be removed without equivalent functionality to replace it.
 - [ ] [DEPRECATED] ProcessJobQueueChildTask has been deprecated. It will be replaced with a new Symbiote\QueuedJobs\Cli\ProcessJobQueueChildCommand class.
 - [ ] [DEPRECATED] ProcessJobQueueTask::getQueue() has been deprecated. Use AbstractQueuedJob::getQueue() instead.
-- [ ] [DEPRECATED] HTTPOutputHandler::isCli() has been deprecated. Use Director::is_cli() instead instead.
+- [x] [DEPRECATED] HTTPOutputHandler::isCli() has been deprecated. Use Director::is_cli() instead instead.
 - [x] [DEPRECATED] PasswordValidator has been deprecated. It will be renamed to SilverStripe\Security\Validation\RulesPasswordValidator.
 - [x] [DEPRECATED] ContentReviewEmails::isValidEmail() has been deprecated. Use Email::is_valid_address() instead.
 - [ ] [DEPRECATED] The DBField.defaultVal property has been deprecated. Use DBField::getDefaultValue() and DBField::setDefaultValue() instead.

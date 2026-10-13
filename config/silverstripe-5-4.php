@@ -99,6 +99,8 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(MethodCallToStaticCallRector::class, [
         new MethodCallToStaticCall('SilverStripe\\ContentReview\\Tasks\\ContentReviewEmails', 'isValidEmail',
             'SilverStripe\\Control\\Email\\Email', 'is_valid_address'),
+        new MethodCallToStaticCall('SilverStripe\\Logging\\HTTPOutputHandler', 'isCli',
+            'SilverStripe\\Control\\Director', 'is_cli'),
     ]);
 
     $rectorConfig->ruleWithConfiguration(RenameStaticMethodRector::class, [
