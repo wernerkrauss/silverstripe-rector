@@ -151,7 +151,8 @@ To fix this in PHPStorm:
 * [cambis/silverstripe-rector](https://packagist.org/packages/cambis/silverstripe-rector)
 
 ## Developing
-This module is preconfigured to run with ddev and has some useful custom scripts for developing:
+This module provides Composer scripts for environments without DDEV. The equivalent DDEV commands add the
+container-specific setup where needed.
 
 ### PHP Code Sniffer
 
@@ -162,22 +163,24 @@ See phpcs.xml.dist for the ruleset used.
 Detect violations
 
 ```bash
-ddev composer run lint
+ddev lint
 ```
 
-or
+or without DDEV:
+
 ```bash
-ddev lint
+composer lint
 ```
 
 Fix most violations automatically
 ```bash
-ddev composer run fix
+ddev fix
 ```
 
-or the shortcut
+or:
+
 ```bash
-ddev fix
+composer fix
 ```
 
 ### PHPStan
@@ -188,12 +191,13 @@ Don't be too much annoyed by the errors. Rector can fix a lot of them automatica
 A level of 4 should be doable.
 
 ```bash
-ddev composer run phpstan
+ddev stan
 ```
 
-or
+or:
+
 ```bash
-ddev stan
+composer stan
 ```
 
 ### Rector
@@ -201,33 +205,37 @@ Rector is a tool to refactor code automatically. It can be used to upgrade code 
 
 See rector.php for rules and configuration.
 
-```bash 
-ddev composer run rector-dry #dry run
-ddev composer run rector
-```
-
-or
 ```bash
 ddev rector --dry-run #dry-run
-ddev rector 
+ddev rector
+```
+
+or:
+
+```bash
+composer rector:dry
+composer rector
 ```
 
 ### Jack
 Jack is a tool to check for outdated dependencies, especially major version updates that might require manual intervention.
 
 ```bash
-ddev jack
+ddev check-outdated-dependencies
 ```
 
-or specifically to check if any major updates are available (which is used in CI):
-
-```bash
-ddev jack breakpoint
-```
+The deprecated `ddev jack` command remains available as an alias for older projects.
 
 ### Everything in one command
 
-There is also a CI tool to run everything in one command (PHPUnit, Linting, Rector, PHPStan and Jack)
+There are CI shortcuts for both environments. The Composer command runs PHPUnit, linting, Rector in dry-run mode and
+PHPStan, stopping at the first failure:
+
+```bash
+composer ci
+```
+
+The DDEV command additionally runs the DDEV-configured frontend and outdated dependency checks:
 
 ```bash
 ddev ci
