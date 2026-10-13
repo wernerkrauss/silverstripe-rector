@@ -1,10 +1,10 @@
-# 18 Rules Overview
+# 20 Rules Overview
 
 <br>
 
 ## Categories
 
-- [Rector](#rector) (18)
+- [Rector](#rector) (20)
 
 <br>
 
@@ -100,6 +100,29 @@ Silverstripe 4.0: DataObject subclasses must have "$table_name" defined
 +    private static $table_name = 'SomeClass';
 +
      private static $db = [];
+ }
+```
+
+<br>
+
+### FormValidateToIsValidRector
+
+Silverstripe 6.0: Convert `Form::validate()` boolean usage to `isValid().`
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Forms\FormValidateToIsValidRector`](../src/Rector/Forms/FormValidateToIsValidRector.php)
+
+```diff
+ use SilverStripe\Forms\Form;
+
+ function check(Form $form, bool $other): bool
+ {
+-    if ($form->validate()) {
++    if ($form->validate()->isValid()) {
+         return true;
+     }
+
+-    return $form->validate() && $other;
++    return $form->validate()->isValid() && $other;
  }
 ```
 
@@ -280,6 +303,21 @@ Silverstripe 6.0: Replace `Controller::has_curr()` with `Controller::curr()` !==
 +if (Controller::curr() !== null) {
      // ...
  }
+```
+
+<br>
+
+### ReplaceSilverstripeNullArgumentRector
+
+Silverstripe 5.4: Replace deprecated null arguments with explicit defaults.
+
+:wrench: **configure it!**
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\ReplaceSilverstripeNullArgumentRector`](../src/Rector/Misc/ReplaceSilverstripeNullArgumentRector.php)
+
+```diff
+-$result->addError("Message", "bad", null, null);
++$result->addError("Message", "bad", "", ValidationResult::CAST_TEXT);
 ```
 
 <br>

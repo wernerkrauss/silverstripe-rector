@@ -25,6 +25,7 @@ use PhpParser\Node\Stmt\While_;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class FormValidateToIsValidRector extends AbstractRector implements DocumentedRuleInterface
@@ -33,7 +34,35 @@ final class FormValidateToIsValidRector extends AbstractRector implements Docume
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Silverstripe 6.0: Convert Form::validate() boolean usage to isValid().', []);
+        return new RuleDefinition(
+            'Silverstripe 6.0: Convert Form::validate() boolean usage to isValid().',
+            [new CodeSample(
+                <<<'PHP'
+use SilverStripe\Forms\Form;
+
+function check(Form $form, bool $other): bool
+{
+    if ($form->validate()) {
+        return true;
+    }
+
+    return $form->validate() && $other;
+}
+PHP,
+                <<<'PHP'
+use SilverStripe\Forms\Form;
+
+function check(Form $form, bool $other): bool
+{
+    if ($form->validate()->isValid()) {
+        return true;
+    }
+
+    return $form->validate()->isValid() && $other;
+}
+PHP
+            )]
+        );
     }
 
     /** @return array<class-string<Node>> */

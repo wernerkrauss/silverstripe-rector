@@ -17,7 +17,8 @@
     "phpunit/phpunit": "^11.3",
     "squizlabs/php_codesniffer": "^4",
     "phpstan/phpstan": "^2",
-    "rector/jack": "^1.0.0"
+    "rector/jack": "^1.0.0",
+    "symplify/rule-doc-generator": "^12.1"
   },
   "autoload": {
     "psr-4": {
