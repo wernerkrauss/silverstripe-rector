@@ -126,8 +126,9 @@ jobs:
           set -o pipefail
           # Programmatic mode: no interactive UI, auto-approve agent, JSON output
           vibe --trust \
+               --agent auto-approve \
                --prompt "$(cat /tmp/task.md)" \
-               --max-turns 40 \
+               --max-turns 100 \
                --output json 2>&1 | tee /tmp/vibe-output.json
 
       - name: Commit changes and create pull request
