@@ -58,8 +58,7 @@ Actions tab → "AI Task (Mistral Code)" → **Run workflow** → enter a prompt
 ```bash
 ./scripts/ai-task.sh 49                                   # work on issue #49
 ./scripts/ai-task.sh "Add rename Foo::bar to Foo::baz in the SS 6.1 set"
-./scripts/ai-task.sh 49 "Only fix the Filterable rename, add a tes
-t"
+./scripts/ai-task.sh 49 "Only fix the Filterable rename, add a test"
 ```
 
 The script creates an `ai/task-…` branch and starts `vibe` interactively,
