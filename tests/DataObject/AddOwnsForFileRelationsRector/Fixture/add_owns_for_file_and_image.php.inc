@@ -26,12 +26,12 @@ use SilverStripe\ORM\DataObject;
 
 class AddOwnsForFileAndImage extends DataObject
 {
+    private static $owns = ['Image', 'Attachment'];
+
     private static $has_one = [
         'Image' => Image::class,
         'Attachment' => File::class,
     ];
-
-    private static $owns = ['Image', 'Attachment'];
 }
 
 ?>

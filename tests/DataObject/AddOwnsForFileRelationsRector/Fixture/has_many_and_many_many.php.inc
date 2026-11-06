@@ -27,6 +27,8 @@ use SilverStripe\ORM\DataObject;
 
 class HasManyAndManyMany extends DataObject
 {
+    private static $owns = ['Gallery', 'Files'];
+
     private static $has_many = [
         'Gallery' => Image::class,
     ];
@@ -34,8 +36,6 @@ class HasManyAndManyMany extends DataObject
     private static $many_many = [
         'Files' => Image::class,
     ];
-
-    private static $owns = ['Gallery', 'Files'];
 }
 
 ?>

@@ -24,12 +24,12 @@ use SilverStripe\ORM\DataObject;
 
 class SkipExcludedRelation extends DataObject
 {
+    private static $owns = ['PublicFile'];
+
     private static $has_one = [
         'SecretFile' => File::class,
         'PublicFile' => File::class,
     ];
-
-    private static $owns = ['PublicFile'];
 }
 
 ?>

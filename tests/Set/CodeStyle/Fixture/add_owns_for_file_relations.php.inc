@@ -22,10 +22,10 @@ use SilverStripe\ORM\DataObject;
 
 class AddOwnsForFileRelations extends DataObject
 {
+    private static $owns = ['Image'];
+
     private static $has_one = [
         'Image' => Image::class,
     ];
-
-    private static $owns = ['Image'];
 }
 ?>

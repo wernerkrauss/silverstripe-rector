@@ -154,10 +154,9 @@ CODE_SAMPLE
         }
 
         $className = $node->namespacedName !== null ? $node->namespacedName->toString() : '';
-        fwrite(STDERR, 'DEBUG cfg class=' . $className . ' excl=' . json_encode($this->excludeClasses)
-            . ' addl=' . json_encode($this->additionalOwnedClasses) . PHP_EOL);
         foreach ($this->excludeClasses as $excludeClass) {
-            if ($className !== '' && is_a($className, ltrim($excludeClass, '\\'), true)) {
+            $excludeClass = ltrim($excludeClass, '\\');
+            if ($className !== '' && ($className === $excludeClass || is_a($className, $excludeClass, true))) {
                 return null;
             }
         }
@@ -296,8 +295,7 @@ CODE_SAMPLE
         $owns->makePrivate();
         $owns->makeStatic();
         $owns->setDefault(new Array_($items));
-        $node->stmts[] = $owns->getNode();
-        fwrite(STDERR, 'DEBUG appended owns, stmts=' . count($node->stmts) . PHP_EOL);
+        array_unshift($node->stmts, $owns->getNode(), new Stmt\Nop());
 
         return $node;
     }

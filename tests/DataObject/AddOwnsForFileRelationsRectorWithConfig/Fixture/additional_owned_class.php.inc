@@ -21,11 +21,11 @@ use SilverStripe\ORM\DataObject;
 
 class AdditionalOwnedClass extends DataObject
 {
+    private static $owns = ['Document'];
+
     private static $has_one = [
         'Document' => 'Vendor\Module\Document',
     ];
-
-    private static $owns = ['Document'];
 }
 
 ?>
