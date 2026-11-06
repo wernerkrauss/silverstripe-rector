@@ -5,24 +5,53 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.4] - 2026-11-06
 
 ### Added
-- SS6.1: Added deprecation notice for `SilverStripe\UserForms\Extension\UpgradePolymorphicExtension` via SilverstripeDeprecationCommentRector
+- SS6.1: Added deprecation notice for `SilverStripe\UserForms\Extension\UpgradePolymorphicExtension`
+  via `SilverstripeDeprecationCommentRector`.
 - Added Silverstripe 6.3 support with level set and configuration files.
-- Added missing CMSMain hook renames (`updateLinkPageAdd`, `updateSiteTreeAsUL`, `updateSiteTreeHints`, `updateCurrentPageID`) and RememberLoginHash hook rename (`onAfterRenewToken`) to Silverstripe 6.0 setlist (fixes #50, thanks to [@micschk](https://github.com/micschk)).
+- Added missing CMSMain hook renames (`updateLinkPageAdd`, `updateSiteTreeAsUL`, `updateSiteTreeHints`,
+  `updateCurrentPageID`) and RememberLoginHash hook rename (`onAfterRenewToken`) to Silverstripe 6.0 setlist
+  (fixes [#50](https://github.com/wernerkrauss/silverstripe-rector/issues/50),
+  thanks to [@micschk](https://github.com/micschk)).
 - Added `RenameFieldListMethodsWithoutArrayParamRector` to handle both `addFieldsToTab()` and `removeFieldsFromTab()` 
   when a non-array argument is passed.
 - Added deprecation notices for `SilverStripe\Control\Util\IPUtils` in Silverstripe 5.3 setlist.
-- Added Silverstripe 5.4 deprecation coverage for central SiteTree, CMSMain, LeftAndMain, and legacy CMS controller APIs.
-- Added `FormValidateToIsValidRector` to convert boolean usage of `Form::validate()` and `FormField::validate()` to `isValid()`.
-- Added direct positive and negative tests for `FormValidateToIsValidRector`, including retained validation result usage.
+- Added Silverstripe 5.4 deprecation coverage for central SiteTree, CMSMain, LeftAndMain, and legacy CMS
+  controller APIs.
+- Added `FormValidateToIsValidRector` to convert boolean usage of `Form::validate()` and
+  `FormField::validate()` to `isValid()`.
+- Added direct positive and negative tests for `FormValidateToIsValidRector`, including retained validation
+  result usage.
 - Added `TotalItems()` to `getTotalItems()` rename for `ListDecorator` and `PaginatedList` in Silverstripe 5.4 setlist.
-- Added `HTTPOutputHandler::isCli()` to `Director::is_cli()` migration in Silverstripe 5.4 setlist.
+- Added `HTTPOutputHandler::isCli()` to `Director::is_cli()` migration in Silverstripe 5.4 setlist
+  (fixes [#55](https://github.com/wernerkrauss/silverstripe-rector/issues/55)).
 - Added TinyMCE class renames to Silverstripe 5.4 setlist.
-- Added generic `PropertyToConfigRector` to convert class properties to static config variables (e.g. `BuildTask::$enabled` to `private static $is_enabled`).
-- Added generic `StaticCallToConfigRector` to convert static method calls to class config variables (e.g. `DataObject::disable_subclass_access()` to `private static $subclass_access = false`).
+- Added generic `PropertyToConfigRector` to convert class properties to static config variables
+  (e.g. `BuildTask::$enabled` to `private static $is_enabled`).
+- Added generic `StaticCallToConfigRector` to convert static method calls to class config variables
+  (e.g. `DataObject::disable_subclass_access()` to `private static $subclass_access = false`).
 - Integrated new generic rules into Silverstripe 5.1 and 5.2 setlists.
+
+### Changed
+- Replaced `symplify/rule-doc-generator` with an own docs generator (`scripts/docs-exporter.php`) and added
+  composer scripts `docs:generate`, `docs:export:rules` and `docs:export`; regenerated rule docs and JSON
+  exports (addresses [#42](https://github.com/wernerkrauss/silverstripe-rector/issues/42)).
+- Updated `AddConfigPropertiesRector` default config to use the `::class` constant.
+- Added composer script shortcuts for local CI (`ci`, `test`, `lint`, `fix`, `stan`).
+- Updated ddev scripts to use `ddev-silverstripe-tools`.
+- Added Mistral Code (vibe) task automation for remote and CLI work (`/ai` on issues/PRs,
+  `scripts/ai-task.sh` locally).
+- Updated dev requirement `rector/jack` from `^0.5.1` to `^1.0.0`.
+
+### Fixed
+- Fixed `RenameFieldListMethodsWithoutArrayParamRector` (formerly
+  `RenameAddFieldsToTabWithoutArrayParamRector`) incorrectly renaming array arguments
+  (fixes [#53](https://github.com/wernerkrauss/silverstripe-rector/issues/53)).
+- Fixed compatibility with Rector 2.8 by replacing core `MethodCallToStaticCallRector` and
+  `ReplaceArgumentDefaultValueRector` with the custom rules `Silverstripe54MethodCallToStaticCallRector`,
+  `Silverstripe54StaticCallRenameRector` and `FormLoadDataFromMergeStrategyRector`.
 
 ## [1.3] - 2026-04-28
 
