@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+- Fixed the `SilverStripe\ORM\Filterable`, `SilverStripe\ORM\Limitable` and `SilverStripe\ORM\Sortable` class renames
+  to point to `SilverStripe\Model\List\SS_List` instead of the non-existent `SilverStripe\Model\List\Filterable`,
+  `SilverStripe\Model\List\Limitable` and `SilverStripe\Model\List\Sortable` (the interfaces were merged into
+  `SS_List` in Silverstripe CMS 6.0) (fixes [#49](https://github.com/wernerkrauss/silverstripe-rector/issues/49)).
+
 ## [1.4] - 2026-11-06
 
 ### Added
