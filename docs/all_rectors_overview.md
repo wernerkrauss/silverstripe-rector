@@ -1,10 +1,10 @@
-# 20 Rules Overview
+# 23 Rules Overview
 
 <br>
 
 ## Categories
 
-- [Rector](#rector) (20)
+- [Rector](#rector) (23)
 
 <br>
 
@@ -19,6 +19,7 @@ Code Style: Adds `@config` property to predefined private statics, e.g. `$db` or
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\AddConfigPropertiesRector`](../src/Rector/Misc/AddConfigPropertiesRector.php)
 
 ```diff
+@@ -1,4 +1,7 @@
  class SomeClass extends \SilverStripe\ORM\DataObject
  {
 +    /**
@@ -37,6 +38,7 @@ Silverstripe 6.0: Updates Silverstripe BuildTask from v5 to v6
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\BuildTaskUpdateRector`](../src/Rector/Misc/BuildTaskUpdateRector.php)
 
 ```diff
+@@ -1,11 +1,14 @@
  use SilverStripe\Dev\BuildTask;
 +use Symfony\Component\Console\Input\InputInterface;
 +use SilverStripe\PolyExecution\PolyOutput;
@@ -65,6 +67,7 @@ Code Style: Changes DataObject::get_by_id('ClassName', `$id)` to `ClassName::get
 - class: [`Netwerkstatt\SilverstripeRector\Rector\DataObject\DataObjectGetByIdToByIDRector`](../src/Rector/DataObject/DataObjectGetByIdToByIDRector.php)
 
 ```diff
+@@ -1,1 +1,1 @@
 -DataObject::get_by_id('MyPage', $id);
 +MyPage::get()->byID($id);
 ```
@@ -78,6 +81,7 @@ Silverstripe 6.1: Replace DataObject static methods `get_by_id()`, `get_one()`, 
 - class: [`Netwerkstatt\SilverstripeRector\Rector\DataObject\DataObjectStaticMethodsToFluentRector`](../src/Rector/DataObject/DataObjectStaticMethodsToFluentRector.php)
 
 ```diff
+@@ -1,3 +1,3 @@
 -DataObject::get_by_id($className, $id);
 -DataObject::get_one($className, $filter);
 -DataObject::delete_by_id($className, $id);
@@ -95,6 +99,7 @@ Silverstripe 4.0: DataObject subclasses must have "$table_name" defined
 - class: [`Netwerkstatt\SilverstripeRector\Rector\DataObject\EnsureTableNameIsSetRector`](../src/Rector/DataObject/EnsureTableNameIsSetRector.php)
 
 ```diff
+@@ -1,4 +1,6 @@
  class SomeClass extends \SilverStripe\ORM\DataObject
  {
 +    private static $table_name = 'SomeClass';
@@ -105,13 +110,32 @@ Silverstripe 4.0: DataObject subclasses must have "$table_name" defined
 
 <br>
 
+### FormLoadDataFromMergeStrategyRector
+
+Silverstripe 5.4: Replace `Form::loadDataFrom()` merge strategy booleans with explicit values.
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Forms\FormLoadDataFromMergeStrategyRector`](../src/Rector/Forms/FormLoadDataFromMergeStrategyRector.php)
+
+```diff
+@@ -1,4 +1,4 @@
+ use SilverStripe\Forms\Form;
+
+-$form->loadDataFrom($data, true);
+-$form->loadDataFrom($data, false);
++$form->loadDataFrom($data, \SilverStripe\Forms\Form::MERGE_CLEAR_MISSING);
++$form->loadDataFrom($data, 0);
+```
+
+<br>
+
 ### FormValidateToIsValidRector
 
-Silverstripe 6.0: Convert `Form::validate()` boolean usage to `isValid().`
+Silverstripe 6.0: Convert `Form::validate()` boolean usage to `isValid()`.
 
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Forms\FormValidateToIsValidRector`](../src/Rector/Forms/FormValidateToIsValidRector.php)
 
 ```diff
+@@ -1,10 +1,10 @@
  use SilverStripe\Forms\Form;
 
  function check(Form $form, bool $other): bool
@@ -135,6 +159,7 @@ Silverstripe 6.2: Replace `getIDList()` with sort(null)->column('ID') or column(
 - class: [`Netwerkstatt\SilverstripeRector\Rector\ORM\GetIDListToColumnIDRector`](../src/Rector/ORM/GetIDListToColumnIDRector.php)
 
 ```diff
+@@ -1,2 +1,2 @@
 -$dataList->getIDList();
 -$eagerLoadedList->getIDList();
 +$dataList->sort(null)->column('ID');
@@ -150,6 +175,7 @@ Code Style: Translates Silverstripe ORM `filter()` and similar calls from string
 - class: [`Netwerkstatt\SilverstripeRector\Rector\ORM\ListFilterToArrayRector`](../src/Rector/ORM/ListFilterToArrayRector.php)
 
 ```diff
+@@ -1,4 +1,4 @@
 -$list->filter('key', 'value');
 -$list->exclude('key', 'value');
 -$list->filterAny('key', 'value');
@@ -169,6 +195,7 @@ Code Style: Translates Silverstripe ORM `sort()` calls from string notation to a
 - class: [`Netwerkstatt\SilverstripeRector\Rector\ORM\ListSortToArrayRector`](../src/Rector/ORM/ListSortToArrayRector.php)
 
 ```diff
+@@ -1,3 +1,3 @@
 -$list->sort('Title', 'DESC');
 -$list->sort('Title');
 -$list->sort('Title ASC, Created DESC');
@@ -188,6 +215,7 @@ Silverstripe 4.0: Replace specific parent classes with traits and remove extends
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\ParentClassToTraitsRector`](../src/Rector/Misc/ParentClassToTraitsRector.php)
 
 ```diff
+@@ -1,5 +1,12 @@
  <?php
 
 -class MyObject extends Object
@@ -214,6 +242,7 @@ Code Style: Replace specific property fetches with method calls
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\PropertyFetchToMethodCallRector`](../src/Rector/Misc/PropertyFetchToMethodCallRector.php)
 
 ```diff
+@@ -1,13 +1,13 @@
  <?php
 
  use App\Model\User;
@@ -241,6 +270,7 @@ Convert protected properties to private static config properties
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\PropertyToConfigRector`](../src/Rector/Misc/PropertyToConfigRector.php)
 
 ```diff
+@@ -1,4 +1,7 @@
  class MyTask extends BuildTask
  {
 -    protected $enabled = true;
@@ -262,6 +292,7 @@ Silverstripe: Remove deprecation comments that are no longer applicable after up
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\RemoveSilverstripeDeprecationCommentRector`](../src/Rector/Misc/RemoveSilverstripeDeprecationCommentRector.php)
 
 ```diff
+@@ -1,10 +1,6 @@
  class SomeClass
  {
 -    /**
@@ -283,6 +314,7 @@ Silverstripe 5.3: Renames FieldList plural methods to singular if second argumen
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\RenameFieldListMethodsWithoutArrayParamRector`](../src/Rector/Misc/RenameFieldListMethodsWithoutArrayParamRector.php)
 
 ```diff
+@@ -1,2 +1,2 @@
 -$fields->addFieldsToTab('Root.Main', $myfield);
 -$fields->removeFieldsFromTab('Root.Main', $myfield);
 +$fields->addFieldToTab('Root.Main', $myfield);
@@ -298,6 +330,7 @@ Silverstripe 6.0: Replace `Controller::has_curr()` with `Controller::curr()` !==
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Control\ReplaceHasCurrWithCurrRector`](../src/Rector/Control/ReplaceHasCurrWithCurrRector.php)
 
 ```diff
+@@ -1,4 +1,4 @@
  use SilverStripe\Control\Controller;
 -if (Controller::has_curr()) {
 +if (Controller::curr() !== null) {
@@ -316,8 +349,39 @@ Silverstripe 5.4: Replace deprecated null arguments with explicit defaults.
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\ReplaceSilverstripeNullArgumentRector`](../src/Rector/Misc/ReplaceSilverstripeNullArgumentRector.php)
 
 ```diff
+@@ -1,1 +1,1 @@
 -$result->addError("Message", "bad", null, null);
 +$result->addError("Message", "bad", "", ValidationResult::CAST_TEXT);
+```
+
+<br>
+
+### Silverstripe54MethodCallToStaticCallRector
+
+Silverstripe 5.4: Move deprecated instance calls to their static replacements.
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Forms\Silverstripe54MethodCallToStaticCallRector`](../src/Rector/Forms/Silverstripe54MethodCallToStaticCallRector.php)
+
+```diff
+@@ -1,2 +1,2 @@
+-$emails->isValidEmail($email);
+-$handler->isCli();
++\SilverStripe\Control\Email\Email::is_valid_address($email);
++\SilverStripe\Control\Director::is_cli();
+```
+
+<br>
+
+### Silverstripe54StaticCallRenameRector
+
+Silverstripe 5.4: Rename selected static API calls.
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\Silverstripe54StaticCallRenameRector`](../src/Rector/Misc/Silverstripe54StaticCallRenameRector.php)
+
+```diff
+@@ -1,1 +1,1 @@
+-SilverStripe\View\SSViewer::fromString($template);
++SilverStripe\TemplateEngine\SSTemplateEngine::renderString($template);
 ```
 
 <br>
@@ -331,6 +395,7 @@ Silverstripe: Add deprecation comments to classes or methods without direct subs
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\SilverstripeDeprecationCommentRector`](../src/Rector/Misc/SilverstripeDeprecationCommentRector.php)
 
 ```diff
+@@ -1,6 +1,10 @@
  class SomeClass
  {
 +    /**
@@ -347,11 +412,12 @@ Silverstripe: Add deprecation comments to classes or methods without direct subs
 
 ### StatToConfigGetRector
 
-Silverstripe 4.0: Replace `$this->stat('foo')` with `static::config()->get('foo')`
+Silverstripe 4.0: Replace $this->stat('foo') with `static::config()->get('foo')`
 
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Config\StatToConfigGetRector`](../src/Rector/Config/StatToConfigGetRector.php)
 
 ```diff
+@@ -1,6 +1,6 @@
  class MyClass {
      use \SilverStripe\Core\Config\Configurable;
      public function myMethod() {
@@ -372,6 +438,7 @@ Convert static method calls to config properties
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\StaticCallToConfigRector`](../src/Rector/Misc/StaticCallToConfigRector.php)
 
 ```diff
+@@ -1,8 +1,11 @@
  class MyObject extends DataObject
  {
 +    /**
@@ -395,6 +462,7 @@ Code Style: Change new Object to static call for classes that use Injectable tra
 - class: [`Netwerkstatt\SilverstripeRector\Rector\Injector\UseCreateRector`](../src/Rector/Injector/UseCreateRector.php)
 
 ```diff
+@@ -1,7 +1,7 @@
  class SomeClass
  {
      public function run()

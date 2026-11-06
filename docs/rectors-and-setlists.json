@@ -1,0 +1,1331 @@
+{
+    "schema_version": 1,
+    "rules": [
+        {
+            "name": "AddConfigPropertiesRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\AddConfigPropertiesRector",
+            "category": "Code Style",
+            "silverstripe_version_mentioned": null,
+            "set_versions": [],
+            "description": "Code Style: Adds @config property to predefined private statics, e.g. $db or $allowed_actions",
+            "file": "src/Rector/Misc/AddConfigPropertiesRector.php",
+            "configurable": true,
+            "sets": [],
+            "examples": [
+                {
+                    "before": "class SomeClass extends \\SilverStripe\\ORM\\DataObject\n{\n    private static $db = [];\n}",
+                    "after": "class SomeClass extends \\SilverStripe\\ORM\\DataObject\n{\n    /**\n    * @config\n    */\n    private static $db = [];\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "BuildTaskUpdateRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\BuildTaskUpdateRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "6.0",
+            "set_versions": [
+                "6.0"
+            ],
+            "description": "Silverstripe 6.0: Updates Silverstripe BuildTask from v5 to v6",
+            "file": "src/Rector/Misc/BuildTaskUpdateRector.php",
+            "configurable": false,
+            "sets": [
+                "SS_6_0"
+            ],
+            "examples": [
+                {
+                    "before": "use SilverStripe\\Dev\\BuildTask;\n\nclass MyTask extends BuildTask\n{\n    protected $title = 'My Task';\n\n    public function run($request)\n    {\n        echo \"Running task\";\n    }\n}",
+                    "after": "use SilverStripe\\Dev\\BuildTask;\nuse Symfony\\Component\\Console\\Input\\InputInterface;\nuse SilverStripe\\PolyExecution\\PolyOutput;\n\nclass MyTask extends BuildTask\n{\n    protected string $title = 'My Task';\n\n    protected function execute(InputInterface $input, PolyOutput $output): int\n    {\n        $output->writeln('Running task');\n        return \\Symfony\\Component\\Console\\Command\\Command::SUCCESS;\n    }\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "DataObjectGetByIdToByIDRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\DataObject\\DataObjectGetByIdToByIDRector",
+            "category": "Code Style",
+            "silverstripe_version_mentioned": null,
+            "set_versions": [
+                "6.0"
+            ],
+            "description": "Code Style: Changes DataObject::get_by_id('ClassName', $id) to ClassName::get()->byID($id)",
+            "file": "src/Rector/DataObject/DataObjectGetByIdToByIDRector.php",
+            "configurable": false,
+            "sets": [
+                "CODE_STYLE",
+                "SS_6_0"
+            ],
+            "examples": [
+                {
+                    "before": "DataObject::get_by_id('MyPage', $id);",
+                    "after": "MyPage::get()->byID($id);",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "DataObjectStaticMethodsToFluentRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\DataObject\\DataObjectStaticMethodsToFluentRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "6.1",
+            "set_versions": [
+                "6.1"
+            ],
+            "description": "Silverstripe 6.1: Replace DataObject static methods get_by_id(), get_one(), and delete_by_id() with fluent equivalents.",
+            "file": "src/Rector/DataObject/DataObjectStaticMethodsToFluentRector.php",
+            "configurable": false,
+            "sets": [
+                "SS_6_1"
+            ],
+            "examples": [
+                {
+                    "before": "DataObject::get_by_id($className, $id);\nDataObject::get_one($className, $filter);\nDataObject::delete_by_id($className, $id);",
+                    "after": "DataObject::get($className)->setUseCache(true)->byID($id);\nDataObject::get($className)->setUseCache(true)->filter($filter)->first();\nDataObject::get($className)->setUseCache(true)->byID($id)->delete();",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "EnsureTableNameIsSetRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\DataObject\\EnsureTableNameIsSetRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "4.0",
+            "set_versions": [
+                "4.0"
+            ],
+            "description": "Silverstripe 4.0: DataObject subclasses must have \"$table_name\" defined",
+            "file": "src/Rector/DataObject/EnsureTableNameIsSetRector.php",
+            "configurable": false,
+            "sets": [
+                "SS_4_0"
+            ],
+            "examples": [
+                {
+                    "before": "class SomeClass extends \\SilverStripe\\ORM\\DataObject\n{\n    private static $db = [];\n}",
+                    "after": "class SomeClass extends \\SilverStripe\\ORM\\DataObject\n{\n    private static $table_name = 'SomeClass';\n\n    private static $db = [];\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "FormLoadDataFromMergeStrategyRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Forms\\FormLoadDataFromMergeStrategyRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "5.4",
+            "set_versions": [
+                "5.4"
+            ],
+            "description": "Silverstripe 5.4: Replace Form::loadDataFrom() merge strategy booleans with explicit values.",
+            "file": "src/Rector/Forms/FormLoadDataFromMergeStrategyRector.php",
+            "configurable": false,
+            "sets": [
+                "SS_5_4"
+            ],
+            "examples": [
+                {
+                    "before": "use SilverStripe\\Forms\\Form;\n\n$form->loadDataFrom($data, true);\n$form->loadDataFrom($data, false);",
+                    "after": "use SilverStripe\\Forms\\Form;\n\n$form->loadDataFrom($data, \\SilverStripe\\Forms\\Form::MERGE_CLEAR_MISSING);\n$form->loadDataFrom($data, 0);",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "FormValidateToIsValidRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Forms\\FormValidateToIsValidRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "6.0",
+            "set_versions": [
+                "5.4"
+            ],
+            "description": "Silverstripe 6.0: Convert Form::validate() boolean usage to isValid().",
+            "file": "src/Rector/Forms/FormValidateToIsValidRector.php",
+            "configurable": false,
+            "sets": [
+                "SS_5_4"
+            ],
+            "examples": [
+                {
+                    "before": "use SilverStripe\\Forms\\Form;\n\nfunction check(Form $form, bool $other): bool\n{\n    if ($form->validate()) {\n        return true;\n    }\n\n    return $form->validate() && $other;\n}",
+                    "after": "use SilverStripe\\Forms\\Form;\n\nfunction check(Form $form, bool $other): bool\n{\n    if ($form->validate()->isValid()) {\n        return true;\n    }\n\n    return $form->validate()->isValid() && $other;\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "GetIDListToColumnIDRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\ORM\\GetIDListToColumnIDRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "6.2",
+            "set_versions": [
+                "6.2"
+            ],
+            "description": "Silverstripe 6.2: Replace getIDList() with sort(null)->column('ID') or column('ID')",
+            "file": "src/Rector/ORM/GetIDListToColumnIDRector.php",
+            "configurable": false,
+            "sets": [
+                "SS_6_2"
+            ],
+            "examples": [
+                {
+                    "before": "$dataList->getIDList();\n$eagerLoadedList->getIDList();",
+                    "after": "$dataList->sort(null)->column('ID');\n$eagerLoadedList->column('ID');",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "ListFilterToArrayRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\ORM\\ListFilterToArrayRector",
+            "category": "Code Style",
+            "silverstripe_version_mentioned": null,
+            "set_versions": [],
+            "description": "Code Style: Translates Silverstripe ORM filter() and similar calls from string notation to array notation.",
+            "file": "src/Rector/ORM/ListFilterToArrayRector.php",
+            "configurable": false,
+            "sets": [
+                "CODE_STYLE"
+            ],
+            "examples": [
+                {
+                    "before": "$list->filter('key', 'value');\n$list->exclude('key', 'value');\n$list->filterAny('key', 'value');\n$list->excludeAny('key', 'value');",
+                    "after": "$list->filter(['key' => 'value']);\n$list->exclude(['key' => 'value']);\n$list->filterAny(['key' => 'value']);\n$list->excludeAny(['key' => 'value']);",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "ListSortToArrayRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\ORM\\ListSortToArrayRector",
+            "category": "Code Style",
+            "silverstripe_version_mentioned": null,
+            "set_versions": [],
+            "description": "Code Style: Translates Silverstripe ORM sort() calls from string notation to array notation.",
+            "file": "src/Rector/ORM/ListSortToArrayRector.php",
+            "configurable": false,
+            "sets": [
+                "CODE_STYLE"
+            ],
+            "examples": [
+                {
+                    "before": "$list->sort('Title', 'DESC');\n$list->sort('Title');\n$list->sort('Title ASC, Created DESC');",
+                    "after": "$list->sort(['Title' => 'DESC']);\n$list->sort(['Title' => 'ASC']);\n$list->sort(['Title' => 'ASC', 'Created' => 'DESC']);",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "ParentClassToTraitsRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\ParentClassToTraitsRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "4.0",
+            "set_versions": [
+                "4.0"
+            ],
+            "description": "Silverstripe 4.0: Replace specific parent classes with traits and remove extends",
+            "file": "src/Rector/Misc/ParentClassToTraitsRector.php",
+            "configurable": true,
+            "sets": [
+                "SS_4_0"
+            ],
+            "examples": [
+                {
+                    "before": "<?php\n\nclass MyObject extends Object\n{\n}",
+                    "after": "<?php\n\nuse SilverStripe\\Core\\Injector\\Injectable;\nuse SilverStripe\\Core\\Config\\Configurable;\nuse SilverStripe\\Core\\Extensible;\n\nclass MyObject\n{\n    use Injectable;\n    use Configurable;\n    use Extensible;\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "PropertyFetchToMethodCallRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\PropertyFetchToMethodCallRector",
+            "category": "Code Style",
+            "silverstripe_version_mentioned": null,
+            "set_versions": [],
+            "description": "Code Style: Replace specific property fetches with method calls",
+            "file": "src/Rector/Misc/PropertyFetchToMethodCallRector.php",
+            "configurable": true,
+            "sets": [
+                "CODE_STYLE"
+            ],
+            "examples": [
+                {
+                    "before": "<?php\n\nuse App\\Model\\User;\n\nclass User\n{\n    public string $name;\n\n    public function print(): void\n    {\n        echo $this->name;\n    }\n}",
+                    "after": "<?php\n\nuse App\\Model\\User;\n\nclass User\n{\n    public string $name;\n\n    public function print(): void\n    {\n        echo $this->getName();\n    }\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "PropertyToConfigRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\PropertyToConfigRector",
+            "category": null,
+            "silverstripe_version_mentioned": null,
+            "set_versions": [
+                "5.1"
+            ],
+            "description": "Convert protected properties to private static config properties",
+            "file": "src/Rector/Misc/PropertyToConfigRector.php",
+            "configurable": true,
+            "sets": [
+                "SS_5_1"
+            ],
+            "examples": [
+                {
+                    "before": "class MyTask extends BuildTask\n{\n    protected $enabled = true;\n}",
+                    "after": "class MyTask extends BuildTask\n{\n    /**\n     * @config\n     */\n    private static $is_enabled = true;\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "RemoveSilverstripeDeprecationCommentRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\RemoveSilverstripeDeprecationCommentRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": null,
+            "set_versions": [
+                "6.0"
+            ],
+            "description": "Silverstripe: Remove deprecation comments that are no longer applicable after upgrade.",
+            "file": "src/Rector/Misc/RemoveSilverstripeDeprecationCommentRector.php",
+            "configurable": true,
+            "sets": [
+                "SS_6_0"
+            ],
+            "examples": [
+                {
+                    "before": "class SomeClass\n{\n    /**\n     * @deprecated This method is deprecated. Use newMethod() instead.\n     * See: https://docs.silverstripe.org/...\n     */\n    public function newMethod()\n    {\n    }\n}",
+                    "after": "class SomeClass\n{\n    public function newMethod()\n    {\n    }\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "RenameFieldListMethodsWithoutArrayParamRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\RenameFieldListMethodsWithoutArrayParamRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "5.3",
+            "set_versions": [
+                "5.3"
+            ],
+            "description": "Silverstripe 5.3: Renames FieldList plural methods to singular if second argument is not an array",
+            "file": "src/Rector/Misc/RenameFieldListMethodsWithoutArrayParamRector.php",
+            "configurable": false,
+            "sets": [
+                "SS_5_3"
+            ],
+            "examples": [
+                {
+                    "before": "$fields->addFieldsToTab('Root.Main', $myfield);\n$fields->removeFieldsFromTab('Root.Main', $myfield);",
+                    "after": "$fields->addFieldToTab('Root.Main', $myfield);\n$fields->removeFieldFromTab('Root.Main', $myfield);",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "ReplaceHasCurrWithCurrRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Control\\ReplaceHasCurrWithCurrRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "6.0",
+            "set_versions": [
+                "6.0"
+            ],
+            "description": "Silverstripe 6.0: Replace Controller::has_curr() with Controller::curr() !== null",
+            "file": "src/Rector/Control/ReplaceHasCurrWithCurrRector.php",
+            "configurable": false,
+            "sets": [
+                "SS_6_0"
+            ],
+            "examples": [
+                {
+                    "before": "use SilverStripe\\Control\\Controller;\nif (Controller::has_curr()) {\n    // ...\n}",
+                    "after": "use SilverStripe\\Control\\Controller;\nif (Controller::curr() !== null) {\n    // ...\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "ReplaceSilverstripeNullArgumentRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\ReplaceSilverstripeNullArgumentRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "5.4",
+            "set_versions": [
+                "5.4"
+            ],
+            "description": "Silverstripe 5.4: Replace deprecated null arguments with explicit defaults.",
+            "file": "src/Rector/Misc/ReplaceSilverstripeNullArgumentRector.php",
+            "configurable": true,
+            "sets": [
+                "SS_5_4"
+            ],
+            "examples": [
+                {
+                    "before": "$result->addError(\"Message\", \"bad\", null, null);",
+                    "after": "$result->addError(\"Message\", \"bad\", \"\", ValidationResult::CAST_TEXT);",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "Silverstripe54MethodCallToStaticCallRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Forms\\Silverstripe54MethodCallToStaticCallRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "5.4",
+            "set_versions": [
+                "5.4"
+            ],
+            "description": "Silverstripe 5.4: Move deprecated instance calls to their static replacements.",
+            "file": "src/Rector/Forms/Silverstripe54MethodCallToStaticCallRector.php",
+            "configurable": false,
+            "sets": [
+                "SS_5_4"
+            ],
+            "examples": [
+                {
+                    "before": "$emails->isValidEmail($email);\n$handler->isCli();",
+                    "after": "\\SilverStripe\\Control\\Email\\Email::is_valid_address($email);\n\\SilverStripe\\Control\\Director::is_cli();",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "Silverstripe54StaticCallRenameRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\Silverstripe54StaticCallRenameRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "5.4",
+            "set_versions": [
+                "5.4"
+            ],
+            "description": "Silverstripe 5.4: Rename selected static API calls.",
+            "file": "src/Rector/Misc/Silverstripe54StaticCallRenameRector.php",
+            "configurable": false,
+            "sets": [
+                "SS_5_4"
+            ],
+            "examples": [
+                {
+                    "before": "SilverStripe\\View\\SSViewer::fromString($template);",
+                    "after": "SilverStripe\\TemplateEngine\\SSTemplateEngine::renderString($template);",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "SilverstripeDeprecationCommentRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\SilverstripeDeprecationCommentRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": null,
+            "set_versions": [
+                "4.13",
+                "5.3",
+                "5.4",
+                "6.1"
+            ],
+            "description": "Silverstripe: Add deprecation comments to classes or methods without direct substitute.",
+            "file": "src/Rector/Misc/SilverstripeDeprecationCommentRector.php",
+            "configurable": true,
+            "sets": [
+                "SS_4_13",
+                "SS_5_3",
+                "SS_5_4",
+                "SS_6_1"
+            ],
+            "examples": [
+                {
+                    "before": "class SomeClass\n{\n    public function oldMethod()\n    {\n    }\n}",
+                    "after": "class SomeClass\n{\n    /**\n     * @deprecated This method is deprecated.\n     * See: https://docs.silverstripe.org/...\n     */\n    public function oldMethod()\n    {\n    }\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "StatToConfigGetRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Config\\StatToConfigGetRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "4.0",
+            "set_versions": [
+                "4.0"
+            ],
+            "description": "Silverstripe 4.0: Replace $this->stat('foo') with static::config()->get('foo')",
+            "file": "src/Rector/Config/StatToConfigGetRector.php",
+            "configurable": false,
+            "sets": [
+                "SS_4_0"
+            ],
+            "examples": [
+                {
+                    "before": "class MyClass {\n    use \\SilverStripe\\Core\\Config\\Configurable;\n    public function myMethod() {\n        $this->stat('foo');\n    }\n}",
+                    "after": "class MyClass {\n    use \\SilverStripe\\Core\\Config\\Configurable;\n    public function myMethod() {\n        static::config()->get('foo');\n    }\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "StaticCallToConfigRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\StaticCallToConfigRector",
+            "category": null,
+            "silverstripe_version_mentioned": null,
+            "set_versions": [
+                "5.2"
+            ],
+            "description": "Convert static method calls to config properties",
+            "file": "src/Rector/Misc/StaticCallToConfigRector.php",
+            "configurable": true,
+            "sets": [
+                "SS_5_2"
+            ],
+            "examples": [
+                {
+                    "before": "class MyObject extends DataObject\n{\n    public function onBeforeWrite()\n    {\n        parent::onBeforeWrite();\n        self::disable_subclass_access();\n    }\n}",
+                    "after": "class MyObject extends DataObject\n{\n    /**\n     * @config\n     */\n    private static $subclass_access = false;\n    public function onBeforeWrite()\n    {\n        parent::onBeforeWrite();\n    }\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "UseCreateRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Injector\\UseCreateRector",
+            "category": "Code Style",
+            "silverstripe_version_mentioned": null,
+            "set_versions": [],
+            "description": "Code Style: Change new Object to static call for classes that use Injectable trait",
+            "file": "src/Rector/Injector/UseCreateRector.php",
+            "configurable": false,
+            "sets": [
+                "CODE_STYLE"
+            ],
+            "examples": [
+                {
+                    "before": "class SomeClass\n{\n    public function run()\n    {\n        new InjectableClass($name);\n    }\n}",
+                    "after": "class SomeClass\n{\n    public function run()\n    {\n        InjectableClass::create($name);\n    }\n}",
+                    "requires_configuration": false
+                }
+            ]
+        }
+    ],
+    "setlists": [
+        {
+            "name": "CODE_STYLE",
+            "type": "code-style",
+            "version": null,
+            "includes": [],
+            "rules": [
+                "Netwerkstatt\\SilverstripeRector\\Rector\\DataObject\\DataObjectGetByIdToByIDRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Injector\\UseCreateRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\PropertyFetchToMethodCallRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\ORM\\ListFilterToArrayRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\ORM\\ListSortToArrayRector"
+            ],
+            "config_file": "src/Set/../../config/code-style.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_0",
+            "type": "versioned",
+            "version": "4.0",
+            "includes": [],
+            "rules": [
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Config\\StatToConfigGetRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\DataObject\\EnsureTableNameIsSetRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\ParentClassToTraitsRector"
+            ],
+            "config_file": "src/Set/../../config/silverstripe-4-0.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_1",
+            "type": "versioned",
+            "version": "4.1",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-4-1.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_10",
+            "type": "versioned",
+            "version": "4.10",
+            "includes": [],
+            "rules": [
+                "Rector\\Renaming\\Rector\\MethodCall\\RenameMethodRector"
+            ],
+            "config_file": "src/Set/../../config/silverstripe-4-10.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_11",
+            "type": "versioned",
+            "version": "4.11",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-4-11.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_12",
+            "type": "versioned",
+            "version": "4.12",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-4-12.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_13",
+            "type": "versioned",
+            "version": "4.13",
+            "includes": [],
+            "rules": [
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\SilverstripeDeprecationCommentRector"
+            ],
+            "config_file": "src/Set/../../config/silverstripe-4-13.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_2",
+            "type": "versioned",
+            "version": "4.2",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-4-2.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_3",
+            "type": "versioned",
+            "version": "4.3",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-4-3.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_4",
+            "type": "versioned",
+            "version": "4.4",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-4-4.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_5",
+            "type": "versioned",
+            "version": "4.5",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-4-5.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_6",
+            "type": "versioned",
+            "version": "4.6",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-4-6.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_7",
+            "type": "versioned",
+            "version": "4.7",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-4-7.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_8",
+            "type": "versioned",
+            "version": "4.8",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-4-8.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_4_9",
+            "type": "versioned",
+            "version": "4.9",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-4-9.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_5_0",
+            "type": "versioned",
+            "version": "5.0",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-5-0.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_5_1",
+            "type": "versioned",
+            "version": "5.1",
+            "includes": [],
+            "rules": [
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\PropertyToConfigRector"
+            ],
+            "config_file": "src/Set/../../config/silverstripe-5-1.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_5_2",
+            "type": "versioned",
+            "version": "5.2",
+            "includes": [],
+            "rules": [
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\StaticCallToConfigRector"
+            ],
+            "config_file": "src/Set/../../config/silverstripe-5-2.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_5_3",
+            "type": "versioned",
+            "version": "5.3",
+            "includes": [],
+            "rules": [
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\RenameFieldListMethodsWithoutArrayParamRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\SilverstripeDeprecationCommentRector",
+                "Rector\\Renaming\\Rector\\Name\\RenameClassRector"
+            ],
+            "config_file": "src/Set/../../config/silverstripe-5-3.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_5_4",
+            "type": "versioned",
+            "version": "5.4",
+            "includes": [],
+            "rules": [
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Forms\\FormLoadDataFromMergeStrategyRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Forms\\FormValidateToIsValidRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Forms\\Silverstripe54MethodCallToStaticCallRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\ReplaceSilverstripeNullArgumentRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\Silverstripe54StaticCallRenameRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\SilverstripeDeprecationCommentRector",
+                "Rector\\Renaming\\Rector\\MethodCall\\RenameMethodRector",
+                "Rector\\Renaming\\Rector\\Name\\RenameClassRector"
+            ],
+            "config_file": "src/Set/../../config/silverstripe-5-4.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_6_0",
+            "type": "versioned",
+            "version": "6.0",
+            "includes": [],
+            "rules": [
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Control\\ReplaceHasCurrWithCurrRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\DataObject\\DataObjectGetByIdToByIDRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\BuildTaskUpdateRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\RemoveSilverstripeDeprecationCommentRector",
+                "Rector\\Renaming\\Rector\\ClassConstFetch\\RenameClassConstFetchRector",
+                "Rector\\Renaming\\Rector\\MethodCall\\RenameMethodRector",
+                "Rector\\Renaming\\Rector\\Name\\RenameClassRector",
+                "Rector\\Renaming\\Rector\\PropertyFetch\\RenamePropertyRector"
+            ],
+            "config_file": "src/Set/../../config/silverstripe-6-0.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_6_1",
+            "type": "versioned",
+            "version": "6.1",
+            "includes": [],
+            "rules": [
+                "Netwerkstatt\\SilverstripeRector\\Rector\\DataObject\\DataObjectStaticMethodsToFluentRector",
+                "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\SilverstripeDeprecationCommentRector"
+            ],
+            "config_file": "src/Set/../../config/silverstripe-6-1.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_6_2",
+            "type": "versioned",
+            "version": "6.2",
+            "includes": [],
+            "rules": [
+                "Netwerkstatt\\SilverstripeRector\\Rector\\ORM\\GetIDListToColumnIDRector",
+                "Rector\\Renaming\\Rector\\MethodCall\\RenameMethodRector"
+            ],
+            "config_file": "src/Set/../../config/silverstripe-6-2.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "SS_6_3",
+            "type": "versioned",
+            "version": "6.3",
+            "includes": [],
+            "rules": [],
+            "config_file": "src/Set/../../config/silverstripe-6-3.php",
+            "effective_version_sets": []
+        },
+        {
+            "name": "UP_TO_SS_4_1",
+            "type": "cumulative",
+            "version": "4.1",
+            "includes": [
+                "SS_4_0",
+                "SS_4_1"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-1.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_4_10",
+            "type": "cumulative",
+            "version": "4.10",
+            "includes": [
+                "SS_4_10",
+                "UP_TO_SS_4_9"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-10.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_4_11",
+            "type": "cumulative",
+            "version": "4.11",
+            "includes": [
+                "SS_4_11",
+                "UP_TO_SS_4_10"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-11.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10",
+                "SS_4_11"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_4_12",
+            "type": "cumulative",
+            "version": "4.12",
+            "includes": [
+                "SS_4_12",
+                "UP_TO_SS_4_11"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-12.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10",
+                "SS_4_11",
+                "SS_4_12"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_4_13",
+            "type": "cumulative",
+            "version": "4.13",
+            "includes": [
+                "SS_4_13",
+                "UP_TO_SS_4_12"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-13.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10",
+                "SS_4_11",
+                "SS_4_12",
+                "SS_4_13"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_4_2",
+            "type": "cumulative",
+            "version": "4.2",
+            "includes": [
+                "SS_4_2",
+                "UP_TO_SS_4_1"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-2.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_4_3",
+            "type": "cumulative",
+            "version": "4.3",
+            "includes": [
+                "SS_4_3",
+                "UP_TO_SS_4_2"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-3.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_4_4",
+            "type": "cumulative",
+            "version": "4.4",
+            "includes": [
+                "SS_4_4",
+                "UP_TO_SS_4_3"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-4.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_4_5",
+            "type": "cumulative",
+            "version": "4.5",
+            "includes": [
+                "SS_4_5",
+                "UP_TO_SS_4_4"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-5.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_4_6",
+            "type": "cumulative",
+            "version": "4.6",
+            "includes": [
+                "SS_4_6",
+                "UP_TO_SS_4_5"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-6.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_4_7",
+            "type": "cumulative",
+            "version": "4.7",
+            "includes": [
+                "SS_4_7",
+                "UP_TO_SS_4_6"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-7.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_4_8",
+            "type": "cumulative",
+            "version": "4.8",
+            "includes": [
+                "SS_4_8",
+                "UP_TO_SS_4_7"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-8.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_4_9",
+            "type": "cumulative",
+            "version": "4.9",
+            "includes": [
+                "SS_4_9",
+                "UP_TO_SS_4_8"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-4-9.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_5_0",
+            "type": "cumulative",
+            "version": "5.0",
+            "includes": [
+                "SS_5_0",
+                "UP_TO_SS_4_13"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-5-0.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10",
+                "SS_4_11",
+                "SS_4_12",
+                "SS_4_13",
+                "SS_5_0"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_5_1",
+            "type": "cumulative",
+            "version": "5.1",
+            "includes": [
+                "SS_5_1",
+                "UP_TO_SS_5_0"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-5-1.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10",
+                "SS_4_11",
+                "SS_4_12",
+                "SS_4_13",
+                "SS_5_0",
+                "SS_5_1"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_5_2",
+            "type": "cumulative",
+            "version": "5.2",
+            "includes": [
+                "SS_5_2",
+                "UP_TO_SS_5_1"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-5-2.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10",
+                "SS_4_11",
+                "SS_4_12",
+                "SS_4_13",
+                "SS_5_0",
+                "SS_5_1",
+                "SS_5_2"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_5_3",
+            "type": "cumulative",
+            "version": "5.3",
+            "includes": [
+                "SS_5_3",
+                "UP_TO_SS_5_2"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-5-3.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10",
+                "SS_4_11",
+                "SS_4_12",
+                "SS_4_13",
+                "SS_5_0",
+                "SS_5_1",
+                "SS_5_2",
+                "SS_5_3"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_5_4",
+            "type": "cumulative",
+            "version": "5.4",
+            "includes": [
+                "SS_5_4",
+                "UP_TO_SS_5_3"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-5-4.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10",
+                "SS_4_11",
+                "SS_4_12",
+                "SS_4_13",
+                "SS_5_0",
+                "SS_5_1",
+                "SS_5_2",
+                "SS_5_3",
+                "SS_5_4"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_6_0",
+            "type": "cumulative",
+            "version": "6.0",
+            "includes": [
+                "SS_6_0",
+                "UP_TO_SS_5_4"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-6-0.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10",
+                "SS_4_11",
+                "SS_4_12",
+                "SS_4_13",
+                "SS_5_0",
+                "SS_5_1",
+                "SS_5_2",
+                "SS_5_3",
+                "SS_5_4",
+                "SS_6_0"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_6_1",
+            "type": "cumulative",
+            "version": "6.1",
+            "includes": [
+                "SS_6_1",
+                "UP_TO_SS_6_0"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-6-1.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10",
+                "SS_4_11",
+                "SS_4_12",
+                "SS_4_13",
+                "SS_5_0",
+                "SS_5_1",
+                "SS_5_2",
+                "SS_5_3",
+                "SS_5_4",
+                "SS_6_0",
+                "SS_6_1"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_6_2",
+            "type": "cumulative",
+            "version": "6.2",
+            "includes": [
+                "SS_6_2",
+                "UP_TO_SS_6_1"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-6-2.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10",
+                "SS_4_11",
+                "SS_4_12",
+                "SS_4_13",
+                "SS_5_0",
+                "SS_5_1",
+                "SS_5_2",
+                "SS_5_3",
+                "SS_5_4",
+                "SS_6_0",
+                "SS_6_1",
+                "SS_6_2"
+            ]
+        },
+        {
+            "name": "UP_TO_SS_6_3",
+            "type": "cumulative",
+            "version": "6.3",
+            "includes": [
+                "SS_6_3",
+                "UP_TO_SS_6_2"
+            ],
+            "rules": [],
+            "config_file": "src/Set/../../config/level/up-to-silverstripe-6-3.php",
+            "effective_version_sets": [
+                "SS_4_0",
+                "SS_4_1",
+                "SS_4_2",
+                "SS_4_3",
+                "SS_4_4",
+                "SS_4_5",
+                "SS_4_6",
+                "SS_4_7",
+                "SS_4_8",
+                "SS_4_9",
+                "SS_4_10",
+                "SS_4_11",
+                "SS_4_12",
+                "SS_4_13",
+                "SS_5_0",
+                "SS_5_1",
+                "SS_5_2",
+                "SS_5_3",
+                "SS_5_4",
+                "SS_6_0",
+                "SS_6_1",
+                "SS_6_2",
+                "SS_6_3"
+            ]
+        }
+    ]
+}
