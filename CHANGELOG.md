@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Added `AddOwnsForFileRelationsRector` to the code-style setlist to automatically add missing `$owns` entries
+  for relations to `File`/`Image` declared via `$has_one`, `$has_many` or `$many_many`, with configuration for
+  excluded classes, additional owned target classes and excluded relation names
+  (fixes [#57](https://github.com/wernerkrauss/silverstripe-rector/issues/57)).
+
 ## [1.4] - 2026-11-06
 
 ### Added

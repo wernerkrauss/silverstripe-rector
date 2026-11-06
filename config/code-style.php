@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Netwerkstatt\SilverstripeRector\Rector\DataObject\AddOwnsForFileRelationsRector;
 use Netwerkstatt\SilverstripeRector\Rector\DataObject\DataObjectGetByIdToByIDRector;
 use Netwerkstatt\SilverstripeRector\Rector\Injector\UseCreateRector;
 use Netwerkstatt\SilverstripeRector\Rector\Misc\PropertyFetchToMethodCallRector;
@@ -26,4 +27,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ListFilterToArrayRector::class);
     $rectorConfig->rule(ListSortToArrayRector::class);
     $rectorConfig->rule(DataObjectGetByIdToByIDRector::class);
+    $rectorConfig->rule(AddOwnsForFileRelationsRector::class);
 };
