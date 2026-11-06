@@ -179,10 +179,13 @@ CODE_SAMPLE
                 continue;
             }
 
+            fwrite(STDERR, 'DEBUG prop ' . $propertyName . ' items=' . count($property->default->items) . PHP_EOL);
             foreach ($property->default->items as $item) {
                 if (!$item instanceof ArrayItem || !$item->key instanceof String_) {
+                    fwrite(STDERR, 'DEBUG skip item ' . get_class($item) . ' key=' . get_class($item->key ?? new \stdClass()) . PHP_EOL);
                     continue;
                 }
+                fwrite(STDERR, 'DEBUG item ' . $item->key->value . ' value=' . get_class($item->value) . ' owned=' . var_export($this->isOwnedTarget($item->value), true) . PHP_EOL);
 
                 $relationName = $item->key->value;
                 if (in_array($relationName, $this->excludeRelations, true)) {
@@ -206,6 +209,7 @@ CODE_SAMPLE
         } elseif ($value instanceof String_) {
             $targetClass = $value->value;
         }
+        fwrite(STDERR, 'DEBUG targetClass=' . var_export($targetClass, true) . PHP_EOL);
 
         if ($targetClass === null) {
             return false;
