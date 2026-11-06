@@ -177,6 +177,8 @@ CODE_SAMPLE
         foreach (self::RELATION_PROPERTIES as $propertyName) {
             $property = $this->findStmtProperty($node, $propertyName);
             $default = $this->propertyDefault($property);
+            fwrite(STDERR, 'DEBUG prop=' . $propertyName . ' found=' . var_export($property !== null, true)
+                . ' default=' . var_export($default !== null ? get_class($default) : null, true) . PHP_EOL);
             if (!$default instanceof Array_) {
                 continue;
             }
@@ -209,6 +211,7 @@ CODE_SAMPLE
             $targetClass = $value->value;
         }
 
+        fwrite(STDERR, 'DEBUG targetClass=' . var_export($targetClass, true) . PHP_EOL);
         if ($targetClass === null) {
             return false;
         }
