@@ -220,7 +220,8 @@ CODE_SAMPLE
         }
 
         foreach ($this->additionalOwnedClasses as $ownedClass) {
-            if (is_a($targetClass, ltrim($ownedClass, '\\'), true)) {
+            $ownedClass = ltrim($ownedClass, '\\');
+            if ($targetClass === $ownedClass || is_a($targetClass, $ownedClass, true)) {
                 return true;
             }
         }
