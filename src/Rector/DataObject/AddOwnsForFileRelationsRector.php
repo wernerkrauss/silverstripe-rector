@@ -154,6 +154,8 @@ CODE_SAMPLE
         }
 
         $className = $node->namespacedName !== null ? $node->namespacedName->toString() : '';
+        fwrite(STDERR, 'DEBUG cfg class=' . $className . ' excl=' . json_encode($this->excludeClasses)
+            . ' addl=' . json_encode($this->additionalOwnedClasses) . PHP_EOL);
         foreach ($this->excludeClasses as $excludeClass) {
             if ($className !== '' && is_a($className, ltrim($excludeClass, '\\'), true)) {
                 return null;
@@ -295,6 +297,7 @@ CODE_SAMPLE
         $owns->makeStatic();
         $owns->setDefault(new Array_($items));
         $node->stmts[] = $owns->getNode();
+        fwrite(STDERR, 'DEBUG appended owns, stmts=' . count($node->stmts) . PHP_EOL);
 
         return $node;
     }
