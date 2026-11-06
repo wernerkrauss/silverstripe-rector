@@ -291,8 +291,8 @@ CODE_SAMPLE
         }
 
         $node->stmts[] = new Property(
-            [new PropertyProperty('owns', new Array_($items))],
-            Modifiers::PRIVATE | Modifiers::STATIC
+            Modifiers::PRIVATE | Modifiers::STATIC,
+            [new PropertyProperty('owns', new Array_($items))]
         );
 
         return $node;
