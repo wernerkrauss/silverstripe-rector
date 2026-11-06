@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
+use Netwerkstatt\SilverstripeRector\Rector\ORM\SortRawSqlToOrderByRector;
 use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->rule(SortRawSqlToOrderByRector::class);
+
     //deprecations cms https://docs.silverstripe.org/en/4/changelogs/4.13.0/#silverstripe-cms
     //Deprecated class SilverStripe\CMS\Controllers\SilverStripeNavigatorItem_Unversioned Will be renamed SilverStripe\Admin\Navigator\SilverStripeNavigatorItem_Unversioned
 

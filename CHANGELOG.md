@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added `SortRawSqlToOrderByRector` to the Silverstripe 5.0 setlist to migrate raw SQL expressions passed to
+  `DataList::sort()`/`ArrayList::sort()` to `orderBy()`, leaving plain field sorting unchanged
+  (fixes [#56](https://github.com/wernerkrauss/silverstripe-rector/issues/56)).
 - Added `ReplaceSuperglobalRequestAccessRector` to the Silverstripe 4.0 setlist to replace `$_GET`/`$_POST`
   superglobal access with `HTTPRequest::getVar()`/`HTTPRequest::postVar()` via `$this->getRequest()` in
   `RequestHandler`/`Controller`, `$this->getOwner()->getRequest()` in Extensions with a type-safe owner, and an

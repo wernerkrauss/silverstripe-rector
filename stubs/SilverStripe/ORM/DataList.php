@@ -14,6 +14,11 @@ class DataList
         return $this;
     }
 
+    public function orderBy($sort): self
+    {
+        return $this;
+    }
+
     public function column($column = 'ID'): array
     {
         return [];
