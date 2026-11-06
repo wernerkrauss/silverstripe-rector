@@ -7,7 +7,7 @@ if (class_exists('SilverStripe\Control\Controller')) {
 }
 
 
-class Controller
+class Controller extends RequestHandler
 {
     /**
      * @return bool
