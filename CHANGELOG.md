@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Added `ReplaceSuperglobalRequestAccessRector` to the Silverstripe 6.0 setlist to replace `$_GET`/`$_POST`
+- Added `ReplaceSuperglobalRequestAccessRector` to the Silverstripe 4.0 setlist to replace `$_GET`/`$_POST`
   superglobal access with `HTTPRequest::getVar()`/`HTTPRequest::postVar()` via `$this->getRequest()` in
   `RequestHandler`/`Controller`, `$this->getOwner()->getRequest()` in Extensions with a type-safe owner, and an
   optional null-safe `Controller::curr()` fallback (fixes [#59](https://github.com/wernerkrauss/silverstripe-rector/issues/59)).

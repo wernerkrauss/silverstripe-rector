@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Netwerkstatt\SilverstripeRector\Rector\Control\ReplaceHasCurrWithCurrRector;
-use Netwerkstatt\SilverstripeRector\Rector\Control\ReplaceSuperglobalRequestAccessRector;
 use Netwerkstatt\SilverstripeRector\Rector\DataObject\DataObjectGetByIdToByIDRector;
 use Netwerkstatt\SilverstripeRector\Rector\Misc\BuildTaskUpdateRector;
 use Netwerkstatt\SilverstripeRector\Rector\Misc\RemoveSilverstripeDeprecationCommentRector;
@@ -121,7 +120,6 @@ return static function (RectorConfig $rectorConfig): void {
         new MethodCallRename('SilverStripe\Core\Extension', 'onAfterRenewToken', 'onAfterRenewSession'),
     ]);
     $rectorConfig->rule(ReplaceHasCurrWithCurrRector::class);
-    $rectorConfig->rule(ReplaceSuperglobalRequestAccessRector::class);
     $rectorConfig->rule(DataObjectGetByIdToByIDRector::class);
     $rectorConfig->ruleWithConfiguration(RemoveSilverstripeDeprecationCommentRector::class, [
         'SilverStripe\Model\List\ListDecorator::getTotalItems' => [

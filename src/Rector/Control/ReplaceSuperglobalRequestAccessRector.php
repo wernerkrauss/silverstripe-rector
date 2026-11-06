@@ -53,7 +53,7 @@ final class ReplaceSuperglobalRequestAccessRector extends AbstractRector impleme
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Silverstripe 6.0: Replace $_GET and $_POST superglobal access with HTTPRequest::getVar()/postVar()',
+            'Silverstripe 4.0: Replace $_GET and $_POST superglobal access with HTTPRequest::getVar()/postVar()',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

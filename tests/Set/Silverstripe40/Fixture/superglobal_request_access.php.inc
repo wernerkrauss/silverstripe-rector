@@ -1,6 +1,6 @@
 <?php
 
-namespace Netwerkstatt\SilverstripeRector\Tests\Set\Silverstripe60\Fixture;
+namespace Netwerkstatt\SilverstripeRector\Tests\Set\Silverstripe40\Fixture;
 
 use SilverStripe\Control\Controller;
 
@@ -17,7 +17,7 @@ class SuperglobalRequestAccess extends Controller
 -----
 <?php
 
-namespace Netwerkstatt\SilverstripeRector\Tests\Set\Silverstripe60\Fixture;
+namespace Netwerkstatt\SilverstripeRector\Tests\Set\Silverstripe40\Fixture;
 
 use SilverStripe\Control\Controller;
 
