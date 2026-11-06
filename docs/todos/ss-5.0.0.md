@@ -42,3 +42,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] To support backwards compatibility with project and module code, the magic methods __get() and __set() on SilverStripe\View\ViewableData will simulate dynamic properties by writing values to an array stored as a private property.
 - [ ] This functionality may not work if subclasses override any of the following methods: __get(), __set(), getField(), setField(), hasField().
 - [ ] If these method overrides don't call the parent methods, they may need access to the dynamic data. The private property array that stores the values can be accessed with via the following methods: SilverStripe\View\ViewableData::getDynamicData(), SilverStripe\View\ViewableData::setDynamicData(), SilverStripe\View\ViewableData::hasDynamicData()
+- [x] [DEPRECATED] Versioned::publish() - use copyVersionToStage() instead. Covered by RenameMethodRector in the Silverstripe 5.0 setlist (#15).
+- [x] [DEPRECATED] Versioned::doPublish() - use publishRecursive() instead. Covered by RenameMethodRector in the Silverstripe 5.0 setlist (#15).
+- [x] [DEPRECATED] Config::inst()->update() - use Config::modify()->set() (scalar value) or Config::modify()->merge() (array value). Covered by ConfigUpdateToSetMergeRector in the Silverstripe 5.0 setlist (#15).
+- [x] FieldList::insertAfter()/insertBefore() now take the field name (string) as first argument. Old argument order is swapped by FieldListStringNameFirstRector in the Silverstripe 5.0 setlist (#15).

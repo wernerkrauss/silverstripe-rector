@@ -13,4 +13,12 @@ class FieldList
     {
         return [];
     }
+
+    public function insertAfter($name, $item)
+    {
+    }
+
+    public function insertBefore($name, $item)
+    {
+    }
 }

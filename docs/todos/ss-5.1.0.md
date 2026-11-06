@@ -6,3 +6,4 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] Passing an argument for $limit that is not array|string|null in SilverStripe\ORM\Search\SearchContext::getQuery() will throw a deprecation warning. In CMS 6 the parameter type will be changed from dynamic to array|string|null.
 - [ ] You can now declare the default case sensitivity used by SearchFilter implementations, which power the DataList filtering functionality. See search filter modifiers for more details.
 - [ ] [DEPRECATED] The FileBlock::getSummaryThumbnail() method has been marked as deprecated and will be removed in CMS 6 without equivalent functionality to replace it, as it is no longer required for the elemental block's preview summary.
+- [x] Use `->shuffle()` instead of `->orderBy('RAND()')` for random sorting. Covered by OrderByRandToShuffleRector in the Silverstripe 5.1 setlist (#9).

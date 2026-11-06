@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Silverstripe 5.0 setlist: rename `Versioned::publish()` to `copyVersionToStage()` and `Versioned::doPublish()`
+  to `publishRecursive()`, add `ConfigUpdateToSetMergeRector` (`Config::inst()->update()` to
+  `Config::modify()->set()`/`merge()`) and `FieldListStringNameFirstRector` (swap old
+  `insertAfter()`/`insertBefore()` argument order) (fixes [#15](https://github.com/wernerkrauss/silverstripe-rector/issues/15)).
+- Silverstripe 5.1 setlist: added `OrderByRandToShuffleRector` to replace `orderBy('RAND()')` with `shuffle()`
+  (fixes [#9](https://github.com/wernerkrauss/silverstripe-rector/issues/9)).
+
 ## [1.4] - 2026-11-06
 
 ### Added
