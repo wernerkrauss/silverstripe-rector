@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netwerkstatt\SilverstripeRector\Tests\PHPStan\Rules\Rector\Fixture;
 
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 use PhpParser\Node;
 
 class CorrectDocumentedRector extends AbstractRector implements DocumentedRuleInterface

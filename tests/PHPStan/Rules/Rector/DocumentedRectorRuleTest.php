@@ -45,7 +45,7 @@ rules:
         $this->assertArrayHasKey($missingInterfaceFile, $filesWithErrors);
         $this->assertCount(1, $filesWithErrors[$missingInterfaceFile]['messages']);
         $this->assertStringContainsString(
-            'must implement "Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface"',
+            'must implement "Rector\RuleDoc\Contract\DocumentedRuleInterface"',
             $filesWithErrors[$missingInterfaceFile]['messages'][0]['message']
         );
 
@@ -54,7 +54,7 @@ rules:
         $this->assertArrayHasKey($missingConfiguredFile, $filesWithErrors);
         $this->assertCount(1, $filesWithErrors[$missingConfiguredFile]['messages']);
         $this->assertStringContainsString(
-            'must return "Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample" ' .
+            'must return "Rector\RuleDoc\CodeSample\ConfiguredCodeSample" ' .
             'in "getRuleDefinition()"',
             $filesWithErrors[$missingConfiguredFile]['messages'][0]['message']
         );
