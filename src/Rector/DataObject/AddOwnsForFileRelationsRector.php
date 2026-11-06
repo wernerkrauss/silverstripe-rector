@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netwerkstatt\SilverstripeRector\Rector\DataObject;
 
-use PhpParser\Modifiers;
+use PhpParser\Builder\Property as PropertyBuilder;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -161,14 +161,11 @@ CODE_SAMPLE
         }
 
         $ownedRelations = $this->collectOwnedRelations($node);
-        fwrite(STDERR, 'DEBUG owned=' . json_encode($ownedRelations) . PHP_EOL);
         if ($ownedRelations === []) {
             return null;
         }
 
-        $result = $this->addOwnsProperty($node, $ownedRelations);
-        fwrite(STDERR, 'DEBUG result=' . var_export($result !== null, true) . PHP_EOL);
-        return $result;
+        return $this->addOwnsProperty($node, $ownedRelations);
     }
 
     /**
@@ -180,8 +177,6 @@ CODE_SAMPLE
         foreach (self::RELATION_PROPERTIES as $propertyName) {
             $property = $this->findStmtProperty($node, $propertyName);
             $default = $this->propertyDefault($property);
-            fwrite(STDERR, 'DEBUG prop=' . $propertyName . ' found=' . var_export($property !== null, true)
-                . ' default=' . var_export($default !== null ? get_class($default) : null, true) . PHP_EOL);
             if (!$default instanceof Array_) {
                 continue;
             }
@@ -214,14 +209,11 @@ CODE_SAMPLE
             $targetClass = $value->value;
         }
 
-        fwrite(STDERR, 'DEBUG targetClass=' . var_export($targetClass, true) . PHP_EOL);
         if ($targetClass === null) {
             return false;
         }
 
         $targetClass = ltrim($targetClass, '\\');
-        fwrite(STDERR, 'DEBUG is_a file=' . var_export(is_a($targetClass, File::class, true), true)
-            . ' class_exists=' . var_export(class_exists(File::class), true) . PHP_EOL);
         if (is_a($targetClass, File::class, true) || is_a($targetClass, Image::class, true)) {
             return true;
         }
@@ -298,10 +290,11 @@ CODE_SAMPLE
             $items[] = new ArrayItem(new String_($relationName));
         }
 
-        $node->stmts[] = new Property(
-            Modifiers::PRIVATE | Modifiers::STATIC,
-            [new PropertyProperty('owns', new Array_($items))]
-        );
+        $owns = new PropertyBuilder('owns');
+        $owns->makePrivate();
+        $owns->makeStatic();
+        $owns->setDefault(new Array_($items));
+        $node->stmts[] = $owns->getNode();
 
         return $node;
     }
