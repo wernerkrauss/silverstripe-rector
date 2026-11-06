@@ -217,6 +217,8 @@ CODE_SAMPLE
         }
 
         $targetClass = ltrim($targetClass, '\\');
+        fwrite(STDERR, 'DEBUG is_a file=' . var_export(is_a($targetClass, File::class, true), true)
+            . ' class_exists=' . var_export(class_exists(File::class), true) . PHP_EOL);
         if (is_a($targetClass, File::class, true) || is_a($targetClass, Image::class, true)) {
             return true;
         }
