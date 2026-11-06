@@ -2,9 +2,20 @@
 
 declare(strict_types=1);
 
+use Netwerkstatt\SilverstripeRector\Rector\Config\ConfigUpdateToSetMergeRector;
+use Netwerkstatt\SilverstripeRector\Rector\Forms\FieldListStringNameFirstRector;
 use Rector\Config\RectorConfig;
+use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
+use Rector\Renaming\ValueObject\MethodCallRename;
 
 return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->rule(ConfigUpdateToSetMergeRector::class);
+    $rectorConfig->rule(FieldListStringNameFirstRector::class);
+    $rectorConfig->ruleWithConfiguration(RenameMethodRector::class, [
+        new MethodCallRename('SilverStripe\\Versioned\\Versioned', 'publish', 'copyVersionToStage'),
+        new MethodCallRename('SilverStripe\\Versioned\\Versioned', 'doPublish', 'publishRecursive'),
+    ]);
+
     //deprecations cms https://docs.silverstripe.org/en/4/changelogs/4.13.0/#silverstripe-cms
     //Deprecated class SilverStripe\CMS\Controllers\SilverStripeNavigatorItem_Unversioned Will be renamed SilverStripe\Admin\Navigator\SilverStripeNavigatorItem_Unversioned
 
