@@ -161,11 +161,14 @@ CODE_SAMPLE
         }
 
         $ownedRelations = $this->collectOwnedRelations($node);
+        fwrite(STDERR, 'DEBUG owned=' . json_encode($ownedRelations) . PHP_EOL);
         if ($ownedRelations === []) {
             return null;
         }
 
-        return $this->addOwnsProperty($node, $ownedRelations);
+        $result = $this->addOwnsProperty($node, $ownedRelations);
+        fwrite(STDERR, 'DEBUG result=' . var_export($result !== null, true) . PHP_EOL);
+        return $result;
     }
 
     /**
