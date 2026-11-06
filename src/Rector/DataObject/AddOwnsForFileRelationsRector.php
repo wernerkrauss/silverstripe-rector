@@ -6,12 +6,16 @@ namespace Netwerkstatt\SilverstripeRector\Rector\DataObject;
 
 use PhpParser\Modifiers;
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassProperty;
+use PhpParser\Node\Stmt\Property;
+use PhpParser\Node\Stmt\PropertyProperty;
 use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
@@ -145,12 +149,9 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        fwrite(STDERR, 'DEBUG refactor ' . ($node->namespacedName !== null ? $node->namespacedName->toString() : '?') . PHP_EOL);
         if (!$this->isObjectType($node, new ObjectType(DataObject::class))) {
-            fwrite(STDERR, 'DEBUG not dataobject' . PHP_EOL);
             return null;
         }
-        fwrite(STDERR, 'DEBUG is dataobject, owned=' . json_encode($this->collectOwnedRelations($node)) . PHP_EOL);
 
         $className = $node->namespacedName !== null ? $node->namespacedName->toString() : '';
         foreach ($this->excludeClasses as $excludeClass) {
@@ -174,18 +175,16 @@ CODE_SAMPLE
     {
         $owned = [];
         foreach (self::RELATION_PROPERTIES as $propertyName) {
-            $property = $this->findClassProperty($node, $propertyName);
-            if (!$property instanceof ClassProperty || !$property->default instanceof Array_) {
+            $property = $this->findStmtProperty($node, $propertyName);
+            $default = $this->propertyDefault($property);
+            if (!$default instanceof Array_) {
                 continue;
             }
 
-            fwrite(STDERR, 'DEBUG prop ' . $propertyName . ' items=' . count($property->default->items) . PHP_EOL);
-            foreach ($property->default->items as $item) {
+            foreach ($default->items as $item) {
                 if (!$item instanceof ArrayItem || !$item->key instanceof String_) {
-                    fwrite(STDERR, 'DEBUG skip item ' . get_class($item) . ' key=' . get_class($item->key ?? new \stdClass()) . PHP_EOL);
                     continue;
                 }
-                fwrite(STDERR, 'DEBUG item ' . $item->key->value . ' value=' . get_class($item->value) . ' owned=' . var_export($this->isOwnedTarget($item->value), true) . PHP_EOL);
 
                 $relationName = $item->key->value;
                 if (in_array($relationName, $this->excludeRelations, true)) {
@@ -201,7 +200,7 @@ CODE_SAMPLE
         return array_values($owned);
     }
 
-    private function isOwnedTarget(Node $value): bool
+    private function isOwnedTarget(Expr $value): bool
     {
         $targetClass = null;
         if ($value instanceof ClassConstFetch) {
@@ -209,7 +208,6 @@ CODE_SAMPLE
         } elseif ($value instanceof String_) {
             $targetClass = $value->value;
         }
-        fwrite(STDERR, 'DEBUG targetClass=' . var_export($targetClass, true) . PHP_EOL);
 
         if ($targetClass === null) {
             return false;
@@ -229,11 +227,14 @@ CODE_SAMPLE
         return false;
     }
 
-    private function findClassProperty(Class_ $node, string $name): ?ClassProperty
+    private function findStmtProperty(Class_ $node, string $name): ?Stmt
     {
         foreach ($node->stmts as $stmt) {
-            fwrite(STDERR, 'DEBUG stmt ' . get_class($stmt) . PHP_EOL);
-            if ($stmt instanceof ClassProperty && $this->isName($stmt->name, $name)) {
+            if (!$stmt instanceof Property && !$stmt instanceof ClassProperty) {
+                continue;
+            }
+
+            if ($this->getName($stmt) === $name) {
                 return $stmt;
             }
         }
@@ -241,19 +242,30 @@ CODE_SAMPLE
         return null;
     }
 
+    private function propertyDefault(?Stmt $property): ?Expr
+    {
+        if (!$property instanceof Property && !$property instanceof ClassProperty) {
+            return null;
+        }
+
+        $prop = $property->props[0] ?? null;
+        return $prop instanceof PropertyProperty ? $prop->default : null;
+    }
+
     /**
      * @param string[] $ownedRelations
      */
     private function addOwnsProperty(Class_ $node, array $ownedRelations): ?Class_
     {
-        $ownsProperty = $this->findClassProperty($node, 'owns');
-        if ($ownsProperty instanceof ClassProperty) {
-            if (!$ownsProperty->default instanceof Array_) {
+        $ownsProperty = $this->findStmtProperty($node, 'owns');
+        $ownsDefault = $this->propertyDefault($ownsProperty);
+        if ($ownsProperty instanceof Property || $ownsProperty instanceof ClassProperty) {
+            if (!$ownsDefault instanceof Array_) {
                 return null;
             }
 
             $existing = [];
-            foreach ($ownsProperty->default->items as $item) {
+            foreach ($ownsDefault->items as $item) {
                 if ($item instanceof ArrayItem && $item->value instanceof String_) {
                     $existing[$item->value->value] = true;
                 }
@@ -265,7 +277,7 @@ CODE_SAMPLE
                     continue;
                 }
 
-                $ownsProperty->default->items[] = new ArrayItem(new String_($relationName));
+                $ownsDefault->items[] = new ArrayItem(new String_($relationName));
                 $existing[$relationName] = true;
                 $changed = true;
             }
@@ -278,12 +290,9 @@ CODE_SAMPLE
             $items[] = new ArrayItem(new String_($relationName));
         }
 
-        $node->stmts[] = new ClassProperty(
-            'owns',
-            [
-                'flags' => Modifiers::PRIVATE | Modifiers::STATIC,
-                'default' => new Array_($items),
-            ]
+        $node->stmts[] = new Property(
+            [new PropertyProperty('owns', new Array_($items))],
+            Modifiers::PRIVATE | Modifiers::STATIC
         );
 
         return $node;
