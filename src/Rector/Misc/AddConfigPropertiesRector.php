@@ -103,7 +103,7 @@ class AddConfigPropertiesRector extends AbstractRector implements ConfigurableRe
             'description',
             'is_enabled'
         ],
-        'SilverStripe\CMS\Model\SiteTree' => [
+        \SilverStripe\CMS\Model\SiteTree::class => [
             'icon'
         ],
         //Elemental
