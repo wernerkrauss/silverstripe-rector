@@ -30,7 +30,7 @@ Original Changelog: [docs.silverstripe.org](https://docs.silverstripe.org/en/5/c
 - [ ] sendPlain()
 - [ ] Catch TransportExceptionInterface from Symfony Mailer to handle failure to send email.
 - [ ] Various other methods have added strong typing to parameter and return types. Also, some parameter names have changed.
-- [ ] DataList::sort() no longer accepts raw SQL. A new DataList::orderBy() method has been created which accepts raw SQL, though it's recommended to continue using DataList::sort() if possible to reduce the risk of SQL injection vulnerabilities.
+- [x] DataList::sort() no longer accepts raw SQL. A new DataList::orderBy() method has been created which accepts raw SQL, though it's recommended to continue using DataList::sort() if possible to reduce the risk of SQL injection vulnerabilities. Covered by `SortRawSqlToOrderByRector` (Silverstripe 5.0 setlist, #56/PR #67): raw SQL expressions in `sort()` are migrated to `orderBy()`, plain field sorting stays on `sort()`.
 - [ ] Passing null to DataList::sort() i.e. sort(null) now clears any existing sort values on a DataList. Passing an empty string (i.e. sort('') or array i.e. sort([])) now causes an InvalidArgumentException to be thrown.
 - [ ] Prior to 5.0.0, when using SQLSelect::setFrom() or SQLSelect::create('*', $from) to set table or subselect definitions, their aliases (applied by setting a string key for the array) were being ignored. This bug has been fixed - if you were working around this by manually setting the alias e.g. in a join, you can remove those workarounds.
 - [ ] Query now implements IteratorAggregate instead of Iterator. This means seek() and other iterator methods are no longer available on this class and its subclasses. Use getIterator() instead.
