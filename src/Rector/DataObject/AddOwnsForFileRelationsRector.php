@@ -232,6 +232,7 @@ CODE_SAMPLE
     private function findClassProperty(Class_ $node, string $name): ?ClassProperty
     {
         foreach ($node->stmts as $stmt) {
+            fwrite(STDERR, 'DEBUG stmt ' . get_class($stmt) . PHP_EOL);
             if ($stmt instanceof ClassProperty && $this->isName($stmt->name, $name)) {
                 return $stmt;
             }
