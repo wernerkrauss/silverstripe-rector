@@ -12,10 +12,8 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassProperty;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
+use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Rector\AbstractRector;
 use Rector\RuleDoc\CodeSample\CodeSample;
 use Rector\RuleDoc\CodeSample\ConfiguredCodeSample;
@@ -147,19 +145,13 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        $classReflection = $this->resolveClassReflection($node);
-        if (!$classReflection instanceof ClassReflection) {
+        if (!$this->isObjectType($node, new ObjectType(DataObject::class))) {
             return null;
         }
 
-        if ($classReflection->getName() !== DataObject::class
-            && !$classReflection->isSubclassOf(DataObject::class)
-        ) {
-            return null;
-        }
-
+        $className = $node->namespacedName !== null ? $node->namespacedName->toString() : '';
         foreach ($this->excludeClasses as $excludeClass) {
-            if (is_a($classReflection->getName(), $excludeClass, true)) {
+            if ($className !== '' && is_a($className, ltrim($excludeClass, '\\'), true)) {
                 return null;
             }
         }
@@ -170,17 +162,6 @@ CODE_SAMPLE
         }
 
         return $this->addOwnsProperty($node, $ownedRelations);
-    }
-
-    private function resolveClassReflection(Class_ $node): ?ClassReflection
-    {
-        $scope = $node->getAttribute(AttributeKey::SCOPE);
-        if (!$scope instanceof Scope) {
-            return null;
-        }
-
-        $classReflection = $scope->getClassReflection();
-        return $classReflection instanceof ClassReflection ? $classReflection : null;
     }
 
     /**
