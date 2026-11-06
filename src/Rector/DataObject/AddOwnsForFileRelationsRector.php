@@ -145,9 +145,12 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
+        fwrite(STDERR, 'DEBUG refactor ' . ($node->namespacedName !== null ? $node->namespacedName->toString() : '?') . PHP_EOL);
         if (!$this->isObjectType($node, new ObjectType(DataObject::class))) {
+            fwrite(STDERR, 'DEBUG not dataobject' . PHP_EOL);
             return null;
         }
+        fwrite(STDERR, 'DEBUG is dataobject, owned=' . json_encode($this->collectOwnedRelations($node)) . PHP_EOL);
 
         $className = $node->namespacedName !== null ? $node->namespacedName->toString() : '';
         foreach ($this->excludeClasses as $excludeClass) {
