@@ -4,7 +4,8 @@ namespace Netwerkstatt\SilverstripeRector\Rector\Misc;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
@@ -221,7 +222,7 @@ CODE_SAMPLE,
                 continue;
             }
 
-            $phpDocInfo->addPhpDocTagNode(new PhpDocTextNode('@config'));
+            $phpDocInfo->addPhpDocTagNode(new PhpDocTagNode('@config', new GenericTagValueNode('')));
             $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($property);
 
             $this->nodeIsChanged = true;

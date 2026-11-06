@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 use Netwerkstatt\SilverstripeRector\Rector\Misc\SilverstripeDeprecationCommentRector;
 use Netwerkstatt\SilverstripeRector\Rector\Misc\ReplaceSilverstripeNullArgumentRector;
+use Netwerkstatt\SilverstripeRector\Rector\Misc\Silverstripe54StaticCallRenameRector;
 use Netwerkstatt\SilverstripeRector\Rector\Forms\FormValidateToIsValidRector;
+use Netwerkstatt\SilverstripeRector\Rector\Forms\FormLoadDataFromMergeStrategyRector;
+use Netwerkstatt\SilverstripeRector\Rector\Forms\Silverstripe54MethodCallToStaticCallRector;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
-use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
-use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
-use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Rector\Renaming\ValueObject\MethodCallRename;
-use Rector\Renaming\ValueObject\RenameStaticMethod;
-use Rector\Arguments\Rector\ClassMethod\ReplaceArgumentDefaultValueRector;
-use Rector\Arguments\ValueObject\ReplaceArgumentDefaultValue;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
@@ -72,16 +69,7 @@ return static function (RectorConfig $rectorConfig): void {
         new MethodCallRename('SilverStripe\Forms\TextareaField', 'ValueEntities', 'getFormattedValueEntities'),
     ]);
     $rectorConfig->rule(FormValidateToIsValidRector::class);
-    $rectorConfig->ruleWithConfiguration(ReplaceArgumentDefaultValueRector::class, [
-        new ReplaceArgumentDefaultValue(
-            'SilverStripe\\Forms\\Form',
-            'loadDataFrom',
-            1,
-            true,
-            'SilverStripe\\Forms\\Form::MERGE_CLEAR_MISSING'
-        ),
-        new ReplaceArgumentDefaultValue('SilverStripe\\Forms\\Form', 'loadDataFrom', 1, false, 0),
-    ]);
+    $rectorConfig->rule(FormLoadDataFromMergeStrategyRector::class);
     $rectorConfig->ruleWithConfiguration(ReplaceSilverstripeNullArgumentRector::class, [
         ['class' => 'SilverStripe\\Core\\Validation\\ValidationResult', 'method' => 'addError', 'position' => 2, 'replacement' => ''],
         ['class' => 'SilverStripe\\Core\\Validation\\ValidationResult', 'method' => 'addError', 'position' => 3, 'replacement' => 'SilverStripe\\Core\\Validation\\ValidationResult::CAST_TEXT'],
@@ -96,29 +84,8 @@ return static function (RectorConfig $rectorConfig): void {
         ['class' => 'SilverStripe\\Forms\\Form', 'method' => 'sessionFieldError', 'position' => 3, 'replacement' => 'SilverStripe\\Core\\Validation\\ValidationResult::CAST_TEXT'],
     ]);
 
-    $rectorConfig->ruleWithConfiguration(MethodCallToStaticCallRector::class, [
-        new MethodCallToStaticCall('SilverStripe\\ContentReview\\Tasks\\ContentReviewEmails', 'isValidEmail',
-            'SilverStripe\\Control\\Email\\Email', 'is_valid_address'),
-        new MethodCallToStaticCall('SilverStripe\\Logging\\HTTPOutputHandler', 'isCli',
-            'SilverStripe\\Control\\Director', 'is_cli'),
-    ]);
-
-    $rectorConfig->ruleWithConfiguration(RenameStaticMethodRector::class, [
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'flush', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'flush'),
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'fromString', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'renderString'),
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'setTemplate', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'setTemplate'),
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'setParser', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'setParser'),
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'getParser', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'getParser'),
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'hasTemplate', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'hasTemplate'),
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'flush_template_cache', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'flushTemplateCache'),
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'flush_cacheblock_cache', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'flushCacheBlockCache'),
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'setPartialCacheStore', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'setPartialCacheStore'),
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'getPartialCacheStore', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'getPartialCacheStore'),
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'includeGeneratedTemplate', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'includeGeneratedTemplate'),
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'getSubtemplateFor', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'getSubtemplateFor'),
-        new RenameStaticMethod('SilverStripe\\View\\SSViewer', 'parseTemplateContent', 'SilverStripe\\TemplateEngine\\SSTemplateEngine', 'parseTemplateContent'),
-        new RenameStaticMethod('SilverStripe\\ORM\\FieldType\\DBEnum', 'flushCache', 'SilverStripe\\ORM\\FieldType\\DBEnum', 'reset'),
-    ]);
+    $rectorConfig->rule(Silverstripe54MethodCallToStaticCallRector::class);
+    $rectorConfig->rule(Silverstripe54StaticCallRenameRector::class);
 
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
     ]);
