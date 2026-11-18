@@ -33,17 +33,18 @@ namespace Netwerkstatt\SilverstripeRector\Tests\Set\Silverstripe54\Fixture;
 
 use SilverStripe\TemplateEngine\SSTemplateEngine;
 use SilverStripe\ORM\FieldType\DBEnum;
+use SilverStripe\View\SSViewer;
 
 class StaticMethodRenamesTest
 {
     public function test(): void
     {
         SSTemplateEngine::flush();
-        SSTemplateEngine::renderString('template');
+        SSViewer::fromString('template');
         SSTemplateEngine::setTemplate('template');
         SSTemplateEngine::setParser('parser');
         SSTemplateEngine::getParser();
-        SSTemplateEngine::hasTemplate('template');
+        SSTemplateEngine::create()->hasTemplate('template');
         SSTemplateEngine::flushTemplateCache();
         SSTemplateEngine::flushCacheBlockCache();
         SSTemplateEngine::setPartialCacheStore('store');

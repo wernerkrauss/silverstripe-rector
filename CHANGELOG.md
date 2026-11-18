@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Added `XmlValToObjForTemplateRector` to the Silverstripe 5.4 setlist: `XML_val($field)` becomes
+  `obj($field)->forTemplate()`, which is how 5.4 implemented it. Replaces the deprecation comment for `XML_val()`
+  (fixes [#72](https://github.com/wernerkrauss/silverstripe-rector/issues/72)).
+
+### Fixed
+- `Silverstripe54StaticCallRenameRector` no longer turns `SSViewer::fromString()` and `SSViewer::hasTemplate()` into
+  static `SSTemplateEngine` calls, which are instance methods there. `$x->renderWith(SSViewer::fromString($t))` now
+  becomes `SSTemplateEngine::create()->renderString($t, ViewLayerData::create($x))`, `hasTemplate()` becomes
+  `SSTemplateEngine::create()->hasTemplate()`, and other `fromString()` usages are left alone
+  (fixes [#70](https://github.com/wernerkrauss/silverstripe-rector/issues/70)).
+- `BuildTaskUpdateRector` converts bare `return;` in `execute()` to `return Command::SUCCESS;`, no longer appends a
+  second return when the body already ends with one, and generates `VALUE_OPTIONAL` instead of `VALUE_NONE` for
+  request vars whose value is used (fixes [#71](https://github.com/wernerkrauss/silverstripe-rector/issues/71)).
+
 ## [1.4] - 2026-11-06
 
 ### Added

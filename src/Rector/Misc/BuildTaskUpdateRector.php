@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netwerkstatt\SilverstripeRector\Rector\Misc;
 
+use Netwerkstatt\SilverstripeRector\Rector\Misc\BuildTaskUpdateRector\BareReturnToSuccessVisitor;
 use Netwerkstatt\SilverstripeRector\Rector\Misc\BuildTaskUpdateRector\RequestToInputOptionVisitor;
 use PhpParser\Modifiers;
 use PhpParser\Node;
@@ -153,15 +154,26 @@ CODE_SAMPLE
             $traverser->addVisitor($visitor);
             /** @var Node\Stmt[] $stmts */
             $stmts = (array)$traverser->traverse((array)$runMethod->stmts);
+
+            // execute() has an int return type, so a bare "return;" from run() would not compile.
+            // Separate traverser: this visitor skips closures, which must not stop the visitor above.
+            $returnTraverser = new NodeTraverser();
+            $returnTraverser->addVisitor(new BareReturnToSuccessVisitor());
+            /** @var Node\Stmt[] $stmts */
+            $stmts = (array)$returnTraverser->traverse($stmts);
             $runMethod->stmts = $stmts;
 
-            $runMethod->stmts[] = new Return_(
-                $this->nodeFactory->createClassConstFetch('Symfony\Component\Console\Command\Command', 'SUCCESS')
-            );
+            // Don't add an unreachable second return if the body already ends with one
+            $lastStmt = $runMethod->stmts === [] ? null : $runMethod->stmts[array_key_last($runMethod->stmts)];
+            if (!$lastStmt instanceof Return_) {
+                $runMethod->stmts[] = new Return_(
+                    $this->nodeFactory->createClassConstFetch('Symfony\Component\Console\Command\Command', 'SUCCESS')
+                );
+            }
 
             $options = $visitor->getOptions();
             if ($options !== []) {
-                $node->stmts[] = $this->createGetOptionsMethod($options);
+                $node->stmts[] = $this->createGetOptionsMethod($options, $visitor);
             }
 
             $hasChanged = true;
@@ -170,19 +182,25 @@ CODE_SAMPLE
         return $hasChanged ? $node : null;
     }
 
-    private function createGetOptionsMethod(array $options): ClassMethod
+    /**
+     * @param string[] $options
+     */
+    private function createGetOptionsMethod(array $options, RequestToInputOptionVisitor $visitor): ClassMethod
     {
         $inputOptionClass = 'Symfony\Component\Console\Input\InputOption';
         $optionNodes = [];
 
         foreach ($options as $option) {
+            // Vars only used as a condition (e.g. ?run=1) become flags; anything whose value is used
+            // (e.g. ?limit=10) has to accept a value, otherwise getOption() would only ever return a bool
+            $mode = $visitor->isFlagOption($option) ? 'VALUE_NONE' : 'VALUE_OPTIONAL';
             $optionNodes[] = new ArrayItem(
                 new New_(
                     new FullyQualified($inputOptionClass),
                     [
                         new Arg(new String_($option)),
                         new Arg($this->nodeFactory->createNull()),
-                        new Arg($this->nodeFactory->createClassConstFetch($inputOptionClass, 'VALUE_NONE')),
+                        new Arg($this->nodeFactory->createClassConstFetch($inputOptionClass, $mode)),
                         new Arg(new String_('do something specific')), // Default description as in issue
                     ]
                 )

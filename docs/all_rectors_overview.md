@@ -1,10 +1,10 @@
-# 23 Rules Overview
+# 24 Rules Overview
 
 <br>
 
 ## Categories
 
-- [Rector](#rector) (23)
+- [Rector](#rector) (24)
 
 <br>
 
@@ -380,8 +380,24 @@ Silverstripe 5.4: Rename selected static API calls.
 
 ```diff
 @@ -1,1 +1,1 @@
--SilverStripe\View\SSViewer::fromString($template);
-+SilverStripe\TemplateEngine\SSTemplateEngine::renderString($template);
+-SilverStripe\View\SSViewer::flush();
++SilverStripe\TemplateEngine\SSTemplateEngine::flush();
+```
+
+<br>
+
+```diff
+@@ -1,1 +1,1 @@
+-$html = $record->renderWith(SilverStripe\View\SSViewer::fromString($template));
++$html = SilverStripe\TemplateEngine\SSTemplateEngine::create()->renderString($template, SilverStripe\View\ViewLayerData::create($record));
+```
+
+<br>
+
+```diff
+@@ -1,1 +1,1 @@
+-SilverStripe\View\SSViewer::hasTemplate($templates);
++SilverStripe\TemplateEngine\SSTemplateEngine::create()->hasTemplate($templates);
 ```
 
 <br>
@@ -471,6 +487,20 @@ Code Style: Change new Object to static call for classes that use Injectable tra
 +        InjectableClass::create($name);
      }
  }
+```
+
+<br>
+
+### XmlValToObjForTemplateRector
+
+Silverstripe 5.4: Replace deprecated `ViewableData::XML_val()` with `obj()->forTemplate()`
+
+- class: [`Netwerkstatt\SilverstripeRector\Rector\Misc\XmlValToObjForTemplateRector`](../src/Rector/Misc/XmlValToObjForTemplateRector.php)
+
+```diff
+@@ -1,1 +1,1 @@
+-$value = $record->XML_val('Title');
++$value = $record->obj('Title')->forTemplate();
 ```
 
 <br>

@@ -9,7 +9,6 @@ final class StaticCalls
 {
     public function test(): void
     {
-        SSViewer::fromString('template');
         DBEnum::flushCache();
     }
 }
@@ -26,7 +25,6 @@ final class StaticCalls
 {
     public function test(): void
     {
-        \SilverStripe\TemplateEngine\SSTemplateEngine::renderString('template');
         \SilverStripe\ORM\FieldType\DBEnum::reset();
     }
 }

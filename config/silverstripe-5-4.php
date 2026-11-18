@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Netwerkstatt\SilverstripeRector\Rector\Misc\SilverstripeDeprecationCommentRector;
 use Netwerkstatt\SilverstripeRector\Rector\Misc\ReplaceSilverstripeNullArgumentRector;
 use Netwerkstatt\SilverstripeRector\Rector\Misc\Silverstripe54StaticCallRenameRector;
+use Netwerkstatt\SilverstripeRector\Rector\Misc\XmlValToObjForTemplateRector;
 use Netwerkstatt\SilverstripeRector\Rector\Forms\FormValidateToIsValidRector;
 use Netwerkstatt\SilverstripeRector\Rector\Forms\FormLoadDataFromMergeStrategyRector;
 use Netwerkstatt\SilverstripeRector\Rector\Forms\Silverstripe54MethodCallToStaticCallRector;
@@ -86,6 +87,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->rule(Silverstripe54MethodCallToStaticCallRector::class);
     $rectorConfig->rule(Silverstripe54StaticCallRenameRector::class);
+    $rectorConfig->rule(XmlValToObjForTemplateRector::class);
 
     $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
     ]);
@@ -157,14 +159,6 @@ return static function (RectorConfig $rectorConfig): void {
         ],
         'SilverStripe\Control\Controller::has_curr' => [
             'message' => 'Controller::has_curr() has been deprecated. It will be removed without equivalent functionality to replace it.',
-            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
-        ],
-        'SilverStripe\View\ViewableData::XML_val' => [
-            'message' => 'ViewableData::XML_val() has been deprecated. It will be removed without equivalent functionality to replace it.',
-            'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
-        ],
-        'SilverStripe\Model\ModelData::XML_val' => [
-            'message' => 'ViewableData::XML_val() has been deprecated. It will be removed without equivalent functionality to replace it.',
             'link' => 'https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api',
         ],
         'SilverStripe\View\ViewableData::getXMLValues' => [
