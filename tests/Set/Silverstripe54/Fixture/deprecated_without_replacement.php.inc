@@ -40,11 +40,7 @@ final class DeprecatedWithoutReplacement
          * See: https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api
          */
         Controller::has_curr();
-        /**
-         * @deprecated ViewableData::XML_val() has been deprecated. It will be removed without equivalent functionality to replace it.
-         * See: https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api
-         */
-        $data->XML_val('Title');
+        $data->obj('Title')->forTemplate();
         /**
          * @deprecated ViewableData::getXMLValues() has been deprecated. It will be removed without equivalent functionality to replace it.
          * See: https://docs.silverstripe.org/en/5/changelogs/5.4.0/#deprecated-api

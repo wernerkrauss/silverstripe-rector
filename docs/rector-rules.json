@@ -404,8 +404,18 @@
             ],
             "examples": [
                 {
-                    "before": "SilverStripe\\View\\SSViewer::fromString($template);",
-                    "after": "SilverStripe\\TemplateEngine\\SSTemplateEngine::renderString($template);",
+                    "before": "SilverStripe\\View\\SSViewer::flush();",
+                    "after": "SilverStripe\\TemplateEngine\\SSTemplateEngine::flush();",
+                    "requires_configuration": false
+                },
+                {
+                    "before": "$html = $record->renderWith(SilverStripe\\View\\SSViewer::fromString($template));",
+                    "after": "$html = SilverStripe\\TemplateEngine\\SSTemplateEngine::create()->renderString($template, SilverStripe\\View\\ViewLayerData::create($record));",
+                    "requires_configuration": false
+                },
+                {
+                    "before": "SilverStripe\\View\\SSViewer::hasTemplate($templates);",
+                    "after": "SilverStripe\\TemplateEngine\\SSTemplateEngine::create()->hasTemplate($templates);",
                     "requires_configuration": false
                 }
             ]
@@ -498,6 +508,28 @@
                 {
                     "before": "class SomeClass\n{\n    public function run()\n    {\n        new InjectableClass($name);\n    }\n}",
                     "after": "class SomeClass\n{\n    public function run()\n    {\n        InjectableClass::create($name);\n    }\n}",
+                    "requires_configuration": false
+                }
+            ]
+        },
+        {
+            "name": "XmlValToObjForTemplateRector",
+            "class": "Netwerkstatt\\SilverstripeRector\\Rector\\Misc\\XmlValToObjForTemplateRector",
+            "category": "Silverstripe",
+            "silverstripe_version_mentioned": "5.4",
+            "set_versions": [
+                "5.4"
+            ],
+            "description": "Silverstripe 5.4: Replace deprecated ViewableData::XML_val() with obj()->forTemplate()",
+            "file": "src/Rector/Misc/XmlValToObjForTemplateRector.php",
+            "configurable": false,
+            "sets": [
+                "SS_5_4"
+            ],
+            "examples": [
+                {
+                    "before": "$value = $record->XML_val('Title');",
+                    "after": "$value = $record->obj('Title')->forTemplate();",
                     "requires_configuration": false
                 }
             ]
